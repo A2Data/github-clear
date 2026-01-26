@@ -33,6 +33,31 @@
 
 ## ✨ Features
 
+
+
+### Preview
+
+Front Page：
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261855820.png)
+
+
+Dashboard：
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261855596.png)
+
+Warehouse Management:
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261856073.png)
+
+Homepage beautification:
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261856872.png)
+
+
+Set up：
+> Token Configuration
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261857535.png)
+> Common commands：
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261857995.png)
+
+
 ### 📦 Repository Management
 - View all repositories (public / private / forked)
 - Multiple sorting and filtering options

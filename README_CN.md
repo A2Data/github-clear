@@ -69,6 +69,28 @@
 
 ## 🚀 快速开始
 
+### 预览
+
+首页：
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261855820.png)
+
+
+仪表板：
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261855596.png)
+
+仓库管理:
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261856073.png)
+
+主页美化:
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261856872.png)
+
+
+设置：
+> Token 配置
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261857535.png)
+> 常用命令：
+![](https://nas.a2data.cn:9002/datascience/2026/01/26/202601261857995.png)
+
 ### 环境要求
 
 - Python 3.10+
