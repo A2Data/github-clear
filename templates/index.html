@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block title %}GitHub Clear{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content">
+        <div class="hero-badge" data-i18n="home.badge">✨ Open Source Tool</div>
+        <h1 class="hero-title" data-i18n="home.title">GitHub/Gitee Repository Manager</h1>
+        <p class="hero-subtitle" data-i18n="home.subtitle">All-in-one tool to manage your repositories and profile</p>
+        <div class="hero-actions">
+            <a href="/dashboard" class="btn btn-primary btn-lg">
+                <span class="nav-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1"/>
+                        <rect width="7" height="5" x="14" y="3" rx="1"/>
+                        <rect width="7" height="9" x="14" y="12" rx="1"/>
+                        <rect width="7" height="5" x="3" y="16" rx="1"/>
+                    </svg>
+                </span>
+                <span data-i18n="home.go_dashboard">Go to Dashboard</span>
+            </a>
+            <a href="/repositories" class="btn btn-secondary btn-lg">
+                <span class="nav-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                    </svg>
+                </span>
+                <span data-i18n="home.manage_repos">Manage Repos</span>
+            </a>
+        </div>
+    </div>
+    <div class="hero-decoration">
+        <div class="floating-card card-1">💻</div>
+        <div class="floating-card card-2">🚀</div>
+        <div class="floating-card card-3">⚡</div>
+    </div>
+</div>
+
+<!-- 功能卡片 -->
+<div class="feature-cards">
+    <a href="/repositories" class="feature-card purple">
+        <div class="feature-card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                <path d="M9 18c-4.51 2-5-2-7-2"/>
+            </svg>
+        </div>
+        <h3 data-i18n="home.feature_repos">Repositories</h3>
+        <p data-i18n="home.feature_repos_desc">List, search, filter, batch delete & archive</p>
+        <div class="feature-card-arrow">→</div>
+    </a>
+
+    <a href="/profile" class="feature-card green">
+        <div class="feature-card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/>
+                <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                <path d="M12 2v2"/><path d="M12 22v-2"/>
+                <path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/>
+                <path d="m20.66 17-1.73-1"/><path d="m3.34 7 1.73 1"/>
+                <path d="M14 12h8"/><path d="M2 12h2"/>
+            </svg>
+        </div>
+        <h3 data-i18n="home.feature_profile">Profile Beautifier</h3>
+        <p data-i18n="home.feature_profile_desc">Generate README with templates & themes</p>
+        <div class="feature-card-arrow">→</div>
+    </a>
+
+    <a href="/settings" class="feature-card red">
+        <div class="feature-card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+        </div>
+        <h3 data-i18n="home.feature_tools">Git Toolbox</h3>
+        <p data-i18n="home.feature_tools_desc">SSH Key management & command reference</p>
+        <div class="feature-card-arrow">→</div>
+    </a>
+</div>
+
+<!-- 配置状态 -->
+<div class="card status-card">
+    <div class="card-header">
+        <h3 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+            <span data-i18n="home.config_status">Configuration Status</span>
+        </h3>
+        <span class="status-indicator {% if github_configured and gitee_configured %}status-ready{% else %}status-pending{% endif %}">
+            {% if github_configured and gitee_configured %}
+                <span data-i18n="home.status_ready">● Ready</span>
+            {% else %}
+                <span data-i18n="home.status_pending">● Pending</span>
+            {% endif %}
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="grid-2">
+            <div class="status-item">
+                {% if github_configured %}
+                <div class="alert alert-success">
+                    <span class="alert-icon">✅</span>
+                    <span data-i18n="home.github_configured">GitHub Token Configured</span>
+                </div>
+                {% else %}
+                <div class="alert alert-warning">
+                    <span class="alert-icon">⚠️</span>
+                    <span data-i18n="home.github_not_configured">GitHub Token Not Configured</span>
+                </div>
+                {% endif %}
+            </div>
+            <div class="status-item">
+                {% if gitee_configured %}
+                <div class="alert alert-success">
+                    <span class="alert-icon">✅</span>
+                    <span data-i18n="home.gitee_configured">Gitee Token Configured</span>
+                </div>
+                {% else %}
+                <div class="alert alert-warning">
+                    <span class="alert-icon">⚠️</span>
+                    <span data-i18n="home.gitee_not_configured">Gitee Token Not Configured</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if not github_configured or not gitee_configured %}
+        <div class="status-action">
+            <a href="/settings" class="btn btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <span data-i18n="home.go_config">Configure Token</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- 快速开始 -->
+<div class="card quick-start-card">
+    <div class="card-header">
+        <h3 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="10 8 16 12 10 16 10 8"/>
+            </svg>
+            <span data-i18n="home.quick_start">Quick Start</span>
+        </h3>
+    </div>
+    <div class="card-body">
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4 data-i18n="home.step1_title">Configure Token</h4>
+                    <p data-i18n="home.step1_desc">Set up your GitHub/Gitee Token in Settings</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4 data-i18n="home.step2_title">View Dashboard</h4>
+                    <p data-i18n="home.step2_desc">Check account overview and recent repos</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4 data-i18n="home.step3_title">Manage Repos</h4>
+                    <p data-i18n="home.step3_desc">Batch clean up unwanted repositories</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4 data-i18n="home.step4_title">Beautify Profile</h4>
+                    <p data-i18n="home.step4_desc">Generate stunning Profile README</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

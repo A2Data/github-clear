@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GitHub Clear{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <a href="https://github.com/A2Data/github-clear" target="_blank" class="sidebar-header" title="View on GitHub">
+                <div class="sidebar-logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                    </svg>
+                </div>
+                <div class="sidebar-title">GitHub Clear</div>
+            </a>
+
+            <nav class="sidebar-nav">
+                <a href="/" class="nav-item {% if request.url.path == '/' %}active{% endif %}">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </span>
+                    <span data-i18n="nav.home">Home</span>
+                </a>
+                <a href="/dashboard" class="nav-item {% if request.url.path == '/dashboard' %}active{% endif %}">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="9" x="3" y="3" rx="1"/>
+                            <rect width="7" height="5" x="14" y="3" rx="1"/>
+                            <rect width="7" height="9" x="14" y="12" rx="1"/>
+                            <rect width="7" height="5" x="3" y="16" rx="1"/>
+                        </svg>
+                    </span>
+                    <span data-i18n="nav.dashboard">Dashboard</span>
+                </a>
+                <a href="/repositories" class="nav-item {% if request.url.path == '/repositories' %}active{% endif %}">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                            <path d="M9 18c-4.51 2-5-2-7-2"/>
+                        </svg>
+                    </span>
+                    <span data-i18n="nav.repos">Repositories</span>
+                </a>
+                <a href="/profile" class="nav-item {% if request.url.path == '/profile' %}active{% endif %}">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/>
+                            <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                            <path d="M12 2v2"/>
+                            <path d="M12 22v-2"/>
+                            <path d="m17 20.66-1-1.73"/>
+                            <path d="M11 10.27 7 3.34"/>
+                            <path d="m20.66 17-1.73-1"/>
+                            <path d="m3.34 7 1.73 1"/>
+                            <path d="M14 12h8"/>
+                            <path d="M2 12h2"/>
+                            <path d="m20.66 7-1.73 1"/>
+                            <path d="m3.34 17 1.73-1"/>
+                            <path d="m17 3.34-1 1.73"/>
+                            <path d="m11 13.73-4 6.93"/>
+                        </svg>
+                    </span>
+                    <span data-i18n="nav.profile">Profile</span>
+                </a>
+                <a href="/settings" class="nav-item {% if request.url.path == '/settings' %}active{% endif %}">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </span>
+                    <span data-i18n="nav.settings">Settings</span>
+                </a>
+            </nav>
+
+            <!-- 语言切换 -->
+            <div class="language-switcher">
+                <button class="lang-btn" data-lang="zh" title="中文">中</button>
+                <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="https://github.com/A2Data/github-clear" target="_blank" class="github-star-link" title="Star on GitHub">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    <span data-i18n="footer.star_project">Star</span>
+                </a>
+                <span class="footer-divider">·</span>
+                <span data-i18n="footer.made_with">Made with</span> ❤️
+            </div>
+        </aside>
+
+        <!-- 主内容 -->
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Toast 容器 -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- 全局 Loading 遮罩 -->
+    <div id="page-loading" class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <style>
+    .page-loading {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(13, 17, 23, 0.7);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+    }
+    .page-loading.active {
+        display: flex;
+    }
+    .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--border-color);
+        border-top-color: var(--accent-primary);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* 导航图标样式 */
+    .nav-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        color: currentColor;
+    }
+    .nav-icon svg {
+        flex-shrink: 0;
+    }
+    .nav-item.active .nav-icon {
+        color: var(--accent-primary);
+    }
+
+    /* 语言切换器 */
+    .language-switcher {
+        display: flex;
+        gap: 8px;
+        padding: 12px 16px;
+        margin-top: auto;
+        border-top: 1px solid var(--border-color);
+    }
+    .lang-btn {
+        flex: 1;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .lang-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-primary);
+    }
+    .lang-btn.active {
+        background: var(--accent-primary);
+        border-color: var(--accent-primary);
+        color: white;
+    }
+
+    /* Logo 样式调整 */
+    .sidebar-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #8B5CF6, #6366F1);
+        border-radius: 10px;
+        color: white;
+    }
+    </style>
+
+    <script>
+    // 国际化翻译
+    const i18n = {
+        zh: {
+            // 导航
+            'nav.home': '首页',
+            'nav.dashboard': '仪表板',
+            'nav.repos': '仓库管理',
+            'nav.profile': '主页美化',
+            'nav.settings': '设置',
+            'footer.made_with': '用心制作',
+            'footer.star_project': '给个 Star',
+
+            // 通用
+            'common.save': '保存',
+            'common.cancel': '取消',
+            'common.delete': '删除',
+            'common.edit': '编辑',
+            'common.confirm': '确认',
+            'common.loading': '加载中...',
+            'common.success': '成功',
+            'common.error': '错误',
+            'common.warning': '警告',
+            'common.search': '搜索',
+            'common.refresh': '刷新',
+            'common.export': '导出',
+            'common.import': '导入',
+            'common.download': '下载',
+            'common.upload': '上传',
+            'common.copy': '复制',
+            'common.copied': '已复制',
+            'common.test': '测试',
+            'common.deploy': '部署',
+
+            // 首页
+            'home.title': 'GitHub/Gitee 仓库管理器',
+            'home.subtitle': '一站式管理你的代码仓库和个人主页，让开发更高效',
+            'home.badge': '✨ 开源项目管理工具',
+            'home.go_dashboard': '进入仪表板',
+            'home.manage_repos': '管理仓库',
+            'home.feature_repos': '仓库管理',
+            'home.feature_repos_desc': '列表、搜索、筛选、批量删除和归档',
+            'home.feature_profile': '主页美化',
+            'home.feature_profile_desc': '多种模板和主题生成 README',
+            'home.feature_tools': 'Git 工具箱',
+            'home.feature_tools_desc': 'SSH Key 管理和常用命令速查',
+            'home.config_status': '配置状态',
+            'home.status_ready': '● 已就绪',
+            'home.status_pending': '● 待配置',
+            'home.github_configured': 'GitHub Token 已配置',
+            'home.github_not_configured': 'GitHub Token 未配置',
+            'home.gitee_configured': 'Gitee Token 已配置',
+            'home.gitee_not_configured': 'Gitee Token 未配置',
+            'home.go_config': '前往配置 Token',
+            'home.quick_start': '快速开始',
+            'home.step1_title': '配置 Token',
+            'home.step1_desc': '在设置页面配置你的 GitHub / Gitee Token',
+            'home.step2_title': '查看仪表板',
+            'home.step2_desc': '进入仪表板查看账户概览和最近仓库',
+            'home.step3_title': '管理仓库',
+            'home.step3_desc': '使用仓库管理批量清理不需要的仓库',
+            'home.step4_title': '美化主页',
+            'home.step4_desc': '通过主页美化生成精美的 Profile README',
+
+            // 仪表板
+            'dashboard.title': '仪表板',
+            'dashboard.subtitle': '账户概览与统计',
+            'dashboard.public_repos': '公开仓库',
+            'dashboard.private_repos': '私有仓库',
+            'dashboard.followers': '粉丝',
+            'dashboard.following': '关注',
+            'dashboard.recent_repos': '最近更新的仓库',
+            'dashboard.view_all': '查看全部',
+            'dashboard.col_name': '名称',
+            'dashboard.col_desc': '描述',
+            'dashboard.col_lang': '语言',
+            'dashboard.github_not_configured': 'GitHub Token 未配置',
+            'dashboard.gitee_not_configured': 'Gitee Token 未配置',
+            'dashboard.load_failed': '加载失败，请检查 Token 是否有效',
+            'dashboard.gitee_similar': 'Gitee 仪表板功能与 GitHub 类似',
+
+            // 仓库管理
+            'repos.title': '仓库管理',
+            'repos.subtitle': '管理你的代码仓库',
+            'repos.collab': '协作仓库',
+            'repos.all': '全部',
+            'repos.public': '公开',
+            'repos.private': '私有',
+            'repos.fork': 'Fork',
+            'repos.archived': '已归档',
+            'repos.search_placeholder': '搜索仓库...',
+            'repos.sort_updated': '最近更新',
+            'repos.sort_created': '创建时间',
+            'repos.sort_pushed': '推送时间',
+            'repos.sort_name': '名称',
+            'repos.include_forks': '包含 Fork',
+            'repos.select_all': '全选',
+            'repos.deselect_all': '取消全选',
+            'repos.batch_delete': '批量删除',
+            'repos.batch_archive': '批量归档',
+            'repos.batch_leave': '批量退出',
+            'repos.collab_info': '这些是你作为协作者参与的仓库（非所有者），你可以选择退出协作',
+
+            // 主页美化
+            'profile.title': '主页美化',
+            'profile.subtitle': '可视化编辑你的 GitHub Profile README',
+            'profile.basic_info': '基本信息',
+            'profile.username': '用户名',
+            'profile.username_placeholder': '你的 GitHub 用户名',
+            'profile.display_name': '显示名称',
+            'profile.name_placeholder': '你的名字',
+            'profile.bio': '个人简介',
+            'profile.bio_placeholder': '热爱编程的开发者...',
+            'profile.greeting': '问候语',
+            'profile.greeting_placeholder': 'Hi!;I\'m a Dev;Open Source Lover',
+            'profile.greeting_hint': '用分号 ; 分隔多行文字，将显示打字机动画',
+            'profile.about_me': '关于我',
+            'profile.about_me_desc': '添加 emoji + 文字介绍项',
+            'profile.add_item': '添加项目',
+            'profile.stats_cards': '统计卡片',
+            'profile.layout': '布局',
+            'profile.side_by_side': '并排显示',
+            'profile.stacked': '堆叠显示',
+            'profile.theme': '主题',
+            'profile.streak_lang': '连续贡献语言',
+            'profile.show_stats': 'GitHub 统计',
+            'profile.show_languages': '语言统计',
+            'profile.show_streak': '连续贡献',
+            'profile.show_trophy': '奖杯墙',
+            'profile.show_activity': '活动图表',
+            'profile.tech_stack': '技术栈',
+            'profile.badge_layout': '徽章布局',
+            'profile.inline': '一行显示',
+            'profile.per_line': '每行一个',
+            'profile.table': '表格 (4列)',
+            'profile.preset_skills': '预设技能',
+            'profile.custom_skills': '自定义技能',
+            'profile.custom_skills_desc': '添加预设列表中没有的技能',
+            'profile.add_custom_skill': '添加自定义技能',
+            'profile.skill_name_placeholder': '技能名 (如 FastAPI)',
+            'profile.skill_color_placeholder': '颜色 (如 009688)',
+            'profile.skill_logo_placeholder': 'Logo (可选)',
+            'profile.social_links': '社交链接',
+            'profile.social_desc': '添加预设或自定义链接',
+            'profile.add_custom_link': '添加自定义链接',
+            'profile.quick_add': '快速添加:',
+            'profile.load_demo': '示例',
+            'profile.demo_loaded': '示例数据已加载！',
+            'profile.social_label_placeholder': '标签名',
+            'profile.intro_placeholder': '例如: Currently learning Rust',
+            'profile.header_style': '头部样式',
+            'profile.fun_zone': '🧩 趣味区',
+            'profile.random_quote': '随机名言',
+            'profile.dev_joke': '程序员笑话',
+            'profile.snake_anim': '贪吃蛇动画',
+            'profile.service_config': '⚙️ 服务 URL 配置',
+            'profile.image_failed_tip': '💡 图片加载失败?',
+            'profile.image_tip_1': '• 预览失败不影响部署 - GitHub 会从服务器加载',
+            'profile.image_tip_2': '• 可在设置页面配置自部署的镜像服务',
+            'profile.image_tip_3': '• 或开启 VPN 后刷新页面',
+            'profile.stats_url': 'Stats 服务 URL',
+            'profile.streak_url': 'Streak 服务 URL',
+            'profile.trophies_url': 'Trophies 服务 URL',
+            'profile.go_settings': '去设置页面修改',
+            'profile.test_connection': '测试连接',
+            'profile.preview': '预览',
+            'profile.render': '渲染',
+            'profile.enter_username': '输入 GitHub 用户名查看预览',
+            'profile.reset': '恢复默认',
+            'profile.deploy': '部署到 GitHub',
+            'profile.need_token': '部署和恢复默认需要先配置 GitHub Token',
+            'profile.download': '下载 README',
+            'profile.cards': '卡片组件',
+            'profile.skills': '技能标签',
+            'profile.social': '社交链接',
+            'profile.service_url': '服务 URL 配置',
+
+            // 设置
+            'settings.title': '设置',
+            'settings.subtitle': '配置 Token 和服务',
+            'settings.token_config': 'Token 配置',
+            'settings.github_token': 'GitHub Token',
+            'settings.gitee_token': 'Gitee Token',
+            'settings.get_github_token': '获取 GitHub Token',
+            'settings.get_gitee_token': '获取 Gitee Token',
+            'settings.github_step1': '访问',
+            'settings.github_step2': '点击',
+            'settings.github_step3': '选择所需权限（见下方说明）',
+            'settings.github_step4': '设置过期时间（建议 90 天）',
+            'settings.github_step5': '生成并复制 Token',
+            'settings.gitee_step1': '访问',
+            'settings.gitee_step2': '点击 <strong>生成新令牌</strong>',
+            'settings.gitee_step3': '选择权限：',
+            'settings.gitee_step4': '生成并复制 Token',
+            'settings.gitee_configured': 'Gitee Token 已配置',
+            'settings.gitee_not_configured': 'Gitee Token 未配置',
+            'settings.save_token': '保存 Token',
+            'settings.test_connection': '测试连接',
+            'settings.stats_service': 'Profile Stats 服务',
+            'settings.deploy_vercel': 'Vercel 部署',
+            'settings.deploy_docker': 'Docker 部署',
+            'settings.manual_config': '手动配置',
+            'settings.save_all': '保存所有配置',
+            'settings.reset_default': '恢复默认',
+            'settings.git_toolbox': 'Git 工具箱',
+            'settings.common_commands': '常用命令',
+            'settings.multi_account': '多账号配置',
+
+            // Toast 消息
+            'toast.save_success': '保存成功',
+            'toast.save_failed': '保存失败',
+            'toast.copy_success': '复制成功',
+            'toast.deploy_success': '部署成功',
+            'toast.test_success': '测试通过',
+            'toast.test_failed': '测试失败',
+        },
+        en: {
+            // Navigation
+            'nav.home': 'Home',
+            'nav.dashboard': 'Dashboard',
+            'nav.repos': 'Repositories',
+            'nav.profile': 'Profile',
+            'nav.settings': 'Settings',
+            'footer.made_with': 'Made with',
+            'footer.star_project': 'Star',
+
+            // Common
+            'common.save': 'Save',
+            'common.cancel': 'Cancel',
+            'common.delete': 'Delete',
+            'common.edit': 'Edit',
+            'common.confirm': 'Confirm',
+            'common.loading': 'Loading...',
+            'common.success': 'Success',
+            'common.error': 'Error',
+            'common.warning': 'Warning',
+            'common.search': 'Search',
+            'common.refresh': 'Refresh',
+            'common.export': 'Export',
+            'common.import': 'Import',
+            'common.download': 'Download',
+            'common.upload': 'Upload',
+            'common.copy': 'Copy',
+            'common.copied': 'Copied',
+            'common.test': 'Test',
+            'common.deploy': 'Deploy',
+
+            // Home
+            'home.title': 'GitHub/Gitee Repository Manager',
+            'home.subtitle': 'All-in-one tool to manage your repositories and profile',
+            'home.badge': '✨ Open Source Tool',
+            'home.go_dashboard': 'Go to Dashboard',
+            'home.manage_repos': 'Manage Repos',
+            'home.feature_repos': 'Repositories',
+            'home.feature_repos_desc': 'List, search, filter, batch delete & archive',
+            'home.feature_profile': 'Profile Beautifier',
+            'home.feature_profile_desc': 'Generate README with templates & themes',
+            'home.feature_tools': 'Git Toolbox',
+            'home.feature_tools_desc': 'SSH Key management & command reference',
+            'home.config_status': 'Configuration Status',
+            'home.status_ready': '● Ready',
+            'home.status_pending': '● Pending',
+            'home.github_configured': 'GitHub Token Configured',
+            'home.github_not_configured': 'GitHub Token Not Configured',
+            'home.gitee_configured': 'Gitee Token Configured',
+            'home.gitee_not_configured': 'Gitee Token Not Configured',
+            'home.go_config': 'Configure Token',
+            'home.quick_start': 'Quick Start',
+            'home.step1_title': 'Configure Token',
+            'home.step1_desc': 'Set up your GitHub/Gitee Token in Settings',
+            'home.step2_title': 'View Dashboard',
+            'home.step2_desc': 'Check account overview and recent repos',
+            'home.step3_title': 'Manage Repos',
+            'home.step3_desc': 'Batch clean up unwanted repositories',
+            'home.step4_title': 'Beautify Profile',
+            'home.step4_desc': 'Generate stunning Profile README',
+
+            // Dashboard
+            'dashboard.title': 'Dashboard',
+            'dashboard.subtitle': 'Account Overview & Statistics',
+            'dashboard.public_repos': 'Public Repos',
+            'dashboard.private_repos': 'Private Repos',
+            'dashboard.followers': 'Followers',
+            'dashboard.following': 'Following',
+            'dashboard.recent_repos': 'Recent Repos',
+            'dashboard.view_all': 'View All',
+            'dashboard.col_name': 'Name',
+            'dashboard.col_desc': 'Description',
+            'dashboard.col_lang': 'Language',
+            'dashboard.github_not_configured': 'GitHub Token Not Configured',
+            'dashboard.gitee_not_configured': 'Gitee Token Not Configured',
+            'dashboard.load_failed': 'Load failed, please check your Token',
+            'dashboard.gitee_similar': 'Gitee dashboard is similar to GitHub',
+
+            // Repositories
+            'repos.title': 'Repositories',
+            'repos.subtitle': 'Manage your repositories',
+            'repos.collab': 'Collaborations',
+            'repos.all': 'All',
+            'repos.public': 'Public',
+            'repos.private': 'Private',
+            'repos.fork': 'Fork',
+            'repos.archived': 'Archived',
+            'repos.search_placeholder': 'Search repositories...',
+            'repos.sort_updated': 'Recently Updated',
+            'repos.sort_created': 'Created',
+            'repos.sort_pushed': 'Pushed',
+            'repos.sort_name': 'Name',
+            'repos.include_forks': 'Include Forks',
+            'repos.select_all': 'Select All',
+            'repos.deselect_all': 'Deselect All',
+            'repos.batch_delete': 'Batch Delete',
+            'repos.batch_archive': 'Batch Archive',
+            'repos.batch_leave': 'Batch Leave',
+            'repos.collab_info': 'These are repositories where you are a collaborator (not owner). You can leave them.',
+
+            // Profile
+            'profile.title': 'Profile Beautifier',
+            'profile.subtitle': 'Visually edit your GitHub Profile README',
+            'profile.basic_info': 'Basic Info',
+            'profile.username': 'Username',
+            'profile.username_placeholder': 'your-github-username',
+            'profile.display_name': 'Display Name',
+            'profile.name_placeholder': 'Your Name',
+            'profile.bio': 'Bio',
+            'profile.bio_placeholder': 'A passionate developer...',
+            'profile.greeting': 'Greeting',
+            'profile.greeting_placeholder': 'Hi!;I\'m a Dev;Open Source Lover',
+            'profile.greeting_hint': 'Use semicolon ; to separate multiple lines for typing animation',
+            'profile.about_me': 'About Me',
+            'profile.about_me_desc': 'Add emoji + text introduction items',
+            'profile.add_item': 'Add Item',
+            'profile.stats_cards': 'Stats Cards',
+            'profile.layout': 'Layout',
+            'profile.side_by_side': 'Side by Side',
+            'profile.stacked': 'Stacked',
+            'profile.theme': 'Theme',
+            'profile.streak_lang': 'Streak Language',
+            'profile.show_stats': 'GitHub Stats',
+            'profile.show_languages': 'Top Languages',
+            'profile.show_streak': 'Streak Stats',
+            'profile.show_trophy': 'Trophies',
+            'profile.show_activity': 'Activity Graph',
+            'profile.tech_stack': 'Tech Stack',
+            'profile.badge_layout': 'Badge Layout',
+            'profile.inline': 'Inline',
+            'profile.per_line': 'Per Line',
+            'profile.table': 'Table (4 cols)',
+            'profile.preset_skills': 'Preset Skills',
+            'profile.custom_skills': 'Custom Skills',
+            'profile.custom_skills_desc': 'Add skills not in the preset list',
+            'profile.add_custom_skill': 'Add Custom Skill',
+            'profile.skill_name_placeholder': 'Skill name (e.g. FastAPI)',
+            'profile.skill_color_placeholder': 'Color (e.g. 009688)',
+            'profile.skill_logo_placeholder': 'Logo (optional)',
+            'profile.social_links': 'Social Links',
+            'profile.social_desc': 'Add preset or custom social links',
+            'profile.add_custom_link': 'Add Custom Link',
+            'profile.quick_add': 'Quick Add:',
+            'profile.load_demo': 'Demo',
+            'profile.demo_loaded': 'Demo data loaded!',
+            'profile.social_label_placeholder': 'Label',
+            'profile.intro_placeholder': 'e.g. Currently learning Rust',
+            'profile.header_style': 'Header Style',
+            'profile.fun_zone': '🧩 Fun Zone',
+            'profile.random_quote': 'Random Quote',
+            'profile.dev_joke': 'Dev Joke',
+            'profile.snake_anim': 'Snake Animation',
+            'profile.service_config': '⚙️ Service URL Config',
+            'profile.image_failed_tip': '💡 Image loading failed?',
+            'profile.image_tip_1': '• Preview failure won\'t affect deployment - GitHub loads from server',
+            'profile.image_tip_2': '• Configure self-hosted mirror services in Settings',
+            'profile.image_tip_3': '• Or enable VPN and refresh the page',
+            'profile.stats_url': 'Stats Service URL',
+            'profile.streak_url': 'Streak Service URL',
+            'profile.trophies_url': 'Trophies Service URL',
+            'profile.go_settings': 'Go to Settings',
+            'profile.test_connection': 'Test Connection',
+            'profile.preview': 'Preview',
+            'profile.render': 'Render',
+            'profile.enter_username': 'Enter your GitHub username to see preview',
+            'profile.reset': 'Reset',
+            'profile.deploy': 'Deploy to GitHub',
+            'profile.need_token': 'Deploy and Reset require GitHub Token configuration',
+            'profile.download': 'Download README',
+            'profile.cards': 'Card Components',
+            'profile.skills': 'Tech Stack',
+            'profile.social': 'Social Links',
+            'profile.service_url': 'Service URL Config',
+
+            // Settings
+            'settings.title': 'Settings',
+            'settings.subtitle': 'Configure Tokens & Services',
+            'settings.token_config': 'Token Configuration',
+            'settings.github_token': 'GitHub Token',
+            'settings.gitee_token': 'Gitee Token',
+            'settings.get_github_token': 'Get GitHub Token',
+            'settings.get_gitee_token': 'Get Gitee Token',
+            'settings.github_step1': 'Visit',
+            'settings.github_step2': 'Click',
+            'settings.github_step3': 'Select required permissions (see below)',
+            'settings.github_step4': 'Set expiration (recommend 90 days)',
+            'settings.github_step5': 'Generate and copy Token',
+            'settings.gitee_step1': 'Visit',
+            'settings.gitee_step2': 'Click <strong>Generate new token</strong>',
+            'settings.gitee_step3': 'Select permissions:',
+            'settings.gitee_step4': 'Generate and copy Token',
+            'settings.gitee_configured': 'Gitee Token Configured',
+            'settings.gitee_not_configured': 'Gitee Token Not Configured',
+            'settings.save_token': 'Save Token',
+            'settings.test_connection': 'Test Connection',
+            'settings.stats_service': 'Profile Stats Service',
+            'settings.deploy_vercel': 'Vercel Deploy',
+            'settings.deploy_docker': 'Docker Deploy',
+            'settings.manual_config': 'Manual Config',
+            'settings.save_all': 'Save All',
+            'settings.reset_default': 'Reset to Default',
+            'settings.git_toolbox': 'Git Toolbox',
+            'settings.common_commands': 'Commands',
+            'settings.multi_account': 'Multi-Account',
+
+            // Toast messages
+            'toast.save_success': 'Saved successfully',
+            'toast.save_failed': 'Save failed',
+            'toast.copy_success': 'Copied',
+            'toast.deploy_success': 'Deployed successfully',
+            'toast.test_success': 'Test passed',
+            'toast.test_failed': 'Test failed',
+        }
+    };
+
+    // 当前语言
+    let currentLang = localStorage.getItem('lang') || 'zh';
+
+    // 翻译函数
+    function t(key) {
+        return i18n[currentLang][key] || i18n['en'][key] || key;
+    }
+
+    // 应用翻译
+    function applyTranslations() {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            el.textContent = t(key);
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            el.placeholder = t(key);
+        });
+        document.querySelectorAll('[data-i18n-title]').forEach(el => {
+            const key = el.getAttribute('data-i18n-title');
+            el.title = t(key);
+        });
+    }
+
+    // 切换语言
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        applyTranslations();
+        updateLangButtons();
+    }
+
+    // 更新语言按钮状态
+    function updateLangButtons() {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === currentLang);
+        });
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+        // 绑定语言切换按钮
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        // 应用初始翻译
+        updateLangButtons();
+        applyTranslations();
+    });
+
+    // 页面跳转时显示 loading
+    document.querySelectorAll('a.nav-item').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (this.href && !this.href.includes('#') && this.href !== window.location.href) {
+                document.getElementById('page-loading').classList.add('active');
+            }
+        });
+    });
+    </script>
+
+    <script src="/static/js/app.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

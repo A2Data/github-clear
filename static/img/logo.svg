@@ -1,0 +1,47 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆形渐变 -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d946ef;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 主背景圆 -->
+  <circle cx="100" cy="100" r="90" fill="url(#gradient)" filter="url(#glow)"/>
+
+  <!-- 火箭图标 -->
+  <g transform="translate(70, 50)">
+    <!-- 火箭主体 -->
+    <path d="M30 0 L40 30 L50 40 L40 50 L30 80 L20 50 L10 40 L20 30 Z"
+          fill="white" opacity="0.95"/>
+    <!-- 火箭窗口 -->
+    <circle cx="30" cy="30" r="8" fill="#6366f1"/>
+    <!-- 火箭尾焰 -->
+    <path d="M20 80 L15 90 L20 85 L25 90 L30 80 L35 90 L30 85 L40 90 L40 80"
+          fill="#f59e0b" opacity="0.8"/>
+    <path d="M22 85 L18 95 L22 90 L26 95 L30 85 L34 95 L30 90 L38 95 L38 85"
+          fill="#fbbf24" opacity="0.6"/>
+  </g>
+
+  <!-- GitHub Octocat 简化轮廓 -->
+  <g transform="translate(110, 110)" opacity="0.3">
+    <circle cx="0" cy="0" r="25" fill="white"/>
+    <circle cx="-8" cy="-5" r="3" fill="#6366f1"/>
+    <circle cx="8" cy="-5" r="3" fill="#6366f1"/>
+  </g>
+
+  <!-- 装饰性星星 -->
+  <circle cx="40" cy="40" r="3" fill="white" opacity="0.8"/>
+  <circle cx="160" cy="50" r="2" fill="white" opacity="0.6"/>
+  <circle cx="150" cy="150" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="50" cy="160" r="2" fill="white" opacity="0.5"/>
+</svg>

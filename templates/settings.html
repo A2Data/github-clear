@@ -1,0 +1,809 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - GitHub Clear{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
+            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+            <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <span data-i18n="settings.title">Settings</span>
+    </h1>
+    <p class="page-subtitle" data-i18n="settings.subtitle">Configure Tokens & Services</p>
+</div>
+
+<!-- Token 配置 -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                <path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+            </svg>
+            <span data-i18n="settings.token_config">Token Configuration</span>
+        </h3>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="github-token-tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                <path d="M9 18c-4.51 2-5-2-7-2"/>
+            </svg>
+            GitHub
+        </button>
+        <button class="tab-btn" data-tab="gitee-token-tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 12h8"/>
+                <path d="M12 8v8"/>
+            </svg>
+            Gitee
+        </button>
+    </div>
+
+    <!-- GitHub Token -->
+    <div id="github-token-tab" class="tab-content active">
+        <div style="margin-bottom: 20px; color: var(--text-secondary);">
+            <h4 data-i18n="settings.get_github_token">Get GitHub Token</h4>
+            <ol style="margin-top: 12px; padding-left: 20px;">
+                <li><span data-i18n="settings.github_step1">Visit</span> <a href="https://github.com/settings/tokens" target="_blank"
+                        style="color: var(--accent-primary);">GitHub Token Settings</a></li>
+                <li><span data-i18n="settings.github_step2">Click</span> <strong>Generate new token (classic)</strong></li>
+                <li data-i18n="settings.github_step3">Select required permissions (see below)</li>
+                <li data-i18n="settings.github_step4">Set expiration (recommend 90 days)</li>
+                <li data-i18n="settings.github_step5">Generate and copy Token</li>
+            </ol>
+        </div>
+
+        <!-- Token 权限说明 -->
+        <details style="margin-bottom: 20px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 8px; padding: 16px;">
+            <summary style="cursor: pointer; font-weight: 600; color: var(--accent-primary);">📋 Token 权限详解（点击展开）</summary>
+            <div style="margin-top: 16px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <th style="text-align: left; padding: 8px; color: var(--text-primary);">权限</th>
+                            <th style="text-align: left; padding: 8px; color: var(--text-primary);">用途</th>
+                            <th style="text-align: left; padding: 8px; color: var(--text-primary);">是否必需</th>
+                        </tr>
+                    </thead>
+                    <tbody style="color: var(--text-secondary);">
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px;"><code>public_repo</code></td>
+                            <td style="padding: 8px;">访问公开仓库</td>
+                            <td style="padding: 8px;">⚡ 最小权限</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px;"><code>repo</code></td>
+                            <td style="padding: 8px;">访问所有仓库（含私有）</td>
+                            <td style="padding: 8px;">✅ 推荐（完整功能）</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px;"><code>delete_repo</code></td>
+                            <td style="padding: 8px;">删除仓库</td>
+                            <td style="padding: 8px;">⚠️ 仅需删除功能时勾选</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px;"><code>read:user</code></td>
+                            <td style="padding: 8px;">读取用户信息</td>
+                            <td style="padding: 8px;">✅ 推荐</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px;"><code>user:email</code></td>
+                            <td style="padding: 8px;">读取邮箱地址</td>
+                            <td style="padding: 8px;">可选</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 16px; padding: 12px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e;">
+                    <strong style="color: #22c55e;">💡 推荐配置：</strong>
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li><strong>仅浏览/Stats</strong>: <code>public_repo</code> + <code>read:user</code></li>
+                        <li><strong>完整功能</strong>: <code>repo</code> + <code>delete_repo</code> + <code>read:user</code></li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <!-- 安全提示 -->
+        <details style="margin-bottom: 20px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 16px;">
+            <summary style="cursor: pointer; font-weight: 600; color: #ef4444;">🔐 安全注意事项（重要！）</summary>
+            <div style="margin-top: 16px; color: var(--text-secondary); font-size: 13px;">
+                <div style="padding: 12px; background: rgba(239, 68, 68, 0.15); border-radius: 6px; margin-bottom: 12px;">
+                    <strong style="color: #ef4444;">⚠️ Token 泄露可能导致：</strong>
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>私有仓库代码被窃取</li>
+                        <li>仓库被恶意删除</li>
+                        <li>被用于挖矿或其他恶意用途</li>
+                        <li>账号安全风险</li>
+                    </ul>
+                </div>
+
+                <strong style="color: var(--text-primary);">✅ 安全最佳实践：</strong>
+                <ol style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>最小权限原则</strong> - 只勾选必需的权限</li>
+                    <li><strong>设置过期时间</strong> - 建议 30-90 天，定期更换</li>
+                    <li><strong>不要提交到代码库</strong> - 将 Token 放在 <code>.env</code> 文件，并确保 <code>.gitignore</code> 包含 <code>.env</code></li>
+                    <li><strong>不要分享截图</strong> - 截图中可能包含 Token</li>
+                    <li><strong>使用环境变量</strong> - 生产环境使用环境变量注入</li>
+                    <li><strong>定期检查</strong> - 在 <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--accent-primary);">Token 设置页</a> 检查最后使用时间</li>
+                </ol>
+
+                <div style="margin-top: 12px; padding: 12px; background: rgba(251, 191, 36, 0.15); border-radius: 6px; border-left: 3px solid #fbbf24;">
+                    <strong style="color: #fbbf24;">🚨 如果 Token 泄露了：</strong>
+                    <ol style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>立即到 <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--accent-primary);">GitHub 设置</a> 删除该 Token</li>
+                        <li>检查账户是否有异常活动</li>
+                        <li>生成新的 Token 并更新配置</li>
+                    </ol>
+                </div>
+            </div>
+        </details>
+
+        {% if github_configured %}
+        <div class="alert alert-success">
+            <span>✅</span>
+            <span>GitHub Token 已配置</span>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+            <span>⚠️</span>
+            <span>GitHub Token 未配置</span>
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label class="form-label">GitHub Token</label>
+            <input type="password" id="github-token" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="saveToken('github')">
+                <span>💾</span>
+                <span data-i18n="settings.save_token">Save Token</span>
+            </button>
+            <button class="btn btn-secondary" onclick="testToken('github')">
+                <span>🔗</span>
+                <span data-i18n="settings.test_connection">Test Connection</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Gitee Token -->
+    <div id="gitee-token-tab" class="tab-content">
+        <div style="margin-bottom: 20px; color: var(--text-secondary);">
+            <h4 data-i18n="settings.get_gitee_token">Get Gitee Token</h4>
+            <ol style="margin-top: 12px; padding-left: 20px;">
+                <li><span data-i18n="settings.gitee_step1">Visit</span> <a href="https://gitee.com/profile/personal_access_tokens" target="_blank"
+                        style="color: var(--accent-primary);">Gitee Token Settings</a></li>
+                <li data-i18n="settings.gitee_step2">Click <strong>Generate new token</strong></li>
+                <li><span data-i18n="settings.gitee_step3">Select permissions:</span> <code>projects</code>, <code>user_info</code></li>
+                <li data-i18n="settings.gitee_step4">Generate and copy Token</li>
+            </ol>
+        </div>
+
+        {% if gitee_configured %}
+        <div class="alert alert-success">
+            <span>✅</span>
+            <span data-i18n="settings.gitee_configured">Gitee Token Configured</span>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+            <span>⚠️</span>
+            <span data-i18n="settings.gitee_not_configured">Gitee Token Not Configured</span>
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label class="form-label">Gitee Token</label>
+            <input type="password" id="gitee-token" class="form-input" placeholder="xxxxxxxxxxxxxxxxxxxxx">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="saveToken('gitee')">
+                <span>💾</span>
+                <span data-i18n="settings.save_token">Save Token</span>
+            </button>
+            <button class="btn btn-secondary" onclick="testToken('gitee')">
+                <span>🔗</span>
+                <span data-i18n="settings.test_connection">Test Connection</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Stats 服务配置 -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h3 class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                <path d="M3 3v18h18"/>
+                <path d="m19 9-5 5-4-4-3 3"/>
+            </svg>
+            <span data-i18n="settings.stats_service">Profile Stats Service</span>
+        </h3>
+    </div>
+    <div class="alert alert-info" style="margin-bottom: 24px;">
+        <span style="font-size: 20px;">ℹ️</span>
+        <div>
+            <strong>为什么需要配置? (GitHub 本身没有这些吗？)</strong>
+            <p style="margin: 4px 0 0 0; font-size: 13px; line-height: 1.5;">
+                <strong>GitHub 没有提供官方的图片版统计 API</strong>。官方只在个人主页提供网页版图表，无法直接嵌入 README.md。
+                <br>
+                因此，社区开发了第三方开源服务来生成图片。但由于公共服务使用者太多，经常被 GitHub API 限流 (503/500 错误)。
+                <br><br>
+                <strong>💡 三种解决方案：</strong>
+                <br>
+                1. <strong>最简单:</strong> 点击下方的 <span style="color: var(--danger); font-weight: 600;">"🔄 恢复默认"</span>，系统会使用我们精选的最稳定的公共源。
+                <br>
+                2. <strong>最稳定 (推荐):</strong> 使用 <strong style="color: var(--accent-primary);">🐳 Docker 一键部署</strong>，在你的 NAS 上运行私有服务，彻底告别限流！
+                <br>
+                3. <strong>全球访问:</strong> 按照下方教程，免费一键部署你自己的私有服务到 Vercel。
+            </p>
+        </div>
+    </div>
+
+    <!-- 部署方式选择标签 -->
+    <div class="tabs" style="margin-bottom: 24px;">
+        <button class="tab-btn active" data-tab="deploy-vercel">☁️ Vercel 部署 (推荐)</button>
+        <button class="tab-btn" data-tab="deploy-docker">🐳 Docker 部署 (NAS)</button>
+        <button class="tab-btn" data-tab="deploy-manual">⚙️ 手动配置</button>
+    </div>
+
+    <!-- Docker 部署教程 -->
+    <div id="deploy-docker" class="tab-content">
+        <div class="alert alert-success" style="margin-bottom: 20px;">
+            <span style="font-size: 18px;">🚀</span>
+            <div>
+                <strong>一键部署到你的 NAS/服务器</strong>
+                <p style="margin: 8px 0 0 0; font-size: 13px;">
+                    适用于: Synology、QNAP、群晖、威联通、Ubuntu、CentOS 等任何支持 Docker 的设备
+                </p>
+            </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 24px; border: 1px solid var(--border-color);">
+            <h4 style="margin-bottom: 16px; color: var(--accent-primary);">📋 快速开始 (3 步搞定)</h4>
+
+            <div style="margin-bottom: 20px;">
+                <h5 style="margin-bottom: 12px; color: var(--text-secondary);">步骤 1: 下载部署文件</h5>
+                <div class="code-block" style="margin-bottom: 12px;">
+                    <code>cd /volume1/docker  # Synology NAS 路径<br>
+# 或 cd ~/docker  # 其他设备<br>
+<br>
+# 下载配置文件<br>
+wget https://raw.githubusercontent.com/your-repo/main/docker-compose.yml<br>
+wget https://raw.githubusercontent.com/your-repo/main/nginx.conf<br>
+cp .env.example .env</code>
+                </div>
+                <p style="color: var(--text-muted); font-size: 12px;">💡 如果你已经在本项目目录中，这些文件已经存在，跳过此步骤。</p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h5 style="margin-bottom: 12px; color: var(--text-secondary);">步骤 2: 配置 GitHub Token</h5>
+                <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 8px;">编辑 <code>.env</code> 文件，填入你的 GitHub Token：</p>
+                <div class="code-block">
+                    <code>GITHUB_TOKEN=ghp_your_token_here</code>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h5 style="margin-bottom: 12px; color: var(--text-secondary);">步骤 3: 启动服务</h5>
+                <div class="code-block">
+                    <code># 启动所有服务<br>
+docker-compose up -d<br>
+<br>
+# 查看运行状态<br>
+docker-compose ps</code>
+                </div>
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); padding: 16px; border-radius: 8px; margin-top: 20px;">
+                <h5 style="margin-bottom: 8px; color: var(--success);">✅ 部署完成！</h5>
+                <p style="color: var(--text-secondary); font-size: 13px; margin: 0;">服务已在后台运行，现在可以在下方填写你的 NAS 地址了。</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 24px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; padding: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
+            <h4 style="margin-bottom: 16px; color: var(--accent-primary);">🔗 填写你的 NAS 地址</h4>
+            <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 16px;">
+                部署完成后，将以下 URL 填写到下方配置中。假设你的 NAS 内网地址是 <code>192.168.1.100</code>：
+            </p>
+            <div style="display: grid; gap: 12px;">
+                <div>
+                    <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">方式 1: 统一入口 (推荐 - 使用 Nginx 代理)</label>
+                    <div class="code-block"><code>http://192.168.1.100:8080/api</code></div>
+                    <div class="code-block"><code>http://192.168.1.100:8080/streak</code></div>
+                </div>
+                <div>
+                    <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">方式 2: 直接访问各服务</label>
+                    <div class="code-block"><code>http://192.168.1.100:3001/api</code></div>
+                    <div class="code-block"><code>http://192.168.1.100:3002</code></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a href="/DOCKER_DEPLOYMENT.md" target="_blank"
+               style="display: inline-flex; align-items: center; gap: 8px; color: var(--accent-primary); text-decoration: none; font-weight: 600;">
+                <span>📖 查看完整 Docker 部署指南</span>
+                <span style="font-size: 12px;">↗</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Vercel 部署教程 -->
+    <div id="deploy-vercel" class="tab-content active">
+        <div class="alert alert-info" style="margin-bottom: 20px;">
+            <span style="font-size: 18px;">☁️</span>
+            <div>
+                <strong>免费部署到 Vercel 云平台</strong>
+                <p style="margin: 8px 0 0 0; font-size: 13px;">
+                    优势: 全球 CDN 加速、自动扩展、零维护<br>
+                    劣势: 每月有请求限额、数据经过第三方
+                </p>
+            </div>
+        </div>
+
+        <!-- PAT_1 配置说明 -->
+        <details style="margin-bottom: 20px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 8px; padding: 16px;" open>
+            <summary style="cursor: pointer; font-weight: 600; color: #fbbf24;">⚠️ 重要：部署后必须配置 PAT_1 环境变量</summary>
+            <div style="margin-top: 16px; color: var(--text-secondary); font-size: 13px;">
+                <p style="margin-bottom: 12px;">
+                    部署完成后，需要在 Vercel 项目中添加 GitHub Token 作为环境变量，否则会显示 <code style="color: #ef4444;">"No GitHub API tokens found"</code> 错误。
+                </p>
+
+                <div style="padding: 12px; background: rgba(255,255,255,0.05); border-radius: 6px; margin-bottom: 16px;">
+                    <strong style="color: var(--text-primary);">📝 配置步骤：</strong>
+                    <ol style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8;">
+                        <li>打开 <a href="https://vercel.com/dashboard" target="_blank" style="color: var(--accent-primary);">Vercel Dashboard</a></li>
+                        <li>选择你刚部署的项目</li>
+                        <li>进入 <strong>Settings</strong> → <strong>Environment Variables</strong></li>
+                        <li>添加变量：
+                            <ul style="margin: 4px 0; padding-left: 16px;">
+                                <li>Name: <code>PAT_1</code></li>
+                                <li>Value: <code>ghp_xxxxxxxxxx</code>（你的 GitHub Token）</li>
+                            </ul>
+                        </li>
+                        <li>点击 <strong>Save</strong></li>
+                        <li>进入 <strong>Deployments</strong> → 点击最新部署 → <strong>Redeploy</strong></li>
+                    </ol>
+                </div>
+
+                <div style="padding: 12px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e; margin-bottom: 12px;">
+                    <strong style="color: #22c55e;">💡 PAT_1 只需要最小权限：</strong>
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li><code>public_repo</code> - 只读取公开仓库统计（推荐）</li>
+                        <li>或 <code>read:user</code> - 如果需要显示私有贡献</li>
+                    </ul>
+                    <p style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">
+                        ✅ 不需要 <code>repo</code> 或 <code>delete_repo</code> 权限，风险更低
+                    </p>
+                </div>
+
+                <div style="padding: 12px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border-left: 3px solid #ef4444;">
+                    <strong style="color: #ef4444;">🔐 安全提醒：</strong>
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>Vercel 环境变量是加密存储的，相对安全</li>
+                        <li>建议为 Stats 服务<strong>单独创建一个 Token</strong>，与主 Token 分开</li>
+                        <li>设置较短的过期时间（30-90天），定期更换</li>
+                        <li>如有异常，可随时在 GitHub 删除该 Token</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <!-- 1. GitHub Readme Stats -->
+    <div class="form-group"
+        style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <label class="form-label" style="margin-bottom: 0;">1. GitHub Stats URL (基础统计)</label>
+            <a href="https://vercel.com/new/clone?repository-url=https://github.com/anuraghazra/github-readme-stats"
+                target="_blank"
+                style="font-size: 13px; color: var(--accent-primary); text-decoration: none; display: flex; align-items: center; gap: 4px; font-weight: 600;">
+                <span>🚀 部署到 Vercel (官方版)</span>
+                <span style="font-size: 10px;">↗</span>
+            </a>
+        </div>
+        <input type="text" id="stats-url" class="form-input" placeholder="https://your-readme-stats.vercel.app"
+            value="{{ stats_url or '' }}">
+    </div>
+
+    <!-- 2. Streak Stats -->
+    <div class="form-group"
+        style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <label class="form-label" style="margin-bottom: 0;">2. Streak Stats URL (连续打卡)</label>
+            <a href="https://vercel.com/new/clone?repository-url=https://github.com/DenverCoder1/github-readme-streak-stats"
+                target="_blank"
+                style="font-size: 13px; color: var(--accent-primary); text-decoration: none; display: flex; align-items: center; gap: 4px; font-weight: 600;">
+                <span>🚀 部署到 Vercel (官方版)</span>
+                <span style="font-size: 10px;">↗</span>
+            </a>
+        </div>
+        <input type="text" id="streak-url" class="form-input" placeholder="https://your-streak-stats.vercel.app"
+            value="{{ streak_url or '' }}">
+        <small style="color: var(--text-muted); display: block; margin-top: 8px; font-size: 12px;">
+            💡 推荐使用: github-readme-streak-stats-ochre.vercel.app（稳定可用）
+        </small>
+    </div>
+
+    <!-- 3. Trophies -->
+    <div class="form-group"
+        style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <label class="form-label" style="margin-bottom: 0;">3. Trophies URL (奖杯墙)</label>
+            <a href="https://vercel.com/new/clone?repository-url=https://github.com/ryo-ma/github-profile-trophy"
+                target="_blank"
+                style="font-size: 13px; color: var(--accent-primary); text-decoration: none; display: flex; align-items: center; gap: 4px; font-weight: 600;">
+                <span>🚀 部署到 Vercel (官方版)</span>
+                <span style="font-size: 10px;">↗</span>
+            </a>
+        </div>
+        <input type="text" id="trophies-url" class="form-input" placeholder="https://your-profile-trophy.vercel.app"
+            value="{{ trophies_url or '' }}">
+    </div>
+
+    </div>
+
+    <!-- 手动配置 -->
+    <div id="deploy-manual" class="tab-content">
+        <div class="alert alert-warning" style="margin-bottom: 20px;">
+            <span style="font-size: 18px;">⚠️</span>
+            <div>
+                <strong>使用公共服务或自定义 URL</strong>
+                <p style="margin: 8px 0 0 0; font-size: 13px;">
+                    如果你已经有自己的服务 URL，或想使用公共服务，可以在这里手动配置。
+                    <br>
+                    <strong>注意：</strong>公共服务可能因为访问量大而出现限流（500/503 错误）。
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">GitHub Stats URL</label>
+            <input type="text" id="stats-url-manual" class="form-input" placeholder="https://github-readme-stats.vercel.app/api"
+                value="{{ stats_url or '' }}">
+            <small style="color: var(--text-muted); display: block; margin-top: 8px; font-size: 12px;">
+                留空使用默认公共服务
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Streak Stats URL</label>
+            <input type="text" id="streak-url-manual" class="form-input" placeholder="https://streak-stats.demolab.com"
+                value="{{ streak_url or '' }}">
+            <small style="color: var(--text-muted); display: block; margin-top: 8px; font-size: 12px;">
+                留空使用默认公共服务
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Trophies URL</label>
+            <input type="text" id="trophies-url-manual" class="form-input" placeholder="https://github-profile-trophy.vercel.app"
+                value="{{ trophies_url or '' }}">
+            <small style="color: var(--text-muted); display: block; margin-top: 8px; font-size: 12px;">
+                留空使用默认公共服务
+            </small>
+        </div>
+    </div>
+
+    <!-- 统一的保存按钮 -->
+    <div class="btn-group" style="margin-top: 32px; display: flex; gap: 12px;">
+        <button class="btn btn-primary" onclick="saveStatsUrl()" style="flex: 2; padding: 14px;">
+            <span style="font-size: 16px;">💾</span>
+            <span style="font-size: 16px;" data-i18n="settings.save_all">Save All</span>
+        </button>
+        <button class="btn btn-secondary" onclick="resetStatsUrl()"
+            style="flex: 1; padding: 14px; background: rgba(255, 59, 48, 0.1); color: #ff3b30; border-color: rgba(255, 59, 48, 0.2);">
+            <span style="font-size: 16px;">🔄</span>
+            <span style="font-size: 16px;" data-i18n="settings.reset_default">Reset to Default</span>
+        </button>
+    </div>
+</div>
+
+<!-- Git 工具箱 -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h3 class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+            <span data-i18n="settings.git_toolbox">Git Toolbox</span>
+        </h3>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="ssh-tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            SSH Key
+        </button>
+        <button class="tab-btn" data-tab="commands-tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                <polyline points="4 17 10 11 4 5"/>
+                <line x1="12" x2="20" y1="19" y2="19"/>
+            </svg>
+            <span data-i18n="settings.common_commands">Commands</span>
+        </button>
+        <button class="tab-btn" data-tab="multi-account-tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span data-i18n="settings.multi_account">Multi-Account</span>
+        </button>
+    </div>
+
+    <!-- SSH Key -->
+    <div id="ssh-tab" class="tab-content active">
+        <h4 style="margin-bottom: 16px;">SSH Key 管理</h4>
+
+        {% if ssh_keys %}
+        <div style="margin-bottom: 24px;">
+            <h5 style="color: var(--text-secondary); margin-bottom: 12px;">已有的 SSH Key:</h5>
+            {% for key in ssh_keys %}
+            <div style="margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span>📄 {{ key.name }}</span>
+                    <button class="btn btn-secondary btn-sm"
+                        onclick="copyToClipboard(`{{ key.content | replace('\n', '') }}`)">
+                        复制
+                    </button>
+                </div>
+                <div class="code-block">
+                    <code style="word-break: break-all;">{{ key.content }}</code>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <span>ℹ️</span>
+            <span>未找到 SSH Key</span>
+        </div>
+        {% endif %}
+
+        <h5 style="margin-bottom: 12px;">生成新的 SSH Key</h5>
+
+        <div class="grid-2" style="gap: 12px; margin-bottom: 16px;">
+            <div class="form-group">
+                <label class="form-label">Email 地址</label>
+                <input type="email" id="ssh-email" class="form-input" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label class="form-label">密钥类型</label>
+                <select id="ssh-type" class="form-select">
+                    <option value="ed25519">ed25519 (推荐)</option>
+                    <option value="rsa">rsa</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn btn-secondary" onclick="generateSSHCommand()">
+            <span>📋</span>
+            <span>生成命令</span>
+        </button>
+
+        <div id="ssh-command" style="display: none; margin-top: 16px;">
+            <div class="code-block">
+                <code id="ssh-command-text"></code>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 12px; margin-top: 8px;">
+                请在终端运行上述命令生成 SSH Key
+            </p>
+        </div>
+    </div>
+
+    <!-- 常用命令 -->
+    <div id="commands-tab" class="tab-content">
+        <h4 style="margin-bottom: 16px;">Git 常用命令速查</h4>
+
+        <div class="grid-3">
+            <div>
+                <h5 style="margin-bottom: 12px; color: var(--text-secondary);">基础操作</h5>
+                <div class="code-block" style="margin-bottom: 8px;"><code>git init</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">初始化</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git clone &lt;url&gt;</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">克隆</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git add .</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">添加</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git commit -m 'msg'</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">提交</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git push</code></div>
+                <p style="font-size: 12px; color: var(--text-muted);">推送</p>
+            </div>
+
+            <div>
+                <h5 style="margin-bottom: 12px; color: var(--text-secondary);">分支</h5>
+                <div class="code-block" style="margin-bottom: 8px;"><code>git branch -a</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">查看</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git checkout -b &lt;name&gt;</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">创建+切换</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git merge &lt;name&gt;</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">合并</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git branch -d &lt;name&gt;</code></div>
+                <p style="font-size: 12px; color: var(--text-muted);">删除</p>
+            </div>
+
+            <div>
+                <h5 style="margin-bottom: 12px; color: var(--text-secondary);">撤销</h5>
+                <div class="code-block" style="margin-bottom: 8px;"><code>git reset HEAD &lt;file&gt;</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">撤销暂存</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git checkout -- &lt;file&gt;</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">撤销修改</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git reset --hard HEAD~1</code></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">回退</p>
+
+                <div class="code-block" style="margin-bottom: 8px;"><code>git commit --amend</code></div>
+                <p style="font-size: 12px; color: var(--text-muted);">修改提交</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 多账号配置 -->
+    <div id="multi-account-tab" class="tab-content">
+        <h4 style="margin-bottom: 16px;">Git 多账号配置</h4>
+
+        <div style="color: var(--text-secondary);">
+            <p><strong>步骤 1:</strong> 生成不同的 SSH Key</p>
+            <div class="code-block" style="margin: 12px 0;">
+                <code>ssh-keygen -t ed25519 -C "personal@email.com" -f ~/.ssh/id_personal
+ssh-keygen -t ed25519 -C "work@company.com" -f ~/.ssh/id_work</code>
+            </div>
+
+            <p><strong>步骤 2:</strong> 配置 SSH Config (<code>~/.ssh/config</code>)</p>
+            <div class="code-block" style="margin: 12px 0;">
+                <code>Host github-personal
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_personal
+
+Host github-work
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_work</code>
+            </div>
+
+            <p><strong>步骤 3:</strong> 使用别名克隆</p>
+            <div class="code-block" style="margin: 12px 0;">
+                <code>git clone git@github-personal:username/repo.git
+git clone git@github-work:company/repo.git</code>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function generateSSHCommand() {
+        const email = document.getElementById('ssh-email').value;
+        const type = document.getElementById('ssh-type').value;
+
+        if (!email) {
+            showToast('请输入 Email 地址', 'error');
+            return;
+        }
+
+        const command = `ssh-keygen -t ${type} -C "${email}"`;
+        document.getElementById('ssh-command-text').textContent = command;
+        document.getElementById('ssh-command').style.display = 'block';
+    }
+
+    async function saveStatsUrl() {
+        // 智能获取 URL - 优先从手动配置标签页，其次从 Vercel 标签页
+        let statsUrl = '';
+        let streakUrl = '';
+        let trophiesUrl = '';
+
+        // 检查手动配置标签页的输入框
+        const manualStats = document.getElementById('stats-url-manual');
+        const manualStreak = document.getElementById('streak-url-manual');
+        const manualTrophies = document.getElementById('trophies-url-manual');
+
+        // 检查 Vercel 标签页的输入框
+        const vercelStats = document.getElementById('stats-url');
+        const vercelStreak = document.getElementById('streak-url');
+        const vercelTrophies = document.getElementById('trophies-url');
+
+        // 优先使用手动配置，如果为空则尝试 Vercel 配置
+        if (manualStats && manualStats.value.trim()) {
+            statsUrl = manualStats.value.trim();
+        } else if (vercelStats && vercelStats.value.trim()) {
+            statsUrl = vercelStats.value.trim();
+        }
+
+        if (manualStreak && manualStreak.value.trim()) {
+            streakUrl = manualStreak.value.trim();
+        } else if (vercelStreak && vercelStreak.value.trim()) {
+            streakUrl = vercelStreak.value.trim();
+        }
+
+        if (manualTrophies && manualTrophies.value.trim()) {
+            trophiesUrl = manualTrophies.value.trim();
+        } else if (vercelTrophies && vercelTrophies.value.trim()) {
+            trophiesUrl = vercelTrophies.value.trim();
+        }
+
+        try {
+            const response = await fetch('/api/settings/stats-url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    stats_url: statsUrl,
+                    streak_url: streakUrl,
+                    trophies_url: trophiesUrl
+                })
+            });
+
+            if (response.ok) {
+                showToast('Stats 服务配置已保存', 'success');
+            } else {
+                const error = await response.json();
+                showToast(error.detail || '保存失败', 'error');
+            }
+        } catch (error) {
+            showToast(`保存失败: ${error.message}`, 'error');
+        }
+    }
+
+    async function resetStatsUrl() {
+        if (!confirm('确定要恢复默认配置吗？这将清空当前填写的 URL。')) {
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/settings/stats-url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    stats_url: "",
+                    streak_url: "",
+                    trophies_url: ""
+                })
+            });
+
+            if (response.ok) {
+                // 清空 Vercel 标签页的输入框
+                const vercelStats = document.getElementById('stats-url');
+                const vercelStreak = document.getElementById('streak-url');
+                const vercelTrophies = document.getElementById('trophies-url');
+                if (vercelStats) vercelStats.value = "";
+                if (vercelStreak) vercelStreak.value = "";
+                if (vercelTrophies) vercelTrophies.value = "";
+
+                // 清空手动配置标签页的输入框
+                const manualStats = document.getElementById('stats-url-manual');
+                const manualStreak = document.getElementById('streak-url-manual');
+                const manualTrophies = document.getElementById('trophies-url-manual');
+                if (manualStats) manualStats.value = "";
+                if (manualStreak) manualStreak.value = "";
+                if (manualTrophies) manualTrophies.value = "";
+
+                showToast('已恢复默认配置', 'success');
+            } else {
+                showToast('重置失败', 'error');
+            }
+        } catch (error) {
+            showToast(`重置失败: ${error.message}`, 'error');
+        }
+    }
+</script>
+{% endblock %}
