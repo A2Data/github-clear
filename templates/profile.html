@@ -218,6 +218,54 @@
                 </div>
             </div>
 
+            <!-- 项目组件表格 -->
+            <div class="config-section">
+                <h3 class="section-title" data-i18n="profile.components">Project Components</h3>
+                <p class="section-desc" data-i18n="profile.components_desc">Add project components with status badges</p>
+
+                <div class="field">
+                    <label data-i18n="profile.components_title">Section Title</label>
+                    <input type="text" name="components_title" value="Components" placeholder="Components">
+                </div>
+
+                <!-- 预设组件模板 -->
+                <div class="preset-components" style="margin-bottom: 12px;">
+                    <label style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; display: block;" data-i18n="profile.component_templates">Templates:</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                        <button type="button" class="preset-btn" onclick="addComponent('Core', '', 'release', 'v1.0.0', 'Core API Server')">
+                            <span>🖥️</span> Core
+                        </button>
+                        <button type="button" class="preset-btn" onclick="addComponent('Web', '', 'release', 'v1.0.0', 'Web Frontend UI')">
+                            <span>🌐</span> Web
+                        </button>
+                        <button type="button" class="preset-btn" onclick="addComponent('API', '', 'release', 'v1.0.0', 'REST API Service')">
+                            <span>⚡</span> API
+                        </button>
+                        <button type="button" class="preset-btn" onclick="addComponent('CLI', '', 'beta', '', 'Command Line Tool')">
+                            <span>💻</span> CLI
+                        </button>
+                        <button type="button" class="preset-btn" onclick="addComponent('SDK', '', 'beta', '', 'Software Development Kit')">
+                            <span>📦</span> SDK
+                        </button>
+                        <button type="button" class="preset-btn" onclick="addComponent('Docs', '', 'release', '', 'Documentation')">
+                            <span>📚</span> Docs
+                        </button>
+                        <button type="button" class="preset-btn" onclick="addComponent('Mobile', '', 'alpha', '', 'Mobile App')">
+                            <span>📱</span> Mobile
+                        </button>
+                        <button type="button" class="preset-btn" onclick="addComponent('Plugin', '', 'dev', '', 'Extension Plugin')">
+                            <span>🔌</span> Plugin
+                        </button>
+                    </div>
+                </div>
+
+                <div id="components-container"></div>
+
+                <button type="button" class="btn-add" onclick="addComponent()">
+                    <span>+</span> <span data-i18n="profile.add_component">Add Component</span>
+                </button>
+            </div>
+
             <!-- 社交链接 -->
             <div class="config-section">
                 <h3 class="section-title" data-i18n="profile.social_links">Social Links</h3>
@@ -752,6 +800,57 @@
 }
 
 .custom-social-item .btn-remove:hover {
+    border-color: #f85149;
+    color: #f85149;
+}
+
+/* 项目组件项 */
+.component-item {
+    display: grid;
+    grid-template-columns: 100px 140px 80px 60px 1fr auto;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+    .component-item {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+    }
+    .component-item .component-desc {
+        grid-column: 1 / -2;
+    }
+    .component-item .btn-remove {
+        grid-column: -1;
+    }
+}
+
+.component-item input,
+.component-item select {
+    padding: 8px 12px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 13px;
+}
+
+.component-item select {
+    cursor: pointer;
+}
+
+.component-item .btn-remove {
+    padding: 6px 10px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.component-item .btn-remove:hover {
     border-color: #f85149;
     color: #f85149;
 }
@@ -1490,6 +1589,15 @@ function loadDemoData() {
         addIntroItem('🚀', 'Currently working on open source projects');
         addIntroItem('🌱', 'Learning Rust and AI/ML');
         addIntroItem('💬', 'Ask me about JavaScript, Python, Go');
+    }
+
+    // 添加示例项目组件
+    const componentsContainer = document.getElementById('components-container');
+    if (componentsContainer && componentsContainer.children.length === 0) {
+        addComponent('Core', 'https://github.com/demo/core', 'release', 'v1.0.0', 'Core API Server');
+        addComponent('Web', 'https://github.com/demo/web', 'release', 'v1.0.0', 'Web Frontend');
+        addComponent('CLI', 'https://github.com/demo/cli', 'beta', '', 'Command Line Tool');
+        addComponent('SDK', 'https://github.com/demo/sdk', 'private', '', 'Internal SDK');
     }
 
     // 触发预览生成

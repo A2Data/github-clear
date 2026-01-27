@@ -428,6 +428,8 @@ async def generate_profile(request: Request):
         'layout': data.get('layout', 'single'),
         'streak_locale': data.get('streak_locale', 'en'),
         'badge_layout': data.get('badge_layout', 'inline'),
+        'components': data.get('components', []),
+        'components_title': data.get('components_title', 'Components'),
     }
 
     readme_content = generator.generate_profile(config)

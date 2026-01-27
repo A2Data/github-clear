@@ -846,6 +846,87 @@ function addCustomSkill(name = '', color = '', logo = '') {
     generateProfile();
 }
 
+// 添加项目组件
+function addComponent(name = '', url = '', status = 'release', version = '', description = '') {
+    const container = document.getElementById('components-container');
+    if (!container) return;
+
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'component-item';
+
+    // 项目名
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.className = 'component-name';
+    nameInput.placeholder = t('profile.component_name') || 'Project Name';
+    nameInput.value = name;
+    nameInput.oninput = () => generateProfile();
+
+    // 项目链接
+    const urlInput = document.createElement('input');
+    urlInput.type = 'text';
+    urlInput.className = 'component-url';
+    urlInput.placeholder = 'https://github.com/...';
+    urlInput.value = url;
+    urlInput.oninput = () => generateProfile();
+
+    // 状态选择
+    const statusSelect = document.createElement('select');
+    statusSelect.className = 'component-status';
+    const statuses = [
+        { value: 'release', label: 'Release' },
+        { value: 'private', label: 'Private' },
+        { value: 'beta', label: 'Beta' },
+        { value: 'alpha', label: 'Alpha' },
+        { value: 'dev', label: 'Dev' }
+    ];
+    statuses.forEach(s => {
+        const option = document.createElement('option');
+        option.value = s.value;
+        option.textContent = s.label;
+        if (s.value === status) option.selected = true;
+        statusSelect.appendChild(option);
+    });
+    statusSelect.onchange = () => generateProfile();
+
+    // 版本号
+    const versionInput = document.createElement('input');
+    versionInput.type = 'text';
+    versionInput.className = 'component-version';
+    versionInput.placeholder = 'v1.0.0';
+    versionInput.value = version;
+    versionInput.oninput = () => generateProfile();
+
+    // 描述
+    const descInput = document.createElement('input');
+    descInput.type = 'text';
+    descInput.className = 'component-desc';
+    descInput.placeholder = t('profile.component_desc') || 'Description';
+    descInput.value = description;
+    descInput.oninput = () => generateProfile();
+
+    // 删除按钮
+    const deleteBtn = document.createElement('button');
+    deleteBtn.type = 'button';
+    deleteBtn.className = 'btn-remove';
+    deleteBtn.textContent = '×';
+    deleteBtn.onclick = function() {
+        itemDiv.remove();
+        generateProfile();
+    };
+
+    itemDiv.appendChild(nameInput);
+    itemDiv.appendChild(urlInput);
+    itemDiv.appendChild(statusSelect);
+    itemDiv.appendChild(versionInput);
+    itemDiv.appendChild(descInput);
+    itemDiv.appendChild(deleteBtn);
+    container.appendChild(itemDiv);
+
+    nameInput.focus();
+    generateProfile();
+}
+
 // 收集自定义技能
 function collectCustomSkills() {
     const items = [];
@@ -858,6 +939,26 @@ function collectCustomSkills() {
         const logo = item.querySelector('.custom-skill-logo')?.value?.trim() || '';
         if (name) {
             items.push({ name, color, logo });
+        }
+    });
+
+    return items;
+}
+
+// 收集项目组件
+function collectComponents() {
+    const items = [];
+    const container = document.getElementById('components-container');
+    if (!container) return items;
+
+    container.querySelectorAll('.component-item').forEach(item => {
+        const name = item.querySelector('.component-name')?.value?.trim() || '';
+        const url = item.querySelector('.component-url')?.value?.trim() || '';
+        const status = item.querySelector('.component-status')?.value || 'release';
+        const version = item.querySelector('.component-version')?.value?.trim() || '';
+        const description = item.querySelector('.component-desc')?.value?.trim() || '';
+        if (name) {
+            items.push({ name, url, status, version, description });
         }
     });
 
@@ -916,6 +1017,8 @@ async function generateProfile() {
         layout: formData.get('layout') || 'single',
         streak_locale: formData.get('streak_locale') || 'en',
         badge_layout: formData.get('badge_layout') || 'inline',
+        components: collectComponents(),
+        components_title: formData.get('components_title') || 'Components',
     };
 
     // 清理空的社交链接

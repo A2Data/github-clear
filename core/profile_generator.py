@@ -577,6 +577,69 @@ jobs:
 </h1>
 '''
 
+    def generate_components_table(self, components: List[Dict]) -> str:
+        """生成项目组件表格
+
+        Args:
+            components: [
+                {
+                    'name': '项目名',
+                    'url': '项目链接',
+                    'status': 'release' | 'private' | 'beta' | 'alpha' | 'dev',
+                    'version': 'v1.0.0',  # 可选，仅 release 状态显示
+                    'description': '项目描述'
+                },
+                ...
+            ]
+        """
+        if not components:
+            return ''
+
+        # 状态徽章颜色映射
+        status_colors = {
+            'release': '67C23A',    # 绿色 - 正式发布
+            'private': 'E6A23C',    # 橙色 - 私有
+            'beta': '409EFF',       # 蓝色 - 测试版
+            'alpha': '909399',      # 灰色 - 早期版本
+            'dev': 'F56C6C',        # 红色 - 开发中
+        }
+
+        lines = []
+        lines.append('| Project | Status | Description |')
+        lines.append('|:--------|:-------|:------------|')
+
+        for comp in components:
+            name = comp.get('name', '')
+            url = comp.get('url', '')
+            status = comp.get('status', 'release').lower()
+            version = comp.get('version', '')
+            desc = comp.get('description', '')
+
+            if not name:
+                continue
+
+            # 项目名链接
+            if url:
+                project_cell = f'[{name}]({url})'
+            else:
+                project_cell = name
+
+            # 状态徽章
+            color = status_colors.get(status, '67C23A')
+            if status == 'release' and version:
+                # 显示版本号
+                badge_url = f'https://img.shields.io/badge/release-{version}-{color}'
+            elif status == 'private':
+                badge_url = f'https://img.shields.io/badge/release-private-{color}'
+            else:
+                badge_url = f'https://img.shields.io/badge/{status}-{color}'
+
+            status_cell = f'![{status}]({badge_url})'
+
+            lines.append(f'| {project_cell} | {status_cell} | {desc} |')
+
+        return '\n'.join(lines) + '\n'
+
     def generate_profile(self, config: Dict[str, Any]) -> str:
         """根据配置生成完整的 Profile README"""
         username = config.get('username', 'username')
@@ -669,7 +732,14 @@ jobs:
                 sections.append(f'\n{badge_content}\n')
             else:
                 sections.append(f'<div align="center">\n{badge_content}\n</div>\n')
-        
+
+        # 5. 项目组件表格
+        components = config.get('components', [])
+        components_title = config.get('components_title', 'Components')
+        if components:
+            sections.append(f'\n### 📦 {components_title}\n')
+            sections.append(self.generate_components_table(components))
+
         # 6. 更多展示 (奖杯、活动图)
         if config.get('show_trophy', False):
             sections.append('\n### 🏆 Trophies\n')
