@@ -1,9 +1,8 @@
 """GitHub API 封装"""
 from typing import Optional, List, Dict, Any
-from github import Github, GithubException
+from github import Auth, Github, GithubException
 from github.Repository import Repository
 from github.AuthenticatedUser import AuthenticatedUser
-import requests
 
 
 class GitHubAPI:
@@ -16,9 +15,27 @@ class GitHubAPI:
             token: GitHub Personal Access Token
         """
         self.token = token
-        self.client = Github(token)
+        self.client = Github(auth=Auth.Token(token), per_page=100, timeout=15, retry=2)
         self._user: Optional[AuthenticatedUser] = None
     
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self.client.close()
+
+    def _owned_repo(self, repo_name: str) -> Repository:
+        """Resolve both name and owner/name, keeping management on this account."""
+        username = self.user.login
+        full_name = repo_name if '/' in repo_name else f"{username}/{repo_name}"
+        if full_name.split('/', 1)[0].lower() != username.lower():
+            raise ValueError("只能管理当前账户拥有的仓库")
+        repo = self.client.get_repo(full_name)
+        # GitHub can redirect an old repository URL after a transfer.
+        if repo.owner.login.lower() != username.lower():
+            raise ValueError("仓库已转移，不能管理其他账户拥有的仓库")
+        return repo
+
     @property
     def user(self) -> AuthenticatedUser:
         """获取当前认证用户"""
@@ -58,7 +75,7 @@ class GitHubAPI:
         """
         repos = []
         
-        for repo in self.user.get_repos(sort=sort):
+        for repo in self.user.get_repos(affiliation='owner', visibility=visibility, sort=sort):
             # 只显示用户自己拥有的仓库，排除作为协作者的仓库
             if repo.owner.login != self.user.login:
                 continue
@@ -101,7 +118,7 @@ class GitHubAPI:
         """列出用户作为协作者参与的仓库（不是所有者）"""
         repos = []
         
-        for repo in self.user.get_repos():
+        for repo in self.user.get_repos(affiliation='collaborator', sort='updated'):
             # 只显示作为协作者的仓库
             if repo.owner.login == self.user.login:
                 continue
@@ -152,14 +169,7 @@ class GitHubAPI:
             (是否删除成功, 错误消息)
         """
         try:
-            # 如果包含 /，说明是 full_name 格式，直接使用
-            # 否则，尝试用 user.login/repo_name 格式
-            if '/' in repo_name:
-                full_name = repo_name
-            else:
-                full_name = f"{self.user.login}/{repo_name}"
-            
-            repo = self.client.get_repo(full_name)
+            repo = self._owned_repo(repo_name)
             repo.delete()
             return True, ""
         except GithubException as e:
@@ -197,7 +207,7 @@ class GitHubAPI:
             是否归档成功
         """
         try:
-            repo = self.user.get_repo(repo_name)
+            repo = self._owned_repo(repo_name)
             repo.edit(archived=True)
             return True
         except GithubException as e:
@@ -207,7 +217,7 @@ class GitHubAPI:
     def unarchive_repo(self, repo_name: str) -> bool:
         """取消归档仓库"""
         try:
-            repo = self.user.get_repo(repo_name)
+            repo = self._owned_repo(repo_name)
             repo.edit(archived=False)
             return True
         except GithubException as e:
@@ -217,7 +227,7 @@ class GitHubAPI:
     def update_repo_visibility(self, repo_name: str, private: bool) -> bool:
         """更新仓库可见性"""
         try:
-            repo = self.user.get_repo(repo_name)
+            repo = self._owned_repo(repo_name)
             repo.edit(private=private)
             return True
         except GithubException as e:
@@ -245,7 +255,9 @@ class GitHubAPI:
             # 尝试获取或创建 profile 仓库
             try:
                 repo = self.client.get_repo(f"{username}/{username}")
-            except GithubException:
+            except GithubException as exc:
+                if exc.status != 404:
+                    raise
                 # 创建 profile 仓库
                 repo = self.user.create_repo(
                     name=username,
@@ -254,23 +266,25 @@ class GitHubAPI:
                     auto_init=True
                 )
             
-            # 更新 README
+            # Only a missing README lookup should trigger file creation.
             try:
                 readme = repo.get_readme()
-                repo.update_file(
-                    path="README.md",
-                    message="Update profile README",
-                    content=content,
-                    sha=readme.sha
-                )
-            except GithubException:
-                # README 不存在，创建它
+            except GithubException as exc:
+                if exc.status != 404:
+                    raise
                 repo.create_file(
                     path="README.md",
                     message="Create profile README",
                     content=content
                 )
-            
+            else:
+                repo.update_file(
+                    path=readme.path,
+                    message="Update profile README",
+                    content=content,
+                    sha=readme.sha
+                )
+
             return True
         except GithubException as e:
             print(f"更新 Profile README 失败: {e}")
@@ -291,7 +305,7 @@ class GitHubAPI:
                 readme = repo.get_readme()
                 # 删除 README.md 文件
                 repo.delete_file(
-                    path="README.md",
+                    path=readme.path,
                     message="Restore default profile",
                     sha=readme.sha
                 )

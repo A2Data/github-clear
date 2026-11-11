@@ -1,0 +1,327 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="home" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="m4.5 10 7.5-6 7.5 6v9a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2Z" fill="var(--icon-wash, transparent)" />
+      <path d="m2.5 10.5 8.2-6.6a2 2 0 0 1 2.6 0l8.2 6.6" />
+      <path d="M9 21v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <path d="M16.5 4V2.5H19V6" stroke-width="1.5" />
+    </g>
+  </symbol>
+  <symbol id="repo" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M6 3h13a1 1 0 0 1 1 1v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" fill="var(--icon-wash, transparent)" />
+      <path d="M7 3v14H6a2 2 0 0 0-2 2V5a2 2 0 0 1 2-2Z" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <path d="M4 19a2 2 0 0 1 2-2h14M7 20h13" />
+      <g class="icon-lines">
+        <path d="M11 7v6m0-3h4V7" stroke-width="1.4" />
+        <circle cx="11" cy="6.5" r="1.3" fill="var(--icon-light, white)" />
+        <circle cx="15" cy="6.5" r="1.3" fill="var(--icon-solid, currentColor)" stroke="none" />
+        <circle cx="11" cy="13" r="1.3" fill="var(--icon-solid, currentColor)" stroke="none" />
+      </g>
+    </g>
+  </symbol>
+  <symbol id="chart" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="2.5" y="3" width="19" height="18" rx="3" fill="var(--icon-wash, transparent)" />
+      <path d="M3 8h18" stroke-opacity=".35" />
+      <circle cx="6" cy="5.5" r=".7" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <circle cx="9" cy="5.5" r=".7" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <rect class="icon-tile icon-tile-1" x="6" y="14" width="2.5" height="4" rx=".7" fill="var(--icon-solid, currentColor)" stroke="none" opacity=".5" />
+      <rect class="icon-tile icon-tile-2" x="10.75" y="11.5" width="2.5" height="6.5" rx=".7" fill="var(--icon-solid, currentColor)" stroke="none" opacity=".75" />
+      <rect class="icon-tile icon-tile-4" x="15.5" y="10" width="2.5" height="8" rx=".7" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="profile" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="2.5" y="4" width="19" height="16" rx="3" fill="var(--icon-wash, transparent)" />
+      <path d="M14 4v16" stroke-opacity=".2" />
+      <g class="icon-person">
+        <circle cx="8.5" cy="9.5" r="2.2" fill="var(--icon-solid, currentColor)" stroke="none" />
+        <path d="M4.8 16.5a3.7 3.7 0 0 1 7.4 0Z" fill="var(--icon-solid, currentColor)" stroke="none" opacity=".85" />
+      </g>
+      <g class="icon-lines">
+        <path d="M16.5 9h2.2m-2.2 3h2.2m-2.2 3h1.2" stroke-width="1.5" />
+      </g>
+    </g>
+  </symbol>
+  <symbol id="settings" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="3" y="3" width="18" height="18" rx="4" fill="var(--icon-wash, transparent)" stroke-opacity=".35" />
+      <path d="M6 8h12M6 16h12" stroke-width="1.4" />
+      <circle class="icon-knob icon-knob-1" cx="9" cy="8" r="2.5" fill="var(--icon-light, white)" />
+      <circle class="icon-knob icon-knob-2" cx="15" cy="16" r="2.5" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="code" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="2.5" y="3.5" width="19" height="17" rx="3" fill="var(--icon-wash, transparent)" />
+      <path d="M3 8h18" stroke-opacity=".3" />
+      <circle cx="6" cy="5.8" r=".7" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <circle cx="9" cy="5.8" r=".7" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <path class="icon-code-left" d="m8 11-3 3 3 3" />
+      <path class="icon-code-right" d="m16 11 3 3-3 3" />
+      <path d="m13.2 10.5-2.4 7" stroke-opacity=".6" />
+    </g>
+  </symbol>
+  <symbol id="remote" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="2.5" y="3.5" width="19" height="13" rx="2.5" fill="var(--icon-wash, transparent)" />
+      <path d="M9 16.5v4m6-4v4m-8 0h10" />
+      <path d="m8 8-2 2 2 2m8-4 2 2-2 2" />
+      <path d="m13 7-2 6" stroke-opacity=".5" />
+    </g>
+  </symbol>
+  <symbol id="people" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <circle cx="9" cy="8" r="3" fill="var(--icon-wash, transparent)" />
+      <path d="M3 20v-1a6 6 0 0 1 12 0v1Z" fill="var(--icon-wash, transparent)" />
+      <circle cx="17" cy="7.5" r="2.5" fill="var(--icon-solid, currentColor)" stroke="none" opacity=".8" />
+      <path d="M18 13a4 4 0 0 1 4 4v2h-4" fill="var(--icon-solid, currentColor)" stroke="none" opacity=".7" />
+    </g>
+  </symbol>
+  <symbol id="archive" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M4 8h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z" fill="var(--icon-wash, transparent)" />
+      <rect x="2.5" y="3" width="19" height="5" rx="1.5" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <path d="M9 12.5h6" stroke-width="2" />
+    </g>
+  </symbol>
+  <symbol id="branch" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M6 6v12m12-10v1a7 7 0 0 1-7 7H6" />
+      <circle cx="6" cy="4.5" r="2.5" fill="var(--icon-wash, transparent)" />
+      <circle cx="6" cy="19.5" r="2.5" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <circle cx="18" cy="5.5" r="2.5" fill="var(--icon-wash, transparent)" />
+    </g>
+  </symbol>
+  <symbol id="fork" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M6 7v1a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V7m-6 5v6" />
+      <circle cx="6" cy="4.5" r="2.5" fill="var(--icon-wash, transparent)" />
+      <circle cx="18" cy="4.5" r="2.5" fill="var(--icon-wash, transparent)" />
+      <circle cx="12" cy="20" r="2" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="merge" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M6 7v11m12-11v1a7 7 0 0 1-7 7H6" />
+      <circle cx="6" cy="4.5" r="2.5" fill="var(--icon-wash, transparent)" />
+      <circle cx="18" cy="4.5" r="2.5" fill="var(--icon-wash, transparent)" />
+      <circle cx="6" cy="20" r="2" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <path d="m9.5 12-3 3 3 3" stroke-width="1.3" />
+    </g>
+  </symbol>
+  <symbol id="commit" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M2.5 12h5m9 0h5" />
+      <circle cx="12" cy="12" r="4.5" fill="var(--icon-wash, transparent)" />
+      <circle cx="12" cy="12" r="1.5" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="key" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <circle cx="8" cy="15" r="5" fill="var(--icon-wash, transparent)" />
+      <circle cx="6.8" cy="16.2" r="1.1" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <path d="m11.5 11.5 9-9m-3 3 3 3m-6 0 2 2" stroke-width="2" />
+    </g>
+  </symbol>
+  <symbol id="book" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M12 5C8 2.5 5 3 2.5 4.5v15C6 18 8.5 18.5 12 21c3.5-2.5 6-3 9.5-1.5v-15C19 3 16 2.5 12 5Z" fill="var(--icon-wash, transparent)" />
+      <path d="M12 5v16m-6-13 3 .5m-3 3 3 .5m6-4 3-.5m-3 4 3-.5" />
+    </g>
+  </symbol>
+  <symbol id="history" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M4 7a9 9 0 1 1-1 8" />
+      <path d="M3 3v5h5" />
+      <path d="M12 6v6l4 2" />
+      <circle cx="12" cy="12" r="1.2" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="undo" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="m8 3-5 5 5 5M3 8h10a6.5 6.5 0 1 1 0 13h-2" />
+      <path d="M13 18h-2" stroke-opacity=".4" />
+    </g>
+  </symbol>
+  <symbol id="copy" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="3" y="3" width="12" height="13" rx="2" fill="var(--icon-wash, transparent)" stroke-opacity=".6" />
+      <rect class="icon-copy-front" x="8" y="8" width="13" height="13" rx="2" fill="var(--icon-light, white)" />
+      <path d="M11.5 12.5h6m-6 4h4" stroke-opacity=".6" />
+    </g>
+  </symbol>
+  <symbol id="save" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z" fill="var(--icon-wash, transparent)" />
+      <path d="M7 3v6h9V3M7 21v-7h10v7" />
+      <path d="M13 5v2" stroke-width="2" />
+    </g>
+  </symbol>
+  <symbol id="download" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4" fill="var(--icon-wash, transparent)" />
+      <path d="M12 3v12m-5-5 5 5 5-5" />
+    </g>
+  </symbol>
+  <symbol id="upload" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4" fill="var(--icon-wash, transparent)" />
+      <path d="M12 16V4m-5 5 5-5 5 5" />
+    </g>
+  </symbol>
+  <symbol id="lock" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M7.5 10V6.5a4.5 4.5 0 0 1 9 0V10" />
+      <rect x="4" y="10" width="16" height="12" rx="3" fill="var(--icon-wash, transparent)" />
+      <circle cx="12" cy="15" r="1.3" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <path d="M12 16v2" />
+    </g>
+  </symbol>
+  <symbol id="calendar" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="3" y="4.5" width="18" height="17" rx="3" fill="var(--icon-wash, transparent)" />
+      <path d="M3 10h18M8 2.5v4m8-4v4" />
+      <rect x="7" y="13" width="3" height="3" rx=".5" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <path d="M14 14.5h3M8 18h3" stroke-opacity=".45" />
+    </g>
+  </symbol>
+  <symbol id="star" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="m12 2.5 3 6.2 6.8 1-4.9 4.8 1.2 6.8-6.1-3.2-6.1 3.2 1.2-6.8-4.9-4.8 6.8-1Z" fill="var(--icon-wash, transparent)" />
+      <path d="m12 6.5 1.2 2.5" stroke-opacity=".5" />
+    </g>
+  </symbol>
+  <symbol id="search" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <circle cx="10.5" cy="10.5" r="7" fill="var(--icon-wash, transparent)" />
+      <path d="m15.5 15.5 5 5" stroke-width="2.3" />
+      <path d="M7 10.5A3.5 3.5 0 0 1 10.5 7" stroke-opacity=".45" />
+    </g>
+  </symbol>
+  <symbol id="check-square" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="3" y="3" width="18" height="18" rx="4" fill="var(--icon-wash, transparent)" />
+      <path d="m7 12 3.3 3.3L17 8.5" stroke-width="1.9" />
+    </g>
+  </symbol>
+  <symbol id="square" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="3" y="3" width="18" height="18" rx="4" fill="var(--icon-wash, transparent)" />
+    </g>
+  </symbol>
+  <symbol id="refresh" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M20.5 4v6h-6m-11 10v-6h6M4 9a8.5 8.5 0 0 1 14-5l2.5 6M3.5 14 6 20a8.5 8.5 0 0 0 14-5" />
+    </g>
+  </symbol>
+  <symbol id="sync" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M7 3v17m-4-4 4 4 4-4M17 21V4m-4 4 4-4 4 4" />
+      <circle cx="7" cy="4" r="1" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="link" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="m9.5 14.5 5-5M8 16l-2 2a4 4 0 0 1-5.5-5.5l4-4a4 4 0 0 1 5.5 0m4-.5 2-2a4 4 0 0 1 5.5 5.5l-4 4a4 4 0 0 1-5.5 0" transform="translate(1 0)" />
+    </g>
+  </symbol>
+  <symbol id="leave" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h5Z" fill="var(--icon-wash, transparent)" />
+      <path d="m16 7 5 5-5 5M8 12h13" />
+    </g>
+  </symbol>
+  <symbol id="trash" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M5 7h14l-1 12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z" fill="var(--icon-wash, transparent)" />
+      <path d="M3 6h18M9 6V3h6v3M10 10v7m4-7v7" />
+    </g>
+  </symbol>
+  <symbol id="tag" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M3 3h7a2 2 0 0 1 1.4.6l9 9a1.5 1.5 0 0 1 0 2.1l-5.7 5.7a1.5 1.5 0 0 1-2.1 0l-9-9A2 2 0 0 1 3 10Z" fill="var(--icon-wash, transparent)" />
+      <circle cx="7.5" cy="7.5" r="1.5" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="arrow" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M4 12h15m-5-5 5 5-5 5" />
+    </g>
+  </symbol>
+  <symbol id="external" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M10 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-5" fill="var(--icon-wash, transparent)" />
+      <path d="M14 3h7v7m0-7L10 14" />
+    </g>
+  </symbol>
+  <symbol id="menu" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M4 6h16M4 12h12M4 18h16" stroke-width="1.9" />
+    </g>
+  </symbol>
+  <symbol id="gitee" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="2" y="2" width="20" height="20" rx="5" fill="#c71d23" stroke="none" />
+      <path d="M16.5 7.5h-7a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2V12h-5" stroke="white" stroke-width="2" />
+    </g>
+  </symbol>
+  <symbol id="github" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M32 12C20.954 12 12 20.954 12 32c0 8.837 5.731 16.322 13.686 18.97.5.09.682-.217.682-.483 0-.237-.009-.866-.013-1.7-5.57 1.21-6.745-2.685-6.745-2.685-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.091-.646.349-1.086.635-1.336-4.446-.505-9.118-2.223-9.118-9.893 0-2.185.78-3.97 2.058-5.37-.206-.505-.892-2.54.196-5.294 0 0 1.678-.538 5.497 2.05A19.152 19.152 0 0132 21.805c1.7.008 3.413.23 5.012.673 3.816-2.588 5.492-2.05 5.492-2.05 1.09 2.754.404 4.789.198 5.294 1.28 1.4 2.056 3.185 2.056 5.37 0 7.688-4.68 9.382-9.138 9.878.718.618 1.358 1.84 1.358 3.708 0 2.676-.025 4.833-.025 5.49 0 .268.18.58.688.482C46.275 48.316 52 40.833 52 32c0-11.046-8.954-20-20-20z" transform="translate(-4 -4) scale(.5)" fill="var(--icon-ink, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="eye" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" fill="var(--icon-wash, transparent)" />
+      <circle cx="12" cy="12" r="3.5" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <circle cx="13" cy="11" r="1" fill="var(--icon-light, white)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="language" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="2" y="3" width="12" height="12" rx="2" fill="var(--icon-wash, transparent)" />
+      <path d="M5 7h6M8 5v2m-2 0c0 3 2 5 5 6m-1-6c0 3-2 5-5 6M14 9h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-5m4 4 3-7 3 7m-5-2h4" />
+    </g>
+  </symbol>
+  <symbol id="flame" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M12 2c2 5 8 7 8 12a8 8 0 0 1-16 0c0-3 2-6 4-8 0 3 1 4 2 4 2-2 2-5 2-8Z" fill="var(--icon-wash, transparent)" />
+      <path d="M12 12c1 2 4 3 4 6a4 4 0 0 1-8 0c0-2 2-4 4-6Z" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="trophy" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M7 3h10v8a5 5 0 0 1-10 0Z" fill="var(--icon-wash, transparent)" />
+      <path d="M7 5H3v4a4 4 0 0 0 4 4m10-8h4v4a4 4 0 0 1-4 4m-5 3v5m-4 0h8" />
+      <path d="m12 5 1 2 2 .3-1.5 1.4.4 2-1.9-1-1.9 1 .4-2L9 7.3l2-.3Z" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="activity" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <rect x="2" y="3" width="20" height="18" rx="3" fill="var(--icon-wash, transparent)" />
+      <path d="M3 13h4l3-6 4 10 3-6h4" />
+    </g>
+  </symbol>
+  <symbol id="quote" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M3 5h7v8a5 5 0 0 1-5 5H4v-3h1a2 2 0 0 0 2-2H3Zm11 0h7v8a5 5 0 0 1-5 5h-1v-3h1a2 2 0 0 0 2-2h-4Z" fill="var(--icon-wash, transparent)" />
+    </g>
+  </symbol>
+  <symbol id="smile" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <circle cx="12" cy="12" r="9" fill="var(--icon-wash, transparent)" />
+      <path d="M7.5 14.5a5 5 0 0 0 9 0" />
+      <circle cx="8.5" cy="9" r="1" fill="var(--icon-solid, currentColor)" stroke="none" />
+      <circle cx="15.5" cy="9" r="1" fill="var(--icon-solid, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+  <symbol id="snake" viewBox="0 0 24 24">
+    <g stroke="var(--icon-ink, currentColor)">
+      <path d="M4 19h12a4 4 0 0 0 0-8H8a3 3 0 0 1 0-6h10" stroke-width="4" stroke="var(--icon-solid, currentColor)" />
+      <circle cx="18" cy="5" r="3" fill="var(--icon-wash, transparent)" />
+      <circle cx="19" cy="4.5" r=".7" fill="var(--icon-ink, currentColor)" stroke="none" />
+    </g>
+  </symbol>
+</svg>

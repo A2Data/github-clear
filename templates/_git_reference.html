@@ -1,0 +1,43 @@
+{% from "_icons.html" import icon %}
+{% macro code_block(item) -%}
+<div class="reference-code">
+    <pre><code>{{ item.code }}</code></pre>
+    <button type="button" class="copy-code" onclick="copyToClipboard(this.parentElement.querySelector('code').textContent)" aria-label="复制命令" title="复制命令">{{ icon('copy', 15) }}</button>
+</div>
+{% if item.note %}<p class="command-note">{{ item.note }}</p>{% endif %}
+{%- endmacro %}
+
+{% if section == 'commands' %}
+<div class="reference-heading"><div><h4>Git 命令参考</h4><p>按操作分类查找，或直接搜索命令与用途。</p></div><span id="command-count" class="reference-count" aria-live="polite">{{ command_count }} 条命令</span></div>
+<div class="command-toolbar">
+    <label class="search-field">{{ icon('search', 16) }}<input type="search" id="git-command-search" placeholder="搜索，例如：远程地址、合并、stash…" aria-label="搜索 Git 命令" oninput="filterGitCommands()"></label>
+    <select id="git-command-category" class="form-select" aria-label="Git 命令分类" onchange="filterGitCommands()"><option value="all">全部分类</option>{% for group in command_groups %}<option value="{{ group.id }}">{{ group.title }}</option>{% endfor %}</select>
+</div>
+<p class="reference-hint">示例中的 <code>OWNER/REPO</code>、<code>main</code>、<code>feature/login</code>、<code>COMMIT_SHA</code> 和文件路径需替换为实际值。</p>
+<div class="command-groups">
+    {% for group in command_groups %}
+    <section class="command-group" data-category="{{ group.id }}">
+        <h4>{{ icon(group.icon, 18) }}{{ group.title }}<span>{{ group.commands | length }}</span></h4>
+        <div class="command-items">
+            {% for item in group.commands %}
+            <article class="command-item" data-search="{{ group.title }} {{ item.title }} {{ item.code }} {{ item.note }}">
+                <h5>{{ item.title }}</h5>
+                {{ code_block(item) }}
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+</div>
+<div id="command-empty" class="empty-state" hidden><div class="icon">{{ icon('search', 24) }}</div><h3>没有匹配的命令</h3><p>试试其他关键词，或切换为“全部分类”。</p></div>
+{% else %}
+<div class="reference-heading"><div><h4>个人与工作账号分开配置</h4><p>先区分远程认证，再设置提交身份；已有配置可以从相应步骤继续。</p></div></div>
+<div class="account-steps">
+    {% for step in account_steps %}
+    <details class="account-step" {% if loop.first %}open{% endif %}>
+        <summary><span class="account-step-number">{{ '%02d' | format(loop.index) }}</span>{{ step.title }}</summary>
+        <div class="account-step-body"><p>{{ step.description }}</p>{% for item in step.blocks %}<h5>{{ item.title }}</h5>{{ code_block(item) }}{% endfor %}</div>
+    </details>
+    {% endfor %}
+</div>
+{% endif %}

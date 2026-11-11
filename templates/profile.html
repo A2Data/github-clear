@@ -1,30 +1,20 @@
 {% extends "base.html" %}
+{% from "_icons.html" import icon %}
 
 {% block title %}Profile - GitHub Clear{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="/static/css/profile.css?v=7">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+{% endblock %}
 {% block content %}
 <div class="page-header">
     <h1 class="page-title">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
-            <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/>
-            <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
-            <path d="M12 2v2"/><path d="M12 22v-2"/>
-            <path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/>
-            <path d="m20.66 17-1.73-1"/><path d="m3.34 7 1.73 1"/>
-            <path d="M14 12h8"/><path d="M2 12h2"/>
-        </svg>
         <span data-i18n="profile.title">Profile Beautifier</span>
     </h1>
-    <div style="display: flex; align-items: center; gap: 16px;">
+    <div class="page-subtitle-row">
         <p class="page-subtitle" data-i18n="profile.subtitle">Visually edit your GitHub Profile README</p>
-        <button type="button" class="btn-demo" onclick="loadDemoData()" title="Load demo data to see how it works">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14,2 14,8 20,8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <polyline points="10,9 9,9 8,9"/>
-            </svg>
+        <button type="button" class="btn-demo" onclick="loadDemoData()" title="Load demo data to see how it works">{{ icon("profile", 15) }}
             <span data-i18n="profile.load_demo">Demo</span>
         </button>
     </div>
@@ -33,7 +23,7 @@
 <div class="profile-container">
     <!-- 左侧配置 -->
     <div class="config-panel">
-        <form id="profile-form" onchange="generateProfile()">
+        <form id="profile-form" onchange="generateProfile()" oninput="generateProfile()">
             <!-- 基本信息 -->
             <div class="config-section">
                 <h3 class="section-title" data-i18n="profile.basic_info">Basic Info</h3>
@@ -74,11 +64,7 @@
 
             <!-- 统计卡片 -->
             <div class="config-section">
-                <h3 class="section-title">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;">
-                        <path d="M3 3v18h18"/>
-                        <path d="m19 9-5 5-4-4-3 3"/>
-                    </svg>
+                <h3 class="section-title">{{ icon("chart", 17) }}
                     <span data-i18n="profile.stats_cards">Stats Cards</span>
                 </h3>
 
@@ -119,55 +105,27 @@
                 <div class="checkbox-group cards-checkbox-group">
                     <label class="checkbox-item card-checkbox">
                         <input type="checkbox" name="show_stats" checked>
-                        <span class="card-checkbox-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 3v18h18"/>
-                                <path d="m19 9-5 5-4-4-3 3"/>
-                            </svg>
-                        </span>
+                        <span class="card-checkbox-icon">{{ icon("chart", 17) }}</span>
                         <span data-i18n="profile.show_stats">GitHub Stats</span>
                     </label>
                     <label class="checkbox-item card-checkbox">
                         <input type="checkbox" name="show_languages" checked>
-                        <span class="card-checkbox-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-                                <path d="M2 12h20"/>
-                            </svg>
-                        </span>
+                        <span class="card-checkbox-icon">{{ icon("language", 17) }}</span>
                         <span data-i18n="profile.show_languages">Top Languages</span>
                     </label>
                     <label class="checkbox-item card-checkbox">
                         <input type="checkbox" name="show_streak" checked>
-                        <span class="card-checkbox-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
-                            </svg>
-                        </span>
+                        <span class="card-checkbox-icon">{{ icon("flame", 17) }}</span>
                         <span data-i18n="profile.show_streak">Streak Stats</span>
                     </label>
                     <label class="checkbox-item card-checkbox">
                         <input type="checkbox" name="show_trophy">
-                        <span class="card-checkbox-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                                <path d="M4 22h16"/>
-                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-                            </svg>
-                        </span>
+                        <span class="card-checkbox-icon">{{ icon("trophy", 17) }}</span>
                         <span data-i18n="profile.show_trophy">Trophies</span>
                     </label>
                     <label class="checkbox-item card-checkbox">
                         <input type="checkbox" name="show_activity">
-                        <span class="card-checkbox-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                            </svg>
-                        </span>
+                        <span class="card-checkbox-icon">{{ icon("activity", 17) }}</span>
                         <span data-i18n="profile.show_activity">Activity Graph</span>
                     </label>
                 </div>
@@ -354,35 +312,17 @@
                 <div class="checkbox-group cards-checkbox-group" style="margin-top: 12px;">
                     <label class="checkbox-item card-checkbox">
                         <input type="checkbox" name="show_quote">
-                        <span class="card-checkbox-icon" style="background: rgba(251, 191, 36, 0.15); color: #fbbf24;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21c0 1 0 1 1 1z"/>
-                                <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
-                            </svg>
-                        </span>
+                        <span class="card-checkbox-icon">{{ icon("quote", 17) }}</span>
                         <span data-i18n="profile.random_quote">Random Quote</span>
                     </label>
                     <label class="checkbox-item card-checkbox">
                         <input type="checkbox" name="show_joke">
-                        <span class="card-checkbox-icon" style="background: rgba(34, 197, 94, 0.15); color: #22c55e;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                                <line x1="9" x2="9.01" y1="9" y2="9"/>
-                                <line x1="15" x2="15.01" y1="9" y2="9"/>
-                            </svg>
-                        </span>
+                        <span class="card-checkbox-icon">{{ icon("smile", 17) }}</span>
                         <span data-i18n="profile.dev_joke">Dev Joke</span>
                     </label>
                     <label class="checkbox-item card-checkbox">
                         <input type="checkbox" name="show_snake">
-                        <span class="card-checkbox-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M2 12c0 2.5 2 4 4 4h8c2 0 4-1.5 4-4s-2-4-4-4H6c-2 0-4 1.5-4 4z"/>
-                                <circle cx="7" cy="12" r="1" fill="currentColor"/>
-                                <path d="M18 8h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/>
-                            </svg>
-                        </span>
+                        <span class="card-checkbox-icon">{{ icon("snake", 17) }}</span>
                         <span data-i18n="profile.snake_anim">Snake Animation</span>
                     </label>
                 </div>
@@ -392,7 +332,7 @@
             <details class="config-section collapsible">
                 <summary data-i18n="profile.service_config">Service URL Config</summary>
                 <div class="details-content">
-                    <div class="alert-info" style="background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.3); border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 12px; color: #58a6ff;">
+                    <div class="alert-info" style="background: #f1f6fa; border: 1px solid #d5e2ec; border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 12px; color: var(--info);">
                         <strong data-i18n="profile.image_failed_tip">Image loading failed?</strong>
                         <br><span data-i18n="profile.image_tip_1">• Preview failure won't affect deployment - GitHub loads from server</span>
                         <br><span data-i18n="profile.image_tip_2">• Configure self-hosted mirror services in Settings</span>
@@ -439,7 +379,7 @@
     <!-- 右侧预览 -->
     <div class="preview-panel">
         <div class="preview-header">
-            <h3 data-i18n="profile.preview">Preview</h3>
+            <div class="preview-heading"><h3 data-i18n="profile.preview">Preview</h3><span id="preview-status" class="preview-status" role="status">实时预览</span></div>
             <div class="preview-tabs">
                 <button class="tab-btn active" data-tab="preview-render" data-i18n="profile.render">Render</button>
                 <button class="tab-btn" data-tab="preview-source">Markdown</button>
@@ -449,6 +389,7 @@
         <div id="preview-render" class="tab-content active">
             <div id="profile-preview" class="preview-content">
                 <div class="preview-placeholder">
+                    {{ icon("profile", 34) }}
                     <span data-i18n="profile.enter_username">Enter your GitHub username to see preview</span>
                 </div>
             </div>
@@ -459,16 +400,16 @@
         </div>
 
         <div class="preview-actions">
-            <button class="btn-action" onclick="copyToClipboard(window.profileContent || '')">
+            <button class="btn-action" onclick="copyToClipboard(window.profileContent || '')">{{ icon("copy", 14) }}
                 <span data-i18n="common.copy">Copy</span>
             </button>
-            <button class="btn-action" onclick="downloadProfile()">
+            <button class="btn-action" onclick="downloadProfile()">{{ icon("download", 14) }}
                 <span data-i18n="common.download">Download</span>
             </button>
-            <button class="btn-action" onclick="resetProfileConfig()" {% if not github_configured %}disabled{% endif %}>
+            <button class="btn-action" onclick="resetProfileConfig()" {% if not github_configured %}disabled{% endif %}>{{ icon("undo", 14) }}
                 <span data-i18n="profile.reset">Reset</span>
             </button>
-            <button class="btn-action primary" onclick="deployProfile()" {% if not github_configured %}disabled title="需要先配置 GitHub Token"{% endif %}>
+            <button class="btn-action primary" onclick="deployProfile()" {% if not github_configured %}disabled title="需要先配置 GitHub Token"{% endif %}>{{ icon("upload", 14) }}
                 <span data-i18n="profile.deploy">Deploy to GitHub</span>
             </button>
         </div>
@@ -480,779 +421,7 @@
     </div>
 </div>
 
-<style>
-/* Profile Generator 专用样式 */
-.profile-container {
-    display: grid;
-    grid-template-columns: 420px 1fr;
-    gap: 24px;
-    align-items: start;
-}
 
-/* 配置面板 */
-.config-panel {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 24px;
-    max-height: calc(100vh - 180px);
-    overflow-y: auto;
-}
-
-.config-section {
-    margin-bottom: 28px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.config-section:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-}
-
-.section-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.section-desc {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin: -8px 0 12px;
-}
-
-/* 表单字段 */
-.field {
-    margin-bottom: 14px;
-}
-
-.field label {
-    display: block;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-}
-
-.field label .required {
-    color: #f85149;
-}
-
-.field input,
-.field select,
-.field textarea {
-    width: 100%;
-    padding: 10px 12px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-primary);
-    font-size: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-}
-
-.field textarea {
-    resize: vertical;
-    min-height: 60px;
-}
-
-.field-hint {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin: 4px 0 0;
-}
-
-/* Radio & Checkbox */
-.radio-group,
-.checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.radio-item,
-.checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 12px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--text-secondary);
-    transition: all 0.2s;
-}
-
-.radio-item:hover,
-.checkbox-item:hover {
-    border-color: var(--accent-primary);
-}
-
-.radio-item:has(input:checked),
-.checkbox-item:has(input:checked) {
-    background: rgba(139, 92, 246, 0.1);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-}
-
-.radio-item input,
-.checkbox-item input {
-    width: 14px;
-    height: 14px;
-    accent-color: var(--accent-primary);
-}
-
-/* 卡片式复选框组 */
-.cards-checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 10px;
-}
-
-.card-checkbox {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 10px;
-    text-align: center;
-    border-radius: 10px;
-    min-height: 70px;
-    position: relative;
-}
-
-.card-checkbox input {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 16px;
-    height: 16px;
-}
-
-.card-checkbox-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background: rgba(139, 92, 246, 0.15);
-    border-radius: 10px;
-    margin-bottom: 8px;
-    color: var(--accent-primary);
-    transition: all 0.2s;
-}
-
-.card-checkbox:hover .card-checkbox-icon {
-    background: rgba(139, 92, 246, 0.25);
-    transform: scale(1.05);
-}
-
-.card-checkbox:has(input:checked) .card-checkbox-icon {
-    background: var(--accent-primary);
-    color: white;
-}
-
-.card-checkbox span[data-i18n] {
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.3;
-}
-
-/* 自定义颜色的卡片选中时保持背景色但变亮 */
-.card-checkbox:has(input:checked) .card-checkbox-icon[style*="rgba(251, 191, 36"] {
-    background: #fbbf24 !important;
-    color: white !important;
-}
-
-.card-checkbox:has(input:checked) .card-checkbox-icon[style*="rgba(34, 197, 94"] {
-    background: #22c55e !important;
-    color: white !important;
-}
-
-.card-checkbox:has(input:checked) .card-checkbox-icon[style*="rgba(59, 130, 246"] {
-    background: #3b82f6 !important;
-    color: white !important;
-}
-
-/* 技能标签网格 */
-.skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.skill-tag {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    color: var(--text-muted);
-    transition: all 0.15s;
-}
-
-.skill-tag:hover {
-    border-color: var(--text-muted);
-}
-
-.skill-tag:has(input:checked) {
-    background: var(--accent-primary);
-    border-color: var(--accent-primary);
-    color: white;
-}
-
-.skill-tag input {
-    display: none;
-}
-
-/* 自定义技能项 */
-.custom-skill-item {
-    display: grid;
-    grid-template-columns: 1fr 100px 1fr auto;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.custom-skill-item input {
-    padding: 8px 12px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-primary);
-    font-size: 13px;
-}
-
-.custom-skill-item input::placeholder {
-    color: var(--text-muted);
-}
-
-.custom-skill-item .btn-remove {
-    padding: 6px 10px;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.custom-skill-item .btn-remove:hover {
-    border-color: #f85149;
-    color: #f85149;
-}
-
-/* 社交链接网格 */
-.social-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.social-grid .field {
-    margin-bottom: 0;
-}
-
-/* 自定义社交链接项 */
-.custom-social-item {
-    display: grid;
-    grid-template-columns: 100px 1fr auto;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.custom-social-item input {
-    padding: 8px 12px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-primary);
-    font-size: 13px;
-}
-
-.custom-social-item .btn-remove {
-    padding: 6px 10px;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.custom-social-item .btn-remove:hover {
-    border-color: #f85149;
-    color: #f85149;
-}
-
-/* 项目组件项 */
-.component-item {
-    display: grid;
-    grid-template-columns: 100px 140px 80px 60px 1fr auto;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-@media (max-width: 768px) {
-    .component-item {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-    }
-    .component-item .component-desc {
-        grid-column: 1 / -2;
-    }
-    .component-item .btn-remove {
-        grid-column: -1;
-    }
-}
-
-.component-item input,
-.component-item select {
-    padding: 8px 12px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-primary);
-    font-size: 13px;
-}
-
-.component-item select {
-    cursor: pointer;
-}
-
-.component-item .btn-remove {
-    padding: 6px 10px;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.component-item .btn-remove:hover {
-    border-color: #f85149;
-    color: #f85149;
-}
-
-/* 添加按钮 */
-.btn-add {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    background: transparent;
-    border: 1px dashed var(--border-color);
-    border-radius: 6px;
-    color: var(--text-muted);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 8px;
-}
-
-.btn-add:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-}
-
-/* 折叠面板 */
-.collapsible {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 0;
-    margin-bottom: 0;
-}
-
-.collapsible summary {
-    padding: 12px 16px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    list-style: none;
-}
-
-.collapsible summary::-webkit-details-marker {
-    display: none;
-}
-
-.collapsible[open] summary {
-    border-bottom: 1px solid var(--border-color);
-}
-
-.details-content {
-    padding: 16px;
-}
-
-.btn-save {
-    padding: 8px 16px;
-    background: var(--accent-primary);
-    border: none;
-    border-radius: 6px;
-    color: white;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.btn-test {
-    padding: 8px 16px;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-secondary);
-    font-size: 13px;
-    cursor: pointer;
-}
-
-.btn-test:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-}
-
-/* 预览面板 */
-.preview-panel {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 180px);
-    min-height: 600px;
-}
-
-.preview-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.preview-header h3 {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.preview-tabs {
-    display: flex;
-    gap: 4px;
-    background: var(--bg-primary);
-    padding: 4px;
-    border-radius: 8px;
-}
-
-.preview-tabs .tab-btn {
-    padding: 6px 14px;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.preview-tabs .tab-btn.active {
-    background: var(--bg-card);
-    color: var(--text-primary);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-.tab-content {
-    display: none;
-    flex: 1;
-    overflow: hidden;
-}
-
-.tab-content.active {
-    display: flex;
-    flex-direction: column;
-}
-
-.preview-content {
-    flex: 1;
-    padding: 24px;
-    overflow-y: auto;
-    background: #0d1117;
-    color: #c9d1d9;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-}
-
-.preview-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: #6e7681;
-    font-size: 14px;
-}
-
-.source-code {
-    flex: 1;
-    margin: 0;
-    padding: 20px;
-    background: #161b22;
-    overflow: auto;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-.source-code code {
-    color: #c9d1d9;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    white-space: pre-wrap;
-    word-break: break-all;
-}
-
-/* 预览内容样式 */
-.preview-content h1,
-.preview-content h2,
-.preview-content h3 {
-    color: #e6edf3;
-    margin: 24px 0 16px;
-    font-weight: 600;
-}
-
-.preview-content h1 { font-size: 2em; border-bottom: 1px solid #21262d; padding-bottom: 0.3em; }
-.preview-content h2 { font-size: 1.5em; border-bottom: 1px solid #21262d; padding-bottom: 0.3em; }
-.preview-content h3 { font-size: 1.25em; }
-
-.preview-content p { margin: 0 0 16px; }
-.preview-content a { color: #58a6ff; text-decoration: none; }
-.preview-content hr { border: none; border-top: 1px solid #30363d; margin: 24px 0; }
-.preview-content img { max-width: 100%; border-radius: 6px; }
-.preview-content ul, .preview-content ol { padding-left: 2em; margin: 16px 0; }
-.preview-content li { margin: 4px 0; }
-
-.preview-content [align="center"] { text-align: center; }
-.preview-content div[align="center"] { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-
-/* 操作按钮 */
-.preview-actions {
-    display: flex;
-    gap: 8px;
-    padding: 16px 20px;
-    border-top: 1px solid var(--border-color);
-}
-
-.btn-action {
-    flex: 1;
-    padding: 10px 16px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-primary);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.btn-action:hover:not(:disabled) {
-    border-color: var(--accent-primary);
-    background: rgba(139, 92, 246, 0.05);
-}
-
-.btn-action.primary {
-    background: var(--accent-primary);
-    border-color: var(--accent-primary);
-    color: white;
-}
-
-.btn-action.primary:hover:not(:disabled) {
-    background: #7c3aed;
-}
-
-.btn-action:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* 介绍项样式 */
-.intro-item {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.intro-item select {
-    width: 56px;
-    padding: 8px;
-    text-align: center;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-.intro-item input {
-    flex: 1;
-    padding: 8px 12px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-primary);
-    font-size: 13px;
-}
-
-.intro-item .btn-remove {
-    padding: 6px 10px;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.intro-item .btn-remove:hover {
-    border-color: #f85149;
-    color: #f85149;
-}
-
-/* 预设社交链接按钮 */
-.preset-btn {
-    padding: 6px 12px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-
-.preset-btn:hover {
-    border-color: var(--accent-primary);
-    background: rgba(139, 92, 246, 0.05);
-    transform: translateY(-1px);
-}
-
-/* Demo 按钮 */
-.btn-demo {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 14px;
-    background: linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%);
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-}
-
-.btn-demo:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-}
-
-/* 服务不可用提示 */
-.preview-content .service-unavailable {
-    padding: 20px;
-    background: rgba(210, 153, 34, 0.1);
-    border: 1px solid rgba(210, 153, 34, 0.3);
-    border-radius: 8px;
-    text-align: center;
-    color: #e3b341;
-    margin: 12px 0;
-    font-size: 13px;
-}
-
-/* 图片加载动画 */
-.preview-content img.img-loading {
-    min-height: 120px;
-    background: linear-gradient(90deg, #161b22 25%, #21262d 50%, #161b22 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-/* 图片加载失败占位符 */
-.img-error-placeholder {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 40px;
-    background: linear-gradient(135deg, #1a1b27 0%, #21262d 100%);
-    border: 1px dashed #30363d;
-    border-radius: 8px;
-    margin: 8px 4px;
-    min-width: 200px;
-}
-
-.img-error-placeholder .error-icon {
-    font-size: 32px;
-    margin-bottom: 8px;
-    opacity: 0.6;
-}
-
-.img-error-placeholder .error-text {
-    font-size: 14px;
-    font-weight: 500;
-    color: #8b949e;
-    margin-bottom: 4px;
-}
-
-.img-error-placeholder .error-hint {
-    font-size: 11px;
-    color: #6e7681;
-    text-align: center;
-    max-width: 180px;
-}
-
-/* 响应式 */
-@media (max-width: 1024px) {
-    .profile-container {
-        grid-template-columns: 1fr;
-    }
-
-    .config-panel,
-    .preview-panel {
-        max-height: none;
-        height: auto;
-    }
-
-    .preview-panel {
-        min-height: 500px;
-    }
-}
-</style>
 {% endblock %}
 
 {% block scripts %}

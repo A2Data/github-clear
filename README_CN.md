@@ -125,6 +125,8 @@ GITHUB_TOKEN=your_github_token_here
 GITEE_TOKEN=your_gitee_token_here  # 可选
 ```
 
+Token 优先读取进程环境变量（支持 Docker `-e`），其次读取 `.env`。设置页保存后立即生效并写入 `.env`；重启后若仍传入环境变量，则环境变量继续优先。
+
 **获取 Token:**
 - GitHub: https://github.com/settings/tokens
   - 需要权限: `repo`, `delete_repo`, `user`

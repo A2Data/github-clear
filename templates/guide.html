@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% block title %}使用指南 - GitHub Clear{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title" data-i18n="nav.guide">使用指南</h1>
+    <p class="page-subtitle">从连接账户到整理仓库，按需要查阅下面的说明。</p>
+</div>
+<div class="guide-layout">
+    <nav class="guide-nav" aria-label="指南目录">
+        <span class="nav-section-label">目录</span>
+        <a href="#guide-accounts">{{ icon('key', 16) }}连接账户</a>
+        <a href="#guide-repos">{{ icon('repo', 16) }}管理仓库</a>
+        <a href="#guide-profile">{{ icon('profile', 16) }}编辑个人主页</a>
+        <a href="#guide-services">{{ icon('settings', 16) }}统计卡片服务</a>
+        <a href="#guide-git">{{ icon('code', 16) }}Git 命令与多账号</a>
+        <a href="#guide-deployment">{{ icon('remote', 16) }}本地运行与部署</a>
+    </nav>
+    <div class="guide-content">
+        <section class="guide-section" id="guide-accounts">
+            <div class="guide-section-heading">{{ icon('key', 20) }}<h2>连接 GitHub / Gitee 账户</h2></div>
+            <p>进入设置页，在对应平台下填写访问 Token。可以先点击“测试连接”确认账号，再点击“保存 Token”。</p>
+            <ol>
+                <li>在平台的个人设置中创建访问 Token。</li>
+                <li>按照使用需求配置仓库权限。使用 GitHub classic Token 删除仓库时，还需要 <code>delete_repo</code> 权限。</li>
+                <li>回到 GitHub Clear 的设置页，选择对应平台并保存。</li>
+            </ol>
+            <p>GitHub 与 Gitee 可以独立使用；只配置一个平台也可以开始管理仓库。</p>
+            <a href="/settings#account-settings" class="inline-link">配置账户 {{ icon('arrow', 14) }}</a>
+        </section>
+        <section class="guide-section" id="guide-repos">
+            <div class="guide-section-heading">{{ icon('repo', 20) }}<h2>搜索、选择与批量操作</h2></div>
+            <p>在仓库管理页选择 GitHub、协作仓库或 Gitee。通过名称与描述搜索，或按可见性、更新时间和 Fork 状态筛选。</p>
+            <dl class="guide-definitions">
+                <dt>全选</dt><dd>只选择当前搜索结果。切换平台时，各平台的选择相互独立。</dd>
+                <dt>归档</dt><dd>将选中的 GitHub 仓库设为只读，适合保留已经完成的项目。</dd>
+                <dt>删除</dt><dd>确认对话框会列出即将删除的仓库，请核对名单后再确认。</dd>
+                <dt>退出协作</dt><dd>移除自己对协作仓库的访问权限；退出后可能无法继续访问私有仓库。</dd>
+                <dt>部分失败</dt><dd>操作结果会显示成功数量与失败原因，仍存在于列表中的失败项保留选中，方便重试。</dd>
+            </dl>
+            <a href="/repositories" class="inline-link">打开仓库管理 {{ icon('arrow', 14) }}</a>
+        </section>
+        <section class="guide-section" id="guide-profile">
+            <div class="guide-section-heading">{{ icon('profile', 20) }}<h2>编辑与发布个人主页</h2></div>
+            <p>输入 GitHub 用户名后，可以添加介绍、技能、社交链接和项目组件。右侧支持预览渲染结果和查看 Markdown 源码。</p>
+            <ol><li>填写基本信息，按需要选择统计卡片和技能。</li><li>在预览区核对内容，使用复制或下载保存 README。</li><li>点击“部署到 GitHub”，将内容写入当前 Token 对应账号的同名 Profile 仓库。</li></ol>
+            <p>“恢复默认”会删除该账号自定义的 Profile README；它不是单纯清空本地表单。</p>
+            <a href="/profile" class="inline-link">打开主页编辑器 {{ icon('arrow', 14) }}</a>
+        </section>
+        <section class="guide-section" id="guide-services">
+            <div class="guide-section-heading">{{ icon('settings', 20) }}<h2>设置统计卡片服务</h2></div>
+            <p>GitHub Stats、Streak 和 Trophies 图片由相应的第三方服务生成。可以在“设置 → 统计服务”填写自己的服务 URL，留空则使用默认值。</p>
+            <p>如果图片未加载，先检查网络、服务地址与服务自身状态。自部署说明分别放在 Docker 与 Vercel 标签页中。</p>
+            <a href="/settings#stats-settings" class="inline-link">配置统计服务 {{ icon('arrow', 14) }}</a>
+        </section>
+        <section class="guide-section" id="guide-git">
+            <div class="guide-section-heading">{{ icon('code', 20) }}<h2>Git 命令与多账号配置</h2></div>
+            <p>Git 工具箱提供按类别搜索的命令参考，涵盖本地仓库、远程地址、分支、合并、变基、暂存、回退和标签。每条命令都可以独立复制。</p>
+            <p>多账号配置包含独立密钥、SSH Host 别名、远程地址切换和按目录设置提交身份。运行前请把示例仓库名、邮箱与路径换成自己的值。</p>
+            <a href="/settings#git-tools" class="inline-link">查看 Git 工具箱 {{ icon('arrow', 14) }}</a>
+        </section>
+        <section class="guide-section" id="guide-deployment">
+            <div class="guide-section-heading">{{ icon('remote', 20) }}<h2>本地运行与部署</h2></div>
+            <p>在项目目录安装依赖后，可以使用以下命令启动应用。</p>
+            <div class="reference-code"><pre><code>uv sync
+uv run uvicorn main:app --reload --port 8000</code></pre><button class="copy-code" type="button" onclick="copyToClipboard(this.parentElement.querySelector('code').textContent)" aria-label="复制启动命令">{{ icon('copy', 15) }}</button></div>
+            <p>在浏览器访问 <code>http://localhost:8000</code>。Token 可以通过设置页、项目的 <code>.env</code> 文件或进程环境变量提供。</p>
+            <div class="guide-download"><div>{{ icon('book', 20) }}<span>Docker 部署参考文档</span></div><a href="/DOCKER_DEPLOYMENT.md" class="btn btn-secondary btn-sm">{{ icon('download', 14) }}下载 Markdown</a></div>
+        </section>
+    </div>
+</div>
+{% endblock %}

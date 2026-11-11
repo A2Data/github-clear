@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-38 -44 345 278" fill="none">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="9" flood-color="#25243b" flood-opacity=".045" />
+    </filter>
+    <filter id="float" x="-40%" y="-40%" width="180%" height="200%">
+      <feDropShadow dx="0" dy="16" stdDeviation="13" flood-color="#131422" flood-opacity=".24" />
+    </filter>
+    <filter id="small-shadow" x="-30%" y="-30%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#716393" flood-opacity=".12" />
+    </filter>
+    <linearGradient id="folder-front" x1="0" y1="0" x2="0.9" y2="1">
+      <stop stop-color="#e9e3ff" />
+      <stop offset=".5" stop-color="#bcb1ed" />
+      <stop offset="1" stop-color="#8d80bf" />
+    </linearGradient>
+    <linearGradient id="folder-side" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#8c7fc6" />
+      <stop offset="1" stop-color="#524776" />
+    </linearGradient>
+    <linearGradient id="sheet" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffffff" />
+      <stop offset="1" stop-color="#d9d7ed" />
+    </linearGradient>
+    <linearGradient id="folder-rim" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#f7f4ff" />
+      <stop offset="1" stop-color="#b8ace9" />
+    </linearGradient>
+  </defs>
+  <ellipse cx="145" cy="182" rx="126" ry="14" fill="#171820" opacity=".42" />
+  <g transform="translate(28 -24) rotate(-10 110 90)">
+    <rect x="39" y="7" width="161" height="127" rx="10" fill="#8175a6" />
+    <rect x="35" y="0" width="161" height="127" rx="10" fill="url(#sheet)" />
+    <path d="M58 28h88m-88 16h108m-108 16h69" stroke="#bfc1d5" stroke-width="5" stroke-linecap="round" />
+  </g>
+  <g transform="translate(5 8) rotate(4 114 88)" filter="url(#float)">
+    <path d="M14 37h69l20-20h117c9 0 14 5 14 14v132c0 9-5 14-14 14H14c-9 0-14-5-14-14V51c0-9 5-14 14-14Z" fill="url(#folder-side)" />
+    <path d="M3 31h69l20-20h117c9 0 14 5 14 14v132c0 9-5 14-14 14H3c-9 0-14-5-14-14V45c0-9 5-14 14-14Z" fill="url(#folder-front)" />
+    <path d="M-10 47c0-9 5-14 14-14h69l20-20h114c8 0 13 5 13 13" fill="none" stroke="url(#folder-rim)" stroke-width="2.2" />
+    <path d="M77 67v52m0-29h44V67" fill="none" stroke="#f7f4ff" stroke-width="5" stroke-linecap="round" />
+    <circle cx="77" cy="65" r="8" fill="#eeebfb" />
+    <circle cx="121" cy="65" r="8" fill="#eeebfb" />
+    <circle cx="77" cy="120" r="8" fill="#eeebfb" />
+    <path d="M155 137h36" stroke="#786aab" stroke-width="4" stroke-linecap="round" opacity=".5" />
+  </g>
+  <g transform="translate(207 103) rotate(12)" filter="url(#small-shadow)">
+    <rect width="46" height="46" rx="12" fill="#f1eff9" />
+    <path d="m13 23 7 7 14-15" fill="none" stroke="#7d6b9d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>

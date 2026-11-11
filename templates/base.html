@@ -1,218 +1,116 @@
+{% from "_icons.html" import icon %}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f6f7f8">
     <title>{% block title %}GitHub Clear{% endblock %}</title>
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css?v=8">
     {% block head %}{% endblock %}
+    <link rel="stylesheet" href="/static/css/motion.css?v=8">
+    <link rel="stylesheet" href="/static/css/icons.css?v=8">
 </head>
-<body>
+<body class="page-{{ request.url.path.strip('/') or 'home' }}">
+    <a class="skip-link" href="#main-content" data-i18n="nav.skip">跳转到主要内容</a>
+    {% set navigation = [('/', 'home', 'nav.home'), ('/dashboard', 'chart', 'nav.dashboard'), ('/repositories', 'repo', 'nav.repos'), ('/profile', 'profile', 'nav.profile'), ('/settings?tool=commands#git-tools', 'code', 'nav.tools'), ('/settings', 'settings', 'nav.settings')] %}
+    {% set tools_active = request.url.path == "/settings" and (request.query_params.get("tool") or request.query_params.get("command")) %}
     <div class="app-container">
-        <!-- 侧边栏 -->
-        <aside class="sidebar">
-            <a href="https://github.com/A2Data/github-clear" target="_blank" class="sidebar-header" title="View on GitHub">
-                <div class="sidebar-logo">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button class="nav-scrim" id="nav-scrim" type="button" aria-label="关闭导航" data-i18n-aria="nav.close_menu" tabindex="-1"></button>
+        <aside class="sidebar" id="sidebar">
+            <a href="/" class="sidebar-header" aria-label="GitHub Clear">
+                <span class="sidebar-logo"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
                         <path d="M9 18c-4.51 2-5-2-7-2"/>
-                    </svg>
-                </div>
-                <div class="sidebar-title">GitHub Clear</div>
+                    </svg></span>
+                <div><div class="sidebar-title">GitHub Clear</div><span class="sidebar-caption">Repository manager</span></div>
             </a>
-
-            <nav class="sidebar-nav">
-                <a href="/" class="nav-item {% if request.url.path == '/' %}active{% endif %}">
-                    <span class="nav-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                            <polyline points="9 22 9 12 15 12 15 22"/>
-                        </svg>
-                    </span>
-                    <span data-i18n="nav.home">Home</span>
+            <div class="nav-section-label" data-i18n="nav.workspace">工作空间</div>
+            <nav class="sidebar-nav" aria-label="主导航">
+                {% for url, symbol, label in navigation %}
+                <a href="{{ url }}" class="nav-item {% if (request.url.path == url and not (url == "/settings" and tools_active)) or (label == "nav.tools" and tools_active) %}active{% endif %}" {% if (request.url.path == url and not (url == "/settings" and tools_active)) or (label == "nav.tools" and tools_active) %}aria-current="page"{% endif %}>
+                    <span class="nav-icon">{{ icon(symbol) }}</span><span data-i18n="{{ label }}">{{ label }}</span>
                 </a>
-                <a href="/dashboard" class="nav-item {% if request.url.path == '/dashboard' %}active{% endif %}">
-                    <span class="nav-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect width="7" height="9" x="3" y="3" rx="1"/>
-                            <rect width="7" height="5" x="14" y="3" rx="1"/>
-                            <rect width="7" height="9" x="14" y="12" rx="1"/>
-                            <rect width="7" height="5" x="3" y="16" rx="1"/>
-                        </svg>
-                    </span>
-                    <span data-i18n="nav.dashboard">Dashboard</span>
-                </a>
-                <a href="/repositories" class="nav-item {% if request.url.path == '/repositories' %}active{% endif %}">
-                    <span class="nav-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
-                            <path d="M9 18c-4.51 2-5-2-7-2"/>
-                        </svg>
-                    </span>
-                    <span data-i18n="nav.repos">Repositories</span>
-                </a>
-                <a href="/profile" class="nav-item {% if request.url.path == '/profile' %}active{% endif %}">
-                    <span class="nav-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/>
-                            <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
-                            <path d="M12 2v2"/>
-                            <path d="M12 22v-2"/>
-                            <path d="m17 20.66-1-1.73"/>
-                            <path d="M11 10.27 7 3.34"/>
-                            <path d="m20.66 17-1.73-1"/>
-                            <path d="m3.34 7 1.73 1"/>
-                            <path d="M14 12h8"/>
-                            <path d="M2 12h2"/>
-                            <path d="m20.66 7-1.73 1"/>
-                            <path d="m3.34 17 1.73-1"/>
-                            <path d="m17 3.34-1 1.73"/>
-                            <path d="m11 13.73-4 6.93"/>
-                        </svg>
-                    </span>
-                    <span data-i18n="nav.profile">Profile</span>
-                </a>
-                <a href="/settings" class="nav-item {% if request.url.path == '/settings' %}active{% endif %}">
-                    <span class="nav-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                    </span>
-                    <span data-i18n="nav.settings">Settings</span>
-                </a>
+                {% endfor %}
             </nav>
-
-            <!-- 语言切换 -->
-            <div class="language-switcher">
-                <button class="lang-btn" data-lang="zh" title="中文">中</button>
-                <button class="lang-btn" data-lang="en" title="English">EN</button>
-            </div>
-
-            <div class="sidebar-footer">
-                <a href="https://github.com/A2Data/github-clear" target="_blank" class="github-star-link" title="Star on GitHub">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                    </svg>
-                    <span data-i18n="footer.star_project">Star</span>
-                </a>
-                <span class="footer-divider">·</span>
-                <span data-i18n="footer.made_with">Made with</span> ❤️
+            <div class="sidebar-quick-links"><a href="/guide">{{ icon('book', 18) }}<span data-i18n="nav.guide">使用指南</span></a><a href="https://github.com/A2Data/github-clear" target="_blank" rel="noopener noreferrer">{{ icon('github', 18) }}<span data-i18n="workspace.source">项目源码</span></a></div>
+            <div class="sidebar-bottom">
+                <div class="sidebar-accounts">
+                    {% for name, configured in [('GitHub', github_configured), ('Gitee', gitee_configured)] %}
+                    <div class="sidebar-account"><span class="status-dot {% if configured %}ready{% endif %}"></span><span>{{ name }}</span><span class="account-status" data-i18n="home.{{ 'connected' if configured else 'not_connected' }}">{{ '已配置' if configured else '未配置' }}</span></div>
+                    {% endfor %}
+                </div>
+                <div class="sidebar-footer">
+                    <a href="https://github.com/A2Data/github-clear" target="_blank" rel="noopener noreferrer" class="source-link">{{ icon('code', 14) }}<span>GitHub</span></a>
+                    <div class="language-switcher" aria-label="Language">
+                        <button class="lang-btn" data-lang="zh" title="中文" aria-pressed="true">中</button>
+                        <button class="lang-btn" data-lang="en" title="English" aria-pressed="false">EN</button>
+                    </div>
+                </div>
             </div>
         </aside>
-
-        <!-- 主内容 -->
-        <main class="main-content">
-            {% block content %}{% endblock %}
-        </main>
+        <div class="workspace">
+            <header class="workspace-header">
+                <div class="breadcrumb">
+                    <button class="mobile-menu" id="mobile-menu" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="打开导航" data-i18n-aria="nav.open_menu">{{ icon('menu', 20) }}</button>
+                    <span class="breadcrumb-brand">GitHub Clear</span><span class="breadcrumb-divider">/</span>
+                    {% for url, symbol, label in navigation %}{% if (request.url.path == url and not (url == "/settings" and tools_active)) or (label == "nav.tools" and tools_active) %}<span class="breadcrumb-current" data-i18n="{{ label }}">{{ label }}</span>{% endif %}{% endfor %}
+                    {% if request.url.path == "/guide" %}<span class="breadcrumb-current" data-i18n="nav.guide">使用指南</span>{% endif %}
+                </div>
+                <a class="header-link" href="/guide">{{ icon('book', 14) }} <span data-i18n="nav.guide">使用指南</span></a>
+            </header>
+            <main class="main-content" id="main-content" tabindex="-1">{% block content %}{% endblock %}</main>
+        </div>
     </div>
-
-    <!-- Toast 容器 -->
     <div id="toast-container" class="toast-container"></div>
-
-    <!-- 全局 Loading 遮罩 -->
-    <div id="page-loading" class="page-loading">
-        <div class="loading-spinner"></div>
-    </div>
-
-    <style>
-    .page-loading {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(13, 17, 23, 0.7);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-    }
-    .page-loading.active {
-        display: flex;
-    }
-    .loading-spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid var(--border-color);
-        border-top-color: var(--accent-primary);
-        border-radius: 50%;
-        animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-
-    /* 导航图标样式 */
-    .nav-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        color: currentColor;
-    }
-    .nav-icon svg {
-        flex-shrink: 0;
-    }
-    .nav-item.active .nav-icon {
-        color: var(--accent-primary);
-    }
-
-    /* 语言切换器 */
-    .language-switcher {
-        display: flex;
-        gap: 8px;
-        padding: 12px 16px;
-        margin-top: auto;
-        border-top: 1px solid var(--border-color);
-    }
-    .lang-btn {
-        flex: 1;
-        padding: 8px 12px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        color: var(--text-secondary);
-        font-size: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-    .lang-btn:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: var(--text-primary);
-    }
-    .lang-btn.active {
-        background: var(--accent-primary);
-        border-color: var(--accent-primary);
-        color: white;
-    }
-
-    /* Logo 样式调整 */
-    .sidebar-logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: linear-gradient(135deg, #8B5CF6, #6366F1);
-        border-radius: 10px;
-        color: white;
-    }
-    </style>
-
+    <div id="page-loading" class="page-loading" role="status" aria-label="加载中"><div class="loading-spinner"></div></div>
     <script>
     // 国际化翻译
     const i18n = {
         zh: {
+            "nav.tools": "Git 工具箱",
+            "workspace.subtitle": "项目、主页和开发工具，都在这里。",
+            "workspace.overview": "仓库概览",
+            "workspace.repositories": "个仓库",
+            "workspace.focus": "把时间留给正在做的项目。",
+            "workspace.open_repos": "打开仓库",
+            "workspace.collaborations": "查看协作仓库",
+            "workspace.profile": "我的主页",
+            "workspace.profile_note": "用一个 README，介绍你正在创造的东西。",
+            "workspace.edit_profile": "编辑我的主页",
+            "workspace.profile_intro": "记录创造，分享热爱。",
+            "workspace.live_preview": "实时预览",
+            "workspace.tools": "开发者工具",
+            "workspace.everyday": "日常开发",
+            "workspace.search_commands": "查找 Git 命令，例如 merge、remote…",
+            "workspace.git_reference": "Git 速查",
+            "workspace.commands": "条命令",
+            "workspace.ssh": "SSH 密钥",
+            "workspace.view_manage": "查看与管理",
+            "workspace.setup_guide": "完整配置指南",
+            "workspace.source": "项目源码",
+            'nav.workspace': '工作空间',
+            'nav.guide': '使用指南',
+            'nav.open_menu': '打开导航',
+            'nav.close_menu': '关闭导航',
+            'nav.skip': '跳转到主要内容',
+            'home.shortcuts': '常用功能',
+            'home.accounts': '账户',
+            'home.connected': '已配置',
+            'home.not_connected': '未配置',
+            'home.configure_accounts': '管理账户设置',
+            'home.account_note': '配置 GitHub 或 Gitee Token 后，即可查看和管理对应平台的仓库。',
+            'home.github_desc': '代码仓库与个人主页',
+            'home.gitee_desc': '代码仓库',
+            'home.start_here': '开始使用',
+            'settings.accounts': '账户连接',
+            'settings.service_hint': '设置 README 统计卡片使用的服务地址，或查看自部署说明。',
+            'settings.services': '统计服务',
+            'settings.tools': 'Git 工具',
+            'settings.token_help': '如何获取和配置 Token',
             // 导航
-            'nav.home': '首页',
+            'nav.home': '工作台',
             'nav.dashboard': '仪表板',
             'nav.repos': '仓库管理',
             'nav.profile': '主页美化',
@@ -242,17 +140,17 @@
             'common.deploy': '部署',
 
             // 首页
-            'home.title': 'GitHub/Gitee 仓库管理器',
-            'home.subtitle': '一站式管理你的代码仓库和个人主页，让开发更高效',
+            'home.title': '仓库与主页，集中管理。',
+            'home.subtitle': '整理 GitHub 和 Gitee 仓库，编辑个人主页，专注于你正在做的项目。',
             'home.badge': '✨ 开源项目管理工具',
-            'home.go_dashboard': '进入仪表板',
-            'home.manage_repos': '管理仓库',
+            'home.go_dashboard': '查看账户概览',
+            'home.manage_repos': '查看仓库',
             'home.feature_repos': '仓库管理',
-            'home.feature_repos_desc': '列表、搜索、筛选、批量删除和归档',
-            'home.feature_profile': '主页美化',
-            'home.feature_profile_desc': '多种模板和主题生成 README',
+            'home.feature_repos_desc': '查找项目，批量归档或清理不再使用的仓库。',
+            'home.feature_profile': '主页编辑',
+            'home.feature_profile_desc': '编辑个人介绍、技能和统计卡片，预览并发布 README。',
             'home.feature_tools': 'Git 工具箱',
-            'home.feature_tools_desc': 'SSH Key 管理和常用命令速查',
+            'home.feature_tools_desc': '查看 SSH 公钥，查阅 Git 命令，管理服务配置。',
             'home.config_status': '配置状态',
             'home.status_ready': '● 已就绪',
             'home.status_pending': '● 待配置',
@@ -269,7 +167,7 @@
             'home.step3_title': '管理仓库',
             'home.step3_desc': '使用仓库管理批量清理不需要的仓库',
             'home.step4_title': '美化主页',
-            'home.step4_desc': '通过主页美化生成精美的 Profile README',
+            'home.step4_desc': '编辑并预览你的个人主页 README',
 
             // 仪表板
             'dashboard.title': '仪表板',
@@ -311,7 +209,7 @@
             'repos.collab_info': '这些是你作为协作者参与的仓库（非所有者），你可以选择退出协作',
 
             // 主页美化
-            'profile.title': '主页美化',
+            'profile.title': '主页编辑',
             'profile.subtitle': '可视化编辑你的 GitHub Profile README',
             'profile.basic_info': '基本信息',
             'profile.username': '用户名',
@@ -365,12 +263,12 @@
             'profile.social_label_placeholder': '标签名',
             'profile.intro_placeholder': '例如: Currently learning Rust',
             'profile.header_style': '头部样式',
-            'profile.fun_zone': '🧩 趣味区',
+            'profile.fun_zone': '其他组件',
             'profile.random_quote': '随机名言',
             'profile.dev_joke': '程序员笑话',
             'profile.snake_anim': '贪吃蛇动画',
-            'profile.service_config': '⚙️ 服务 URL 配置',
-            'profile.image_failed_tip': '💡 图片加载失败?',
+            'profile.service_config': '服务 URL 配置',
+            'profile.image_failed_tip': '图片加载说明',
             'profile.image_tip_1': '• 预览失败不影响部署 - GitHub 会从服务器加载',
             'profile.image_tip_2': '• 可在设置页面配置自部署的镜像服务',
             'profile.image_tip_3': '• 或开启 VPN 后刷新页面',
@@ -431,8 +329,48 @@
             'toast.test_failed': '测试失败',
         },
         en: {
+            "nav.tools": "Git toolbox",
+            "workspace.subtitle": "Your projects, profile and developer tools, together.",
+            "workspace.overview": "Repository overview",
+            "workspace.repositories": "repositories",
+            "workspace.focus": "More time for the projects that matter.",
+            "workspace.open_repos": "Open repositories",
+            "workspace.collaborations": "View collaborations",
+            "workspace.profile": "Your profile",
+            "workspace.profile_note": "A README for the things you are creating.",
+            "workspace.edit_profile": "Edit your profile",
+            "workspace.profile_intro": "Create something. Share what you love.",
+            "workspace.live_preview": "Live preview",
+            "workspace.tools": "Developer tools",
+            "workspace.everyday": "Everyday tools",
+            "workspace.search_commands": "Find a Git command, e.g. merge or remote…",
+            "workspace.git_reference": "Git reference",
+            "workspace.commands": "commands",
+            "workspace.ssh": "SSH keys",
+            "workspace.view_manage": "View and manage",
+            "workspace.setup_guide": "Setup guide",
+            "workspace.source": "Source code",
+            'nav.workspace': 'Workspace',
+            'nav.guide': 'Guide',
+            'nav.open_menu': 'Open navigation',
+            'nav.close_menu': 'Close navigation',
+            'nav.skip': 'Skip to main content',
+            'home.shortcuts': 'Your tools',
+            'home.accounts': 'Accounts',
+            'home.connected': 'Configured',
+            'home.not_connected': 'Not configured',
+            'home.configure_accounts': 'Manage account settings',
+            'home.account_note': 'Add a GitHub or Gitee token to view and manage repositories on that platform.',
+            'home.github_desc': 'Repositories and profile',
+            'home.gitee_desc': 'Repositories',
+            'home.start_here': 'Getting started',
+            'settings.accounts': 'Accounts',
+            'settings.service_hint': 'Set the service URLs used by your README cards, or view self-hosting instructions.',
+            'settings.services': 'Stats services',
+            'settings.tools': 'Git tools',
+            'settings.token_help': 'How to get and configure a token',
             // Navigation
-            'nav.home': 'Home',
+            'nav.home': 'Workspace',
             'nav.dashboard': 'Dashboard',
             'nav.repos': 'Repositories',
             'nav.profile': 'Profile',
@@ -462,17 +400,17 @@
             'common.deploy': 'Deploy',
 
             // Home
-            'home.title': 'GitHub/Gitee Repository Manager',
-            'home.subtitle': 'All-in-one tool to manage your repositories and profile',
+            'home.title': 'A place for your repositories.',
+            'home.subtitle': 'Organize GitHub and Gitee repositories, edit your profile, and get back to your projects.',
             'home.badge': '✨ Open Source Tool',
-            'home.go_dashboard': 'Go to Dashboard',
-            'home.manage_repos': 'Manage Repos',
+            'home.go_dashboard': 'View overview',
+            'home.manage_repos': 'View repositories',
             'home.feature_repos': 'Repositories',
-            'home.feature_repos_desc': 'List, search, filter, batch delete & archive',
-            'home.feature_profile': 'Profile Beautifier',
-            'home.feature_profile_desc': 'Generate README with templates & themes',
+            'home.feature_repos_desc': 'Find projects, archive old work, and clean up repositories you no longer need.',
+            'home.feature_profile': 'Profile editor',
+            'home.feature_profile_desc': 'Edit your introduction, skills and stats. Preview and publish your README.',
             'home.feature_tools': 'Git Toolbox',
-            'home.feature_tools_desc': 'SSH Key management & command reference',
+            'home.feature_tools_desc': 'Find SSH keys, Git commands, and service settings in one place.',
             'home.config_status': 'Configuration Status',
             'home.status_ready': '● Ready',
             'home.status_pending': '● Pending',
@@ -489,7 +427,7 @@
             'home.step3_title': 'Manage Repos',
             'home.step3_desc': 'Batch clean up unwanted repositories',
             'home.step4_title': 'Beautify Profile',
-            'home.step4_desc': 'Generate stunning Profile README',
+            'home.step4_desc': 'Edit and preview your personal profile README',
 
             // Dashboard
             'dashboard.title': 'Dashboard',
@@ -531,7 +469,7 @@
             'repos.collab_info': 'These are repositories where you are a collaborator (not owner). You can leave them.',
 
             // Profile
-            'profile.title': 'Profile Beautifier',
+            'profile.title': 'Profile editor',
             'profile.subtitle': 'Visually edit your GitHub Profile README',
             'profile.basic_info': 'Basic Info',
             'profile.username': 'Username',
@@ -585,12 +523,12 @@
             'profile.social_label_placeholder': 'Label',
             'profile.intro_placeholder': 'e.g. Currently learning Rust',
             'profile.header_style': 'Header Style',
-            'profile.fun_zone': '🧩 Fun Zone',
+            'profile.fun_zone': 'Other components',
             'profile.random_quote': 'Random Quote',
             'profile.dev_joke': 'Dev Joke',
             'profile.snake_anim': 'Snake Animation',
-            'profile.service_config': '⚙️ Service URL Config',
-            'profile.image_failed_tip': '💡 Image loading failed?',
+            'profile.service_config': 'Service URLs',
+            'profile.image_failed_tip': 'About preview images',
             'profile.image_tip_1': '• Preview failure won\'t affect deployment - GitHub loads from server',
             'profile.image_tip_2': '• Configure self-hosted mirror services in Settings',
             'profile.image_tip_3': '• Or enable VPN and refresh the page',
@@ -653,7 +591,8 @@
     };
 
     // 当前语言
-    let currentLang = localStorage.getItem('lang') || 'zh';
+    let currentLang = 'zh';
+    try { currentLang = localStorage.getItem('lang') === 'en' ? 'en' : 'zh'; } catch {}
 
     // 翻译函数
     function t(key) {
@@ -670,6 +609,9 @@
             const key = el.getAttribute('data-i18n-placeholder');
             el.placeholder = t(key);
         });
+        document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+            el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+        });
         document.querySelectorAll('[data-i18n-title]').forEach(el => {
             const key = el.getAttribute('data-i18n-title');
             el.title = t(key);
@@ -679,16 +621,18 @@
     // 切换语言
     function setLanguage(lang) {
         currentLang = lang;
-        localStorage.setItem('lang', lang);
+        try { localStorage.setItem('lang', lang); } catch {}
         document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
         applyTranslations();
         updateLangButtons();
+        document.dispatchEvent(new Event('languagechange'));
     }
 
     // 更新语言按钮状态
     function updateLangButtons() {
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === currentLang);
+            btn.setAttribute('aria-pressed', String(btn.dataset.lang === currentLang));
         });
     }
 
@@ -699,6 +643,7 @@
             btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
         });
 
+        document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
         // 应用初始翻译
         updateLangButtons();
         applyTranslations();
@@ -707,14 +652,17 @@
     // 页面跳转时显示 loading
     document.querySelectorAll('a.nav-item').forEach(link => {
         link.addEventListener('click', function(e) {
-            if (this.href && !this.href.includes('#') && this.href !== window.location.href) {
+            if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey && e.button === 0 && this.href && !this.href.includes('#') && this.href !== window.location.href) {
                 document.getElementById('page-loading').classList.add('active');
             }
         });
     });
+    window.addEventListener('pageshow', () => {
+        document.getElementById('page-loading').classList.remove('active');
+    });
     </script>
 
-    <script src="/static/js/app.js"></script>
+    <script src="/static/js/app.js?v=8"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

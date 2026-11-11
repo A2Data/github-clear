@@ -129,6 +129,8 @@ GITHUB_TOKEN=your_github_token_here
 GITEE_TOKEN=your_gitee_token_here  # Optional
 ```
 
+Tokens are loaded from process environment variables first (including Docker `-e`), then `.env`. Settings page changes take effect immediately and persist to `.env`; environment variables take precedence again after a restart.
+
 **Get your Token:**
 - GitHub: https://github.com/settings/tokens
   - Required scopes: `repo`, `delete_repo`, `user`

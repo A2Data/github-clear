@@ -1,27 +1,48 @@
-/**
- * GitHub Clear - Main JavaScript
- */
+/** GitHub Clear - shared UI and repository management. */
 
-// ==========================================
-// Toast 通知系统
-// ==========================================
+function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[char]));
+}
+
+function safeUrl(value) {
+    try {
+        const url = new URL(value);
+        return ['https:', 'http:'].includes(url.protocol) ? url.href : '#';
+    } catch {
+        return '#';
+    }
+}
+
+async function requestJSON(url, options) {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    if (!response.ok) {
+        const detail = Array.isArray(data.detail)
+            ? data.detail.map(item => item.msg).join('；')
+            : data.detail;
+        throw new Error(detail || `请求失败（HTTP ${response.status}）`);
+    }
+    return data;
+}
 
 function showToast(message, type = 'info') {
     const container = document.getElementById('toast-container') || createToastContainer();
-    
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    toast.innerHTML = `
-        <span class="icon">${type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ'}</span>
-        <span>${message}</span>
-    `;
-    
+    toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
+    const icon = document.createElement('span');
+    icon.className = 'icon';
+    icon.textContent = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+    const text = document.createElement('span');
+    text.textContent = Array.isArray(message) ? message.map(item => item.msg || String(item)).join('；') : message;
+    toast.append(icon, text);
     container.appendChild(toast);
-    
     setTimeout(() => {
-        toast.style.animation = 'slideIn 0.3s ease reverse';
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
+        toast.classList.add('is-leaving');
+        setTimeout(() => toast.remove(), 180);
+    }, 5000);
 }
 
 function createToastContainer() {
@@ -32,492 +53,375 @@ function createToastContainer() {
     return container;
 }
 
-// ==========================================
-// 标签页切换
-// ==========================================
+function uiIcon(name) {
+    const symbols = ['repo', 'star', 'fork', 'calendar', 'lock', 'archive', 'copy'];
+    const symbol = symbols.includes(name) ? name : 'repo';
+    return `<svg class="ui-icon icon-${symbol}" data-icon="${symbol}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="/static/icons.svg?v=7#${symbol}"></use></svg>`;
+}
+
+function initNavigation() {
+    const trigger = document.getElementById('mobile-menu');
+    const sidebar = document.getElementById('sidebar');
+    const scrim = document.getElementById('nav-scrim');
+    if (!trigger || !sidebar || !scrim) return;
+    const mobile = window.matchMedia('(max-width: 720px)');
+    function setOpen(open, returnFocus = false) {
+        const expanded = mobile.matches && open;
+        document.body.classList.toggle('navigation-open', expanded);
+        trigger.setAttribute('aria-expanded', String(expanded));
+        sidebar.inert = mobile.matches && !expanded;
+        if (expanded) sidebar.querySelector('.nav-item.active')?.focus();
+        else if (returnFocus) trigger.focus();
+    }
+    trigger.addEventListener('click', () => setOpen(trigger.getAttribute('aria-expanded') !== 'true'));
+    scrim.addEventListener('click', () => setOpen(false, true));
+    sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', event => {
+        if (!document.body.classList.contains('navigation-open')) return;
+        if (event.key === 'Escape') setOpen(false, true);
+        if (event.key === 'Tab') {
+            const controls = sidebar.querySelectorAll('a[href], button:not(:disabled)');
+            const first = controls[0], last = controls[controls.length - 1];
+            if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+    });
+    mobile.addEventListener('change', () => setOpen(false));
+    setOpen(false);
+}
 
 function initTabs() {
     document.querySelectorAll('.tabs').forEach(tabContainer => {
         const buttons = tabContainer.querySelectorAll('.tab-btn');
-        const contents = tabContainer.parentElement.querySelectorAll('.tab-content');
-        
+        const contents = Array.from(buttons, button => document.getElementById(button.dataset.tab)).filter(Boolean);
+        const updateIndicator = () => {
+            const active = tabContainer.querySelector('.tab-btn.active');
+            if (!active) return;
+            tabContainer.style.setProperty('--tab-offset', `${active.offsetLeft}px`);
+            tabContainer.style.setProperty('--tab-width', `${active.offsetWidth}px`);
+        };
+        tabContainer.classList.add('motion-tabs');
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
-                const target = btn.dataset.tab;
-                
                 buttons.forEach(b => b.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
-                
                 btn.classList.add('active');
-                document.getElementById(target)?.classList.add('active');
+                document.getElementById(btn.dataset.tab)?.classList.add('active');
+                updateIndicator();
             });
         });
+        updateIndicator();
+        if (typeof ResizeObserver !== 'undefined') {
+            const observer = new ResizeObserver(updateIndicator);
+            observer.observe(tabContainer);
+            buttons.forEach(button => observer.observe(button));
+        }
     });
 }
 
-// ==========================================
-// 仓库列表
-// ==========================================
+function initMotion() {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    document.addEventListener('pointerdown', event => {
+        if (reducedMotion.matches || event.button !== 0 || event.isPrimary === false) return;
+        const button = event.target.closest?.('.btn, .btn-action, .btn-demo, .btn-save');
+        if (!button || button.disabled) return;
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 2;
+        const ripple = document.createElement('span');
+        ripple.className = 'click-ripple';
+        ripple.setAttribute('aria-hidden', 'true');
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${event.clientX - rect.left}px`;
+        ripple.style.top = `${event.clientY - rect.top}px`;
+        button.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+    });
+}
 
-let selectedRepos = new Set();
-let allRepos = [];
+// Keep account selections, searches and pending requests isolated by platform.
+const repoStates = Object.fromEntries(['github', 'gitee', 'collab'].map(platform => [platform, {
+    repos: [], selected: new Set(), query: '', loaded: false,
+    loading: false, busy: false, controller: null, requestId: 0
+}]));
 
-async function loadRepos(platform) {
+function visibleRepos(platform) {
+    const state = repoStates[platform];
+    const query = state.query.trim().toLowerCase();
+    return state.repos.filter(repo =>
+        [repo.full_name, repo.name, repo.description].some(value =>
+            String(value || '').toLowerCase().includes(query))
+    );
+}
+
+function reconcileSelection(platform) {
+    const state = repoStates[platform];
+    const visible = new Set(visibleRepos(platform).map(repo => repo.full_name));
+    state.selected.forEach(name => {
+        if (!visible.has(name)) state.selected.delete(name);
+    });
+}
+
+function reposLoaded(platform) {
+    return repoStates[platform].loaded || repoStates[platform].loading;
+}
+
+async function loadRepos(platform, afterMutation = false) {
     const container = document.getElementById(`${platform}-repos`);
-    if (!container) return;
-    
+    const state = repoStates[platform];
+    if (!container || (state.busy && !afterMutation)) return;
+    state.controller?.abort();
+    const controller = new AbortController();
+    const requestId = ++state.requestId;
+    state.controller = controller;
+    state.loading = true;
+    container.setAttribute('aria-busy', 'true');
     container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
-    
-    const visibility = document.getElementById(`${platform}-visibility`)?.value || 'all';
-    const sort = document.getElementById(`${platform}-sort`)?.value || 'updated';
-    const includeForks = document.getElementById(`${platform}-forks`)?.checked ?? true;
-    
+    updateSelectionInfo(platform);
+    const params = new URLSearchParams({
+        visibility: document.getElementById(`${platform}-visibility`)?.value || 'all',
+        sort: document.getElementById(`${platform}-sort`)?.value || 'updated',
+        include_forks: document.getElementById(`${platform}-forks`)?.checked ?? true
+    });
+    const url = platform === 'collab' ? '/api/repos/github/collaborator' : `/api/repos/${platform}?${params}`;
     try {
-        const response = await fetch(
-            `/api/repos/${platform}?visibility=${visibility}&sort=${sort}&include_forks=${includeForks}`
-        );
-        
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.detail || '加载失败');
-        }
-        
-        const data = await response.json();
-        allRepos = data.repos;
-        renderRepos(platform, allRepos);
-        updateSelectionInfo(platform);
+        const data = await requestJSON(url, { signal: controller.signal });
+        if (requestId !== state.requestId) return;
+        if (!Array.isArray(data.repos)) throw new Error('仓库列表格式无效，请刷新重试');
+        state.repos = data.repos;
+        state.loaded = true;
+        reconcileSelection(platform);
+        renderRepos(platform, visibleRepos(platform), true);
     } catch (error) {
-        container.innerHTML = `
-            <div class="alert alert-danger">
-                <span>❌</span>
-                <span>${error.message}</span>
-            </div>
-        `;
+        if (requestId !== state.requestId || error.name === 'AbortError') return;
+        state.repos = [];
+        state.selected.clear();
+        state.loaded = false;
+        container.innerHTML = `<div class="alert alert-danger" role="alert">${escapeHtml(error.message)}</div>`;
+    } finally {
+        if (requestId === state.requestId) {
+            state.loading = false;
+            container.setAttribute('aria-busy', 'false');
+            updateSelectionInfo(platform);
+        }
     }
 }
 
-function renderRepos(platform, repos) {
+function renderRepos(platform, repos, animate = false) {
     const container = document.getElementById(`${platform}-repos`);
     if (!container) return;
-    
+    const state = repoStates[platform];
     if (repos.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <div class="icon">📭</div>
-                <h3>没有找到仓库</h3>
-                <p>尝试调整筛选条件</p>
-            </div>
-        `;
+        container.innerHTML = `<div class="empty-state"><div class="icon">${uiIcon('repo')}</div><h3>没有找到仓库</h3><p>尝试调整筛选条件</p></div>`;
         return;
     }
-    
-    const html = repos.map(repo => {
+    container.innerHTML = `<div class="repo-list">${repos.map((repo, index) => {
+        const selected = state.selected.has(repo.full_name);
+        const identifier = escapeHtml(repo.full_name);
         const tags = [];
-        if (repo.private) tags.push('<span class="tag" title="私有仓库" style="background: rgba(248, 81, 73, 0.2); color: #f85149;">🔒 私有</span>');
-        if (repo.fork) tags.push('<span class="tag" title="Fork 仓库" style="background: rgba(88, 166, 255, 0.2); color: #58a6ff;">🍴 Fork</span>');
-        if (repo.archived) tags.push('<span class="tag" title="已归档" style="background: rgba(210, 153, 34, 0.2); color: #d29922;">📁 归档</span>');
-        
-        // 统一使用 full_name 作为标识符，确保 Fork 仓库也能正确删除
-        const identifier = repo.full_name;
-        const isSelected = selectedRepos.has(identifier);
-        
+        if (repo.private) tags.push(`<span class="tag">${uiIcon('lock')}私有</span>`);
+        if (repo.fork) tags.push('<span class="tag">Fork</span>');
+        if (repo.archived) tags.push('<span class="tag">已归档</span>');
         return `
-            <div class="repo-item ${isSelected ? 'selected' : ''}" data-repo="${identifier}">
+            <div class="repo-item ${selected ? 'selected' : ''} ${animate && index < 10 ? 'repo-enter' : ''}" style="--row-order:${Math.min(index, 8)}" data-repo="${identifier}">
                 <div class="repo-checkbox">
-                    <input type="checkbox" ${isSelected ? 'checked' : ''} 
-                           onchange="toggleRepo('${platform}', '${identifier}', this.checked)">
+                    <input type="checkbox" ${selected ? 'checked' : ''} ${state.busy ? 'disabled' : ''}
+                        aria-label="选择 ${identifier}" data-repo="${identifier}"
+                        onchange="toggleRepo('${platform}', this.dataset.repo, this.checked)">
                 </div>
                 <div class="repo-info">
                     <div class="repo-name">
-                        <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                        <a href="${escapeHtml(safeUrl(repo.html_url))}" target="_blank" rel="noopener noreferrer">${escapeHtml(platform === 'collab' ? repo.full_name : repo.name)}</a>
                         ${tags.join(' ')}
                     </div>
-                    <div class="repo-desc">${repo.description || '暂无描述'}</div>
+                    <div class="repo-desc">${escapeHtml(repo.description || '暂无描述')}</div>
                 </div>
-                <div class="repo-meta">
-                    <span>📝 ${repo.language || '-'}</span>
-                    <span>⭐ ${repo.stars}</span>
-                    <span>🍴 ${repo.forks}</span>
-                    <span>📅 ${formatDate(repo.updated_at)}</span>
-                </div>
-            </div>
-        `;
-    }).join('');
-    
-    container.innerHTML = `<div class="repo-list">${html}</div>`;
+                ${platform === 'collab' ? '' : `<div class="repo-meta">
+                    <span><i class="language-dot" aria-hidden="true"></i> ${escapeHtml(repo.language || '-')}</span>
+                    <span title="Stars">${uiIcon('star')} ${escapeHtml(repo.stars)}</span>
+                    <span title="Forks">${uiIcon('fork')} ${escapeHtml(repo.forks)}</span>
+                    <span>${uiIcon('calendar')} ${escapeHtml(formatDate(repo.updated_at))}</span>
+                </div>`}
+            </div>`;
+    }).join('')}</div>`;
 }
 
 function toggleRepo(platform, repoId, checked) {
-    if (checked) {
-        selectedRepos.add(repoId);
+    const state = repoStates[platform];
+    if (state.loading || state.busy) return;
+    if (checked && visibleRepos(platform).some(repo => repo.full_name === repoId)) {
+        state.selected.add(repoId);
     } else {
-        selectedRepos.delete(repoId);
+        state.selected.delete(repoId);
     }
-    
-    const item = document.querySelector(`[data-repo="${repoId}"]`);
-    if (item) {
-        item.classList.toggle('selected', checked);
-    }
-    
+    document.getElementById(`${platform}-repos`)?.querySelectorAll('.repo-item').forEach(item => {
+        if (item.dataset.repo === repoId) item.classList.toggle('selected', checked);
+    });
     updateSelectionInfo(platform);
 }
 
 function selectAllRepos(platform) {
-    allRepos.forEach(repo => {
-        const identifier = platform === 'github' ? repo.name : repo.full_name;
-        selectedRepos.add(identifier);
-    });
-    renderRepos(platform, allRepos);
+    const state = repoStates[platform];
+    if (state.loading || state.busy) return;
+    visibleRepos(platform).forEach(repo => state.selected.add(repo.full_name));
+    renderRepos(platform, visibleRepos(platform));
     updateSelectionInfo(platform);
 }
 
 function deselectAllRepos(platform) {
-    selectedRepos.clear();
-    renderRepos(platform, allRepos);
+    const state = repoStates[platform];
+    if (state.loading || state.busy) return;
+    state.selected.clear();
+    renderRepos(platform, visibleRepos(platform));
     updateSelectionInfo(platform);
 }
 
 function updateSelectionInfo(platform) {
+    const state = repoStates[platform];
     const info = document.getElementById(`${platform}-selection-info`);
     const actions = document.getElementById(`${platform}-batch-actions`);
-    
-    if (info) {
-        info.textContent = selectedRepos.size > 0 
-            ? `已选择 ${selectedRepos.size} 个仓库`
-            : '';
-    }
-    
+    if (info) info.textContent = state.loading ? '正在加载仓库…' : `${visibleRepos(platform).length} 个仓库 · 已选择 ${state.selected.size} 个`;
     if (actions) {
-        actions.style.display = selectedRepos.size > 0 ? 'flex' : 'none';
+        actions.style.display = state.selected.size > 0 ? 'flex' : 'none';
+        actions.querySelectorAll('button').forEach(button => {
+            button.disabled = state.loading || state.busy;
+        });
     }
+    document.getElementById(`${platform}-tab`)?.querySelectorAll('.toolbar input, .toolbar select, .toolbar button').forEach(control => {
+        control.disabled = state.busy || (state.loading && control.tagName === 'BUTTON');
+        if (control.tagName === 'BUTTON') {
+            control.classList.toggle('is-busy', state.loading && (control.getAttribute('onclick') || '').includes('loadRepos'));
+        }
+    });
+    document.getElementById(`${platform}-repos`)?.querySelectorAll('input[type="checkbox"]').forEach(input => {
+        input.disabled = state.loading || state.busy;
+    });
 }
 
 function searchRepos(platform, query) {
-    const filtered = allRepos.filter(repo => 
-        repo.name.toLowerCase().includes(query.toLowerCase()) ||
-        (repo.description || '').toLowerCase().includes(query.toLowerCase())
-    );
-    renderRepos(platform, filtered);
+    const state = repoStates[platform];
+    if (state.busy) return;
+    state.query = query;
+    reconcileSelection(platform);
+    if (!state.loading) renderRepos(platform, visibleRepos(platform));
+    updateSelectionInfo(platform);
 }
 
-// ==========================================
-// 协作仓库管理
-// ==========================================
-
-let selectedCollabRepos = new Set();
-let allCollabRepos = [];
-
-async function loadCollaboratorRepos() {
-    const container = document.getElementById('collab-repos');
-    if (!container) return;
-    
-    container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
-    
-    try {
-        const response = await fetch('/api/repos/github/collaborator');
-        
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.detail || '加载失败');
-        }
-        
-        const data = await response.json();
-        allCollabRepos = data.repos;
-        renderCollaboratorRepos(allCollabRepos);
-        updateCollabSelectionInfo();
-    } catch (error) {
-        container.innerHTML = `
-            <div class="alert alert-danger">
-                <span>❌</span>
-                <span>${error.message}</span>
-            </div>
-        `;
-    }
+function loadCollaboratorRepos() {
+    return loadRepos('collab');
 }
-
-function renderCollaboratorRepos(repos) {
-    const container = document.getElementById('collab-repos');
-    if (!container) return;
-    
-    if (repos.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <div class="icon">🎉</div>
-                <h3>没有协作仓库</h3>
-                <p>你没有作为协作者参与其他人的仓库</p>
-            </div>
-        `;
-        return;
-    }
-    
-    const html = repos.map(repo => {
-        const isSelected = selectedCollabRepos.has(repo.full_name);
-        
-        return `
-            <div class="repo-item ${isSelected ? 'selected' : ''}" data-collab-repo="${repo.full_name}">
-                <div class="repo-checkbox">
-                    <input type="checkbox" ${isSelected ? 'checked' : ''} 
-                           onchange="toggleCollabRepo('${repo.full_name}', this.checked)">
-                </div>
-                <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
-                    <img src="${repo.owner_avatar}" style="width: 32px; height: 32px; border-radius: 50%;">
-                    <div class="repo-info">
-                        <div class="repo-name">
-                            <a href="${repo.html_url}" target="_blank">${repo.full_name}</a>
-                            ${repo.private ? '<span class="tag" title="私有仓库" style="background: rgba(248, 81, 73, 0.2); color: #f85149;">🔒 私有</span>' : ''}
-                        </div>
-                        <div class="repo-desc">${repo.description || '暂无描述'}</div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
-    
-    container.innerHTML = `<div class="repo-list">${html}</div>`;
-}
-
-function toggleCollabRepo(repoFullName, checked) {
-    if (checked) {
-        selectedCollabRepos.add(repoFullName);
-    } else {
-        selectedCollabRepos.delete(repoFullName);
-    }
-    
-    const item = document.querySelector(`[data-collab-repo="${repoFullName}"]`);
-    if (item) {
-        item.classList.toggle('selected', checked);
-    }
-    
-    updateCollabSelectionInfo();
-}
-
-function updateCollabSelectionInfo() {
-    const info = document.getElementById('collab-selection-info');
-    const actions = document.getElementById('collab-batch-actions');
-    
-    if (info) {
-        info.textContent = selectedCollabRepos.size > 0 
-            ? `已选择 ${selectedCollabRepos.size} 个仓库`
-            : '';
-    }
-    
-    if (actions) {
-        actions.style.display = selectedCollabRepos.size > 0 ? 'flex' : 'none';
-    }
-}
-
-async function batchLeave() {
-    if (selectedCollabRepos.size === 0) {
-        showToast('请先选择仓库', 'error');
-        return;
-    }
-    
-    const repoList = Array.from(selectedCollabRepos);
-    
-    showModal(
-        '🚪 确认退出协作',
-        `确定要退出选中的 <strong>${selectedCollabRepos.size}</strong> 个协作仓库吗？<br>退出后你将无法访问这些私有仓库`,
-        repoList,
-        async () => {
-            try {
-                showToast('正在退出...', 'info');
-                
-                const response = await fetch('/api/repos/github/leave', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ repos: repoList })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success === result.total) {
-                    showToast(`成功退出 ${result.success} 个仓库`, 'success');
-                } else {
-                    showToast(`退出完成: ${result.success}/${result.total} 成功`, 'error');
-                }
-                
-                selectedCollabRepos.clear();
-                loadCollaboratorRepos();
-            } catch (error) {
-                showToast(`退出失败: ${error.message}`, 'error');
-            }
-        },
-        'warning'
-    );
-}
-
-// ==========================================
-// 模态框系统
-// ==========================================
 
 let currentModalCallback = null;
+let modalTrigger = null;
 
-function showModal(title, message, repoList, onConfirm, type = 'danger') {
-    // 创建模态框 HTML
-    const modalHTML = `
+function showModal(title, message, repoList, onConfirm, type = 'danger', confirmLabel = '确认删除') {
+    modalTrigger = document.activeElement;
+    document.getElementById('confirm-modal')?.remove();
+    document.body.insertAdjacentHTML('beforeend', `
         <div class="modal-overlay active" id="confirm-modal">
-            <div class="modal">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title">
                 <div class="modal-header">
-                    <h3 class="modal-title">${title}</h3>
-                    <button class="modal-close" onclick="closeModal()">&times;</button>
+                    <h3 class="modal-title" id="confirm-modal-title">${escapeHtml(title)}</h3>
+                    <button class="modal-close" onclick="closeModal()" aria-label="关闭">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-${type === 'danger' ? 'danger' : 'warning'}" style="margin-bottom: 16px;">
-                        <span>${type === 'danger' ? '⚠️' : '📁'}</span>
-                        <span>${message}</span>
-                    </div>
+                    <div class="alert alert-${type}" style="margin-bottom: 16px;"><span>${message}</span></div>
                     <div style="max-height: 200px; overflow-y: auto; background: var(--bg-primary); border-radius: 8px; padding: 12px;">
-                        <div style="font-family: monospace; font-size: 13px; color: var(--text-secondary);">
-                            ${repoList.map(r => `<div style="padding: 4px 0;">• ${r}</div>`).join('')}
-                        </div>
+                        ${repoList.map(name => `<div style="padding: 4px 0;">• ${escapeHtml(name)}</div>`).join('')}
                     </div>
                 </div>
                 <div class="modal-footer" style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
-                    <button class="btn btn-secondary" onclick="closeModal()">
-                        <span>❌</span>
-                        <span>取消</span>
-                    </button>
-                    <button class="btn btn-${type === 'danger' ? 'danger' : 'primary'}" onclick="confirmModal()">
-                        <span>${type === 'danger' ? '🗑️' : '📁'}</span>
-                        <span>${type === 'danger' ? '确认删除' : '确认归档'}</span>
-                    </button>
+                    <button class="btn btn-secondary" onclick="closeModal()">取消</button>
+                    <button class="btn btn-${type === 'danger' ? 'danger' : 'primary'}" onclick="confirmModal()">${escapeHtml(confirmLabel)}</button>
                 </div>
             </div>
-        </div>
-    `;
-    
-    // 移除已存在的模态框
-    const existing = document.getElementById('confirm-modal');
-    if (existing) existing.remove();
-    
-    // 添加到 DOM
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    
-    // 保存回调
+        </div>`);
     currentModalCallback = onConfirm;
-    
-    // ESC 键关闭
     document.addEventListener('keydown', handleModalEsc);
+    document.querySelector('#confirm-modal .btn-secondary')?.focus();
 }
 
 function closeModal() {
-    const modal = document.getElementById('confirm-modal');
-    if (modal) {
-        modal.classList.remove('active');
-        setTimeout(() => modal.remove(), 300);
-    }
+    document.getElementById('confirm-modal')?.remove();
     document.removeEventListener('keydown', handleModalEsc);
     currentModalCallback = null;
+    modalTrigger?.focus();
 }
 
-function confirmModal() {
-    if (currentModalCallback) {
-        currentModalCallback();
-    }
+async function confirmModal() {
+    const callback = currentModalCallback;
     closeModal();
+    if (callback) await callback();
 }
 
-function handleModalEsc(e) {
-    if (e.key === 'Escape') {
-        closeModal();
+function handleModalEsc(event) {
+    if (event.key === 'Escape') closeModal();
+    if (event.key === 'Tab') {
+        const buttons = document.querySelectorAll('#confirm-modal button');
+        if (!buttons.length) return;
+        const first = buttons[0], last = buttons[buttons.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
     }
 }
 
-// ==========================================
-// 批量操作
-// ==========================================
-
-async function batchDelete(platform) {
-    if (selectedRepos.size === 0) {
-        showToast('请先选择仓库', 'error');
-        return;
-    }
-    
-    const repoList = Array.from(selectedRepos);
-    
-    showModal(
-        '🗑️ 确认删除仓库',
-        `确定要删除选中的 <strong>${selectedRepos.size}</strong> 个仓库吗？<br><strong style="color: var(--danger);">此操作不可恢复！</strong>`,
-        repoList,
-        async () => {
-            try {
-                showToast('正在删除...', 'info');
-                
-                const response = await fetch(`/api/repos/${platform}/delete`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ repos: repoList })
-                });
-                
-                const result = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(result.detail || '删除失败');
-                }
-                
-                if (result.success === result.total) {
-                    showToast(`成功删除 ${result.success} 个仓库`, 'success');
-                } else {
-                    // 显示失败详情
-                    const failed = Object.entries(result.results)
-                        .filter(([_, success]) => !success)
-                        .map(([name]) => name);
-                    showToast(`删除完成: ${result.success}/${result.total} 成功，失败: ${failed.join(', ')}`, 'error');
-                }
-                
-                selectedRepos.clear();
-                loadRepos(platform);
-            } catch (error) {
-                showToast(`删除失败: ${error.message}`, 'error');
-            }
-        },
-        'danger'
-    );
+function confirmBatch(platform, action) {
+    const state = repoStates[platform];
+    if (state.loading || state.busy) return;
+    if (!state.selected.size) return showToast('请先选择仓库', 'error');
+    if (state.selected.size > 1000) return showToast('单次最多操作 1000 个仓库，请缩小筛选范围', 'error');
+    const labels = { delete: '删除', archive: '归档', leave: '退出协作' };
+    const label = labels[action];
+    const names = Array.from(state.selected);
+    const hint = action === 'delete' ? '此操作不可恢复！' : action === 'archive' ? '归档后仓库将变为只读状态。' : '退出后将无法访问这些私有仓库。';
+    showModal(`确认${label}`, `确定要${label}选中的 <strong>${names.length}</strong> 个仓库吗？<br>${hint}`,
+        names, () => runRepoBatch(platform, action, names), action === 'delete' ? 'danger' : 'warning', `确认${label}`);
 }
 
-async function batchArchive(platform) {
-    if (selectedRepos.size === 0) {
-        showToast('请先选择仓库', 'error');
-        return;
+async function runRepoBatch(platform, action, names) {
+    const state = repoStates[platform];
+    if (state.busy) return;
+    state.busy = true;
+    updateSelectionInfo(platform);
+    const label = { delete: '删除', archive: '归档', leave: '退出' }[action];
+    try {
+        showToast(`正在${label}…`, 'info');
+        const provider = platform === 'collab' ? 'github' : platform;
+        const result = await requestJSON(`/api/repos/${provider}/${action}`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ repos: names })
+        });
+        if (!result.results || typeof result.results !== 'object') throw new Error('操作结果格式无效，请刷新确认仓库状态');
+        names.forEach(name => {
+            if (result.results[name]) state.selected.delete(name);
+        });
+        const complete = result.success === result.total;
+        const details = complete ? '' : `；${(result.errors || ['失败项已保留选中，可重试']).join('；')}`;
+        showToast(`${label}完成：${result.success}/${result.total} 成功${details}`, complete ? 'success' : 'error');
+        await loadRepos(platform, true);
+    } catch (error) {
+        showToast(`${label}失败：${error.message}`, 'error');
+    } finally {
+        state.busy = false;
+        updateSelectionInfo(platform);
     }
-    
-    if (platform !== 'github') {
-        showToast('Gitee 暂不支持归档', 'error');
-        return;
-    }
-    
-    const repoList = Array.from(selectedRepos);
-    
-    showModal(
-        '📁 确认归档仓库',
-        `确定要归档选中的 <strong>${selectedRepos.size}</strong> 个仓库吗？<br>归档后仓库将变为只读状态`,
-        repoList,
-        async () => {
-            try {
-                showToast('正在归档...', 'info');
-                
-                const response = await fetch(`/api/repos/${platform}/archive`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ repos: repoList })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success === result.total) {
-                    showToast(`成功归档 ${result.success} 个仓库`, 'success');
-                } else {
-                    showToast(`归档完成: ${result.success}/${result.total} 成功`, 'error');
-                }
-                
-                selectedRepos.clear();
-                loadRepos(platform);
-            } catch (error) {
-                showToast(`归档失败: ${error.message}`, 'error');
-            }
-        },
-        'warning'
-    );
+}
+
+function batchDelete(platform) {
+    confirmBatch(platform, 'delete');
+}
+
+function batchArchive(platform) {
+    if (platform !== 'github') return showToast('Gitee 暂不支持归档', 'error');
+    confirmBatch(platform, 'archive');
+}
+
+function batchLeave() {
+    confirmBatch('collab', 'leave');
 }
 
 // ==========================================
@@ -723,7 +627,7 @@ function handleImageError(img) {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'img-error-placeholder';
     errorDiv.innerHTML = `
-        <div class="error-icon">📊</div>
+        <div class="error-icon">${uiIcon('repo')}</div>
         <div class="error-text">${serviceName}</div>
         <div class="error-hint">${suggestion || '服务暂时不可用'}</div>
     `;
@@ -965,7 +869,28 @@ function collectComponents() {
     return items;
 }
 
-async function generateProfile() {
+let profileDebounce = null;
+let profileRequestId = 0;
+let profileController = null;
+
+function setPreviewStatus(message, state = '') {
+    const status = document.getElementById('preview-status');
+    if (status) {
+        status.textContent = message;
+        status.dataset.state = state;
+    }
+}
+
+function generateProfile() {
+    if (!document.getElementById('profile-form')) return;
+    clearTimeout(profileDebounce);
+    profileController?.abort();
+    const requestId = ++profileRequestId;
+    window.profileContent = '';
+    profileDebounce = setTimeout(() => renderProfile(requestId), 200);
+}
+
+async function renderProfile(requestId) {
     const form = document.getElementById('profile-form');
     if (!form) return;
 
@@ -974,11 +899,16 @@ async function generateProfile() {
 
     // 如果用户名为空，显示提示而不是发送请求
     const preview = document.getElementById('profile-preview');
+    const panel = document.querySelector('.preview-panel');
     if (!username) {
+        panel?.classList.remove('is-updating');
+        setPreviewStatus('等待输入');
+        const source = document.getElementById('profile-source');
+        if (source) source.textContent = '';
         if (preview) {
             preview.innerHTML = `
-                <div class="empty-state" style="padding: 60px 20px; text-align: center;">
-                    <div style="font-size: 48px; margin-bottom: 16px;">👤</div>
+                <div class="empty-state">
+                    <div class="icon">${uiIcon('repo')}</div>
                     <h3 style="margin-bottom: 8px; color: var(--text-primary);">请先输入 GitHub 用户名</h3>
                     <p style="color: var(--text-secondary);">输入你的 GitHub 用户名后，预览会自动生成</p>
                 </div>
@@ -1026,30 +956,27 @@ async function generateProfile() {
         if (!config.socials[key]) delete config.socials[key];
     });
     
-    // 显示加载状态
-    if (preview) {
-        preview.innerHTML = `
-            <div class="loading" style="padding: 60px;">
-                <div class="spinner"></div>
-            </div>
-        `;
-    }
-    
+    panel?.classList.add('is-updating');
+    preview?.classList.remove('is-updated');
+    setPreviewStatus('更新中…', 'loading');
+    profileController = new AbortController();
+
     try {
-        const response = await fetch('/api/profile/generate', {
+        const result = await requestJSON('/api/profile/generate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(config)
+            body: JSON.stringify(config),
+            signal: profileController.signal
         });
-        
-        const result = await response.json();
-        
+        if (requestId !== profileRequestId) return;
+
         // 更新预览
         const preview = document.getElementById('profile-preview');
         const source = document.getElementById('profile-source');
 
         if (preview) {
             preview.innerHTML = marked.parse(result.content);
+            preview.classList.add('is-updated');
 
             // 处理图片加载
             const images = preview.querySelectorAll('img');
@@ -1093,9 +1020,13 @@ async function generateProfile() {
         // 保存到全局变量供下载/部署使用
         window.profileContent = result.content;
         
-        showToast('Profile 已生成', 'success');
+        setPreviewStatus('已更新', 'ready');
     } catch (error) {
+        if (requestId !== profileRequestId || error.name === 'AbortError') return;
+        setPreviewStatus('更新失败', 'error');
         showToast(`生成失败: ${error.message}`, 'error');
+    } finally {
+        if (requestId === profileRequestId) panel?.classList.remove('is-updating');
     }
 }
 
@@ -1168,6 +1099,8 @@ function copyToClipboard(text) {
 
 document.addEventListener('DOMContentLoaded', () => {
     initTabs();
+    initNavigation();
+    initMotion();
     
     // 自动加载仓库列表（如果在仓库页面）
     if (document.getElementById('github-repos')) {
@@ -1251,3 +1184,23 @@ async function resetProfileConfig() {
     }
 }
 
+
+
+function filterGitCommands() {
+    const query = (document.getElementById('git-command-search')?.value || '').trim().toLowerCase();
+    const category = document.getElementById('git-command-category')?.value || 'all';
+    let count = 0;
+    document.querySelectorAll('.command-group').forEach(group => {
+        let matches = 0;
+        group.querySelectorAll('.command-item').forEach(item => {
+            const visible = (category === 'all' || category === group.dataset.category)
+                && item.dataset.search.toLowerCase().includes(query);
+            item.hidden = !visible;
+            if (visible) matches++;
+        });
+        group.hidden = matches === 0;
+        count += matches;
+    });
+    document.getElementById('command-count').textContent = `${count} 条命令`;
+    document.getElementById('command-empty').hidden = count > 0;
+}

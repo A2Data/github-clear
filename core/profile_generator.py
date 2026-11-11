@@ -535,13 +535,6 @@ jobs:
     
     def generate_capsule_render(self, text: str, theme: str = 'tokyonight', desc: str = '') -> str:
         """生成 Capsule Render 动态波浪头图"""
-        # 颜色映射
-        color = "0d1117" # 默认深色背景
-        if theme == 'radical':
-            color = "141321"
-        elif theme == 'tokyonight':
-            color = "1a1b27"
-
         # 文本处理
         text = text.replace(" ", "%20")
         desc = desc.replace(" ", "%20") if desc else "Open%20Source%20Enthusiast"

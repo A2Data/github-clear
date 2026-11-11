@@ -1,0 +1,422 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<defs>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="4" stdDeviation="9" flood-color="#25243b" flood-opacity=".045"/></filter>
+ <filter id="float" x="-40%" y="-40%" width="180%" height="200%"><feDropShadow dx="0" dy="16" stdDeviation="13" flood-color="#131422" flood-opacity=".24"/></filter>
+ <filter id="small-shadow" x="-30%" y="-30%" width="170%" height="170%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#716393" flood-opacity=".12"/></filter>
+ <linearGradient id="folder-front" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#e9e3ff"/><stop offset=".5" stop-color="#bcb1ed"/><stop offset="1" stop-color="#8d80bf"/></linearGradient>
+ <linearGradient id="folder-side" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8c7fc6"/><stop offset="1" stop-color="#524776"/></linearGradient>
+ <linearGradient id="sheet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#d9d7ed"/></linearGradient>
+ <linearGradient id="folder-rim" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f7f4ff"/><stop offset="1" stop-color="#b8ace9"/></linearGradient>
+</defs>
+<rect width="1600" height="1080" fill="#f5f5f8"/>
+
+<rect x="0" y="0" width="220" height="1080" rx="0" fill="#20212b" />
+<svg x="27" y="28" width="39" height="39" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6"/>
+      <stop offset="100%" style="stop-color:#6366F1"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- GitHub Icon (simplified) -->
+  <path d="M32 12C20.954 12 12 20.954 12 32c0 8.837 5.731 16.322 13.686 18.97.5.09.682-.217.682-.483 0-.237-.009-.866-.013-1.7-5.57 1.21-6.745-2.685-6.745-2.685-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.091-.646.349-1.086.635-1.336-4.446-.505-9.118-2.223-9.118-9.893 0-2.185.78-3.97 2.058-5.37-.206-.505-.892-2.54.196-5.294 0 0 1.678-.538 5.497 2.05A19.152 19.152 0 0132 21.805c1.7.008 3.413.23 5.012.673 3.816-2.588 5.492-2.05 5.492-2.05 1.09 2.754.404 4.789.198 5.294 1.28 1.4 2.056 3.185 2.056 5.37 0 7.688-4.68 9.382-9.138 9.878.718.618 1.358 1.84 1.358 3.708 0 2.676-.025 4.833-.025 5.49 0 .268.18.58.688.482C46.275 48.316 52 40.833 52 32c0-11.046-8.954-20-20-20z" fill="white"/>
+  <!-- Sparkle/Clear effect -->
+  <circle cx="48" cy="16" r="4" fill="#FCD34D"/>
+  <circle cx="52" cy="20" r="2" fill="#FCD34D" opacity="0.7"/>
+  <circle cx="44" cy="12" r="2" fill="#FCD34D" opacity="0.7"/>
+</svg>
+
+<text x="78" y="46" font-family="'Helvetica Neue',sans-serif" font-size="17" font-weight="600" fill="#f8f8fc" text-anchor="start" letter-spacing="0">GitHub Clear</text>
+<text x="79" y="65" font-family="'Helvetica Neue',sans-serif" font-size="8.5" font-weight="500" fill="#8c8d9e" text-anchor="start" letter-spacing="0.8">REPOSITORY WORKSPACE</text>
+<text x="28" y="121" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10.5" font-weight="500" fill="#7f8193" text-anchor="start" letter-spacing="0">工作空间</text>
+<rect x="16" y="143" width="188" height="44" rx="9" fill="#363442" />
+<rect x="16" y="155" width="3" height="20" rx="1.5" fill="#b7a5f8" />
+<svg x="31" y="155" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8b9f9" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#c8b9f9">
+      <rect x="2.5" y="3" width="19" height="18" rx="3" fill="#494453" />
+      <path d="M3 8h18" stroke-opacity=".35" />
+      <circle cx="6" cy="5.5" r=".7" fill="#c8b9f9" stroke="none" />
+      <circle cx="9" cy="5.5" r=".7" fill="#c8b9f9" stroke="none" />
+      <rect class="icon-tile icon-tile-1" x="6" y="14" width="2.5" height="4" rx=".7" fill="#c8b9f9" stroke="none" opacity=".5" />
+      <rect class="icon-tile icon-tile-2" x="10.75" y="11.5" width="2.5" height="6.5" rx=".7" fill="#c8b9f9" stroke="none" opacity=".75" />
+      <rect class="icon-tile icon-tile-4" x="15.5" y="10" width="2.5" height="8" rx=".7" fill="#c8b9f9" stroke="none" />
+    </g>
+  </svg>
+<text x="64" y="171" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="13" font-weight="600" fill="#f2edff" text-anchor="start" letter-spacing="0">工作台</text>
+<circle cx="185" cy="165" r="2.5" fill="#b7a5f8"/>
+<svg x="31" y="209" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9798a9" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#9798a9">
+      <path d="M6 3h13a1 1 0 0 1 1 1v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" fill="none" />
+      <path d="M7 3v14H6a2 2 0 0 0-2 2V5a2 2 0 0 1 2-2Z" fill="#9798a9" stroke="none" />
+      <path d="M4 19a2 2 0 0 1 2-2h14M7 20h13" />
+      <g class="icon-lines">
+        <path d="M11 7v6m0-3h4V7" stroke-width="1.4" />
+        <circle cx="11" cy="6.5" r="1.3" fill="#ffffff" />
+        <circle cx="15" cy="6.5" r="1.3" fill="#9798a9" stroke="none" />
+        <circle cx="11" cy="13" r="1.3" fill="#9798a9" stroke="none" />
+      </g>
+    </g>
+  </svg>
+<text x="64" y="225" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="13" font-weight="400" fill="#b9bac6" text-anchor="start" letter-spacing="0">仓库管理</text>
+<svg x="31" y="263" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9798a9" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#9798a9">
+      <rect x="2.5" y="4" width="19" height="16" rx="3" fill="none" />
+      <path d="M14 4v16" stroke-opacity=".2" />
+      <g class="icon-person">
+        <circle cx="8.5" cy="9.5" r="2.2" fill="#9798a9" stroke="none" />
+        <path d="M4.8 16.5a3.7 3.7 0 0 1 7.4 0Z" fill="#9798a9" stroke="none" opacity=".85" />
+      </g>
+      <g class="icon-lines">
+        <path d="M16.5 9h2.2m-2.2 3h2.2m-2.2 3h1.2" stroke-width="1.5" />
+      </g>
+    </g>
+  </svg>
+<text x="64" y="279" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="13" font-weight="400" fill="#b9bac6" text-anchor="start" letter-spacing="0">主页编辑</text>
+<svg x="31" y="317" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9798a9" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#9798a9">
+      <rect x="2.5" y="3.5" width="19" height="17" rx="3" fill="none" />
+      <path d="M3 8h18" stroke-opacity=".3" />
+      <circle cx="6" cy="5.8" r=".7" fill="#9798a9" stroke="none" />
+      <circle cx="9" cy="5.8" r=".7" fill="#9798a9" stroke="none" />
+      <path class="icon-code-left" d="m8 11-3 3 3 3" />
+      <path class="icon-code-right" d="m16 11 3 3-3 3" />
+      <path d="m13.2 10.5-2.4 7" stroke-opacity=".6" />
+    </g>
+  </svg>
+<text x="64" y="333" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="13" font-weight="400" fill="#b9bac6" text-anchor="start" letter-spacing="0">Git 工具箱</text>
+<svg x="31" y="371" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9798a9" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#9798a9">
+      <rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke-opacity=".35" />
+      <path d="M6 8h12M6 16h12" stroke-width="1.4" />
+      <circle class="icon-knob icon-knob-1" cx="9" cy="8" r="2.5" fill="#ffffff" />
+      <circle class="icon-knob icon-knob-2" cx="15" cy="16" r="2.5" fill="#9798a9" stroke="none" />
+    </g>
+  </svg>
+<text x="64" y="387" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="13" font-weight="400" fill="#b9bac6" text-anchor="start" letter-spacing="0">设置</text>
+<path d="M28 453H192" stroke="#34353f" stroke-width="1"/>
+<text x="28" y="486" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10.5" font-weight="500" fill="#7f8193" text-anchor="start" letter-spacing="0">快捷访问</text>
+<svg x="31" y="509" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9395a6" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#9395a6">
+      <path d="M12 5C8 2.5 5 3 2.5 4.5v15C6 18 8.5 18.5 12 21c3.5-2.5 6-3 9.5-1.5v-15C19 3 16 2.5 12 5Z" fill="none" />
+      <path d="M12 5v16m-6-13 3 .5m-3 3 3 .5m6-4 3-.5m-3 4 3-.5" />
+    </g>
+  </svg>
+<text x="63" y="524" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="400" fill="#b9bac6" text-anchor="start" letter-spacing="0">使用指南</text>
+<svg x="31" y="548" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9395a6" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#9395a6">
+      <path d="M32 12C20.954 12 12 20.954 12 32c0 8.837 5.731 16.322 13.686 18.97.5.09.682-.217.682-.483 0-.237-.009-.866-.013-1.7-5.57 1.21-6.745-2.685-6.745-2.685-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.091-.646.349-1.086.635-1.336-4.446-.505-9.118-2.223-9.118-9.893 0-2.185.78-3.97 2.058-5.37-.206-.505-.892-2.54.196-5.294 0 0 1.678-.538 5.497 2.05A19.152 19.152 0 0132 21.805c1.7.008 3.413.23 5.012.673 3.816-2.588 5.492-2.05 5.492-2.05 1.09 2.754.404 4.789.198 5.294 1.28 1.4 2.056 3.185 2.056 5.37 0 7.688-4.68 9.382-9.138 9.878.718.618 1.358 1.84 1.358 3.708 0 2.676-.025 4.833-.025 5.49 0 .268.18.58.688.482C46.275 48.316 52 40.833 52 32c0-11.046-8.954-20-20-20z" transform="translate(-4 -4) scale(.5)" fill="#9395a6" stroke="none" />
+    </g>
+  </svg>
+<text x="63" y="563" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="400" fill="#b9bac6" text-anchor="start" letter-spacing="0">项目源码</text>
+<path d="M177 558h12m-4-4 4 4-4 4" fill="none" stroke="#77798c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="20" y="844" width="180" height="112" rx="10" fill="#292a35" stroke="#373843" />
+<text x="35" y="871" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="400" fill="#999baa" text-anchor="start" letter-spacing="0">平台连接</text>
+<svg x="35" y="889" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#dddde7" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#dddde7">
+      <path d="M32 12C20.954 12 12 20.954 12 32c0 8.837 5.731 16.322 13.686 18.97.5.09.682-.217.682-.483 0-.237-.009-.866-.013-1.7-5.57 1.21-6.745-2.685-6.745-2.685-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.091-.646.349-1.086.635-1.336-4.446-.505-9.118-2.223-9.118-9.893 0-2.185.78-3.97 2.058-5.37-.206-.505-.892-2.54.196-5.294 0 0 1.678-.538 5.497 2.05A19.152 19.152 0 0132 21.805c1.7.008 3.413.23 5.012.673 3.816-2.588 5.492-2.05 5.492-2.05 1.09 2.754.404 4.789.198 5.294 1.28 1.4 2.056 3.185 2.056 5.37 0 7.688-4.68 9.382-9.138 9.878.718.618 1.358 1.84 1.358 3.708 0 2.676-.025 4.833-.025 5.49 0 .268.18.58.688.482C46.275 48.316 52 40.833 52 32c0-11.046-8.954-20-20-20z" transform="translate(-4 -4) scale(.5)" fill="#dddde7" stroke="none" />
+    </g>
+  </svg>
+<text x="60" y="902" font-family="'Helvetica Neue',sans-serif" font-size="12" font-weight="400" fill="#d5d6e0" text-anchor="start" letter-spacing="0">GitHub</text>
+<circle cx="179" cy="897" r="3" fill="#8fc7a4"/>
+<svg x="35" y="922" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e77e85" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#e77e85">
+      <rect x="2" y="2" width="20" height="20" rx="5" fill="#c71d23" stroke="none" />
+      <path d="M16.5 7.5h-7a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2V12h-5" stroke="white" stroke-width="2" />
+    </g>
+  </svg>
+<text x="60" y="935" font-family="'Helvetica Neue',sans-serif" font-size="12" font-weight="400" fill="#d5d6e0" text-anchor="start" letter-spacing="0">Gitee</text>
+<circle cx="179" cy="930" r="3" fill="#8fc7a4"/>
+<path d="M24 982H196" stroke="#34353f" stroke-width="1"/>
+<circle cx="43" cy="1016" r="17" fill="#494254"/>
+<text x="43" y="1021" font-family="'Helvetica Neue',sans-serif" font-size="15" font-weight="600" fill="#e9dcff" text-anchor="middle" letter-spacing="0">J</text>
+<text x="72" y="1012" font-family="'Helvetica Neue',sans-serif" font-size="13" font-weight="500" fill="#e6e6ee" text-anchor="start" letter-spacing="0">Jack</text>
+<text x="72" y="1031" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#86899a" text-anchor="start" letter-spacing="0">个人工作空间</text>
+<path d="m185 1013 4 4-4 4" fill="none" stroke="#858798" stroke-width="1.5"/>
+<rect x="220" y="0" width="1380" height="76" rx="0" fill="#ffffff" />
+<path d="M220 76H1600" stroke="#e8e8ee" stroke-width="1"/>
+<text x="260" y="46" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="400" fill="#8c8c99" text-anchor="start" letter-spacing="0">工作空间</text>
+<text x="337" y="46" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="400" fill="#c4c4cf" text-anchor="start" letter-spacing="0">/</text>
+<text x="362" y="46" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="500" fill="#444451" text-anchor="start" letter-spacing="0">概览</text>
+<svg x="1318" y="29" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#777383" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#777383">
+      <path d="M12 5C8 2.5 5 3 2.5 4.5v15C6 18 8.5 18.5 12 21c3.5-2.5 6-3 9.5-1.5v-15C19 3 16 2.5 12 5Z" fill="none" />
+      <path d="M12 5v16m-6-13 3 .5m-3 3 3 .5m6-4 3-.5m-3 4 3-.5" />
+    </g>
+  </svg>
+<text x="1344" y="43" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="400" fill="#777383" text-anchor="start" letter-spacing="0">使用指南</text>
+<path d="M1423 27L1423 50" fill="none" stroke="#e5e5ec" stroke-width="1"/>
+<text x="1442" y="43" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="600" fill="#4a455d" text-anchor="start" letter-spacing="0">中</text>
+<text x="1475" y="43" font-family="'Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#a5a3b0" text-anchor="start" letter-spacing="0">EN</text>
+<circle cx="1539" cy="38" r="17" fill="#eeebf4"/>
+<text x="1539" y="43" font-family="'Helvetica Neue',sans-serif" font-size="14" font-weight="600" fill="#7e6c9d" text-anchor="middle" letter-spacing="0">J</text>
+<text x="260" y="132" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="32" font-weight="600" fill="#2b2937" text-anchor="start" letter-spacing="0">工作台</text>
+<text x="260" y="161" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="13" font-weight="400" fill="#8a8798" text-anchor="start" letter-spacing="0">项目、主页和开发工具，都在这里。</text>
+<rect x="1434" y="112" width="126" height="38" rx="8" fill="#7562ac" />
+<svg x="1448" y="121" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#ffffff">
+      <path d="M6 3h13a1 1 0 0 1 1 1v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" fill="none" />
+      <path d="M7 3v14H6a2 2 0 0 0-2 2V5a2 2 0 0 1 2-2Z" fill="#ffffff" stroke="none" />
+      <path d="M4 19a2 2 0 0 1 2-2h14M7 20h13" />
+      <g class="icon-lines">
+        <path d="M11 7v6m0-3h4V7" stroke-width="1.4" />
+        <circle cx="11" cy="6.5" r="1.3" fill="#ffffff" />
+        <circle cx="15" cy="6.5" r="1.3" fill="#ffffff" stroke="none" />
+        <circle cx="11" cy="13" r="1.3" fill="#ffffff" stroke="none" />
+      </g>
+    </g>
+  </svg>
+<text x="1474" y="137" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="500" fill="#fff" text-anchor="start" letter-spacing="0">管理仓库</text>
+<rect x="260" y="194" width="820" height="312" rx="18" fill="#272936" stroke="#272936" filter="url(#shadow)"/>
+<svg x="288" y="220" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d1c9ed" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#d1c9ed">
+      <path d="M6 3h13a1 1 0 0 1 1 1v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" fill="none" />
+      <path d="M7 3v14H6a2 2 0 0 0-2 2V5a2 2 0 0 1 2-2Z" fill="#d1c9ed" stroke="none" />
+      <path d="M4 19a2 2 0 0 1 2-2h14M7 20h13" />
+      <g class="icon-lines">
+        <path d="M11 7v6m0-3h4V7" stroke-width="1.4" />
+        <circle cx="11" cy="6.5" r="1.3" fill="#ffffff" />
+        <circle cx="15" cy="6.5" r="1.3" fill="#d1c9ed" stroke="none" />
+        <circle cx="11" cy="13" r="1.3" fill="#d1c9ed" stroke="none" />
+      </g>
+    </g>
+  </svg>
+<text x="321" y="237" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="15" font-weight="600" fill="#e9e6f5" text-anchor="start" letter-spacing="0">仓库概览</text>
+<rect x="610" y="219" width="135" height="28" rx="7" fill="#343643" stroke="#464653" />
+<circle cx="626" cy="233" r="3" fill="#a0c5ad"/>
+<text x="638" y="237" font-family="'Helvetica Neue',sans-serif" font-size="11" font-weight="400" fill="#c6c5d4" text-anchor="start" letter-spacing="0">GitHub + Gitee</text>
+<text x="288" y="323" font-family="'Helvetica Neue',sans-serif" font-size="65" font-weight="500" fill="#ffffff" text-anchor="start" letter-spacing="0">42</text>
+<text x="384" y="320" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="14" font-weight="400" fill="#a7a7ba" text-anchor="start" letter-spacing="0">个仓库</text>
+<text x="289" y="356" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="13" font-weight="400" fill="#a5a6b7" text-anchor="start" letter-spacing="0">把时间留给正在做的项目。</text>
+<text x="289" y="397" font-family="'Helvetica Neue',sans-serif" font-size="20" font-weight="500" fill="#f1eefb" text-anchor="start" letter-spacing="0">18</text>
+<text x="323" y="396" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="400" fill="#9c9dae" text-anchor="start" letter-spacing="0">公开</text>
+<text x="405" y="397" font-family="'Helvetica Neue',sans-serif" font-size="20" font-weight="500" fill="#f1eefb" text-anchor="start" letter-spacing="0">8</text>
+<text x="439" y="396" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="400" fill="#9c9dae" text-anchor="start" letter-spacing="0">私有</text>
+<text x="512" y="397" font-family="'Helvetica Neue',sans-serif" font-size="20" font-weight="500" fill="#f1eefb" text-anchor="start" letter-spacing="0">16</text>
+<text x="546" y="396" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="400" fill="#9c9dae" text-anchor="start" letter-spacing="0">Fork</text>
+<path d="M379 380L379 402" fill="none" stroke="#414250" stroke-width="1"/>
+<path d="M486 380L486 402" fill="none" stroke="#414250" stroke-width="1"/>
+<rect x="288" y="439" width="130" height="39" rx="8" fill="#f6f3ff" />
+<text x="305" y="463" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="600" fill="#49405e" text-anchor="start" letter-spacing="0">打开仓库</text>
+<path d="M391 458h12m-4-4 4 4-4 4" fill="none" stroke="#72608d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="442" y="463" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="400" fill="#b7b4c8" text-anchor="start" letter-spacing="0">查看协作仓库</text>
+<path d="M537 458h12m-4-4 4 4-4 4" fill="none" stroke="#b7b4c8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<g transform="translate(765 264)">
+ <ellipse cx="145" cy="182" rx="126" ry="14" fill="#171820" opacity=".42"/>
+ <g transform="translate(28 -24) rotate(-10 110 90)">
+  <rect x="39" y="7" width="161" height="127" rx="10" fill="#8175a6"/>
+  <rect x="35" y="0" width="161" height="127" rx="10" fill="url(#sheet)"/>
+  <path d="M58 28h88m-88 16h108m-108 16h69" stroke="#bfc1d5" stroke-width="5" stroke-linecap="round"/>
+ </g>
+ <g transform="translate(5 8) rotate(4 114 88)" filter="url(#float)">
+  <path d="M14 37h69l20-20h117c9 0 14 5 14 14v132c0 9-5 14-14 14H14c-9 0-14-5-14-14V51c0-9 5-14 14-14Z" fill="url(#folder-side)"/>
+  <path d="M3 31h69l20-20h117c9 0 14 5 14 14v132c0 9-5 14-14 14H3c-9 0-14-5-14-14V45c0-9 5-14 14-14Z" fill="url(#folder-front)"/>
+  <path d="M-10 47c0-9 5-14 14-14h69l20-20h114c8 0 13 5 13 13" fill="none" stroke="url(#folder-rim)" stroke-width="2.2"/>
+  <path d="M77 67v52m0-29h44V67" fill="none" stroke="#f7f4ff" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="77" cy="65" r="8" fill="#eeebfb"/>
+  <circle cx="121" cy="65" r="8" fill="#eeebfb"/>
+  <circle cx="77" cy="120" r="8" fill="#eeebfb"/>
+  <path d="M155 137h36" stroke="#786aab" stroke-width="4" stroke-linecap="round" opacity=".5"/>
+ </g>
+ <g transform="translate(207 103) rotate(12)" filter="url(#small-shadow)"><rect width="46" height="46" rx="12" fill="#f1eff9"/><path d="m13 23 7 7 14-15" fill="none" stroke="#7d6b9d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+</g>
+<rect x="1104" y="194" width="456" height="312" rx="18" fill="#eeeaf5" stroke="#e6e0ef" filter="url(#shadow)"/>
+<svg x="1132" y="220" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8973a8" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#8973a8">
+      <rect x="2.5" y="4" width="19" height="16" rx="3" fill="#e2d8ee" />
+      <path d="M14 4v16" stroke-opacity=".2" />
+      <g class="icon-person">
+        <circle cx="8.5" cy="9.5" r="2.2" fill="#8973a8" stroke="none" />
+        <path d="M4.8 16.5a3.7 3.7 0 0 1 7.4 0Z" fill="#8973a8" stroke="none" opacity=".85" />
+      </g>
+      <g class="icon-lines">
+        <path d="M16.5 9h2.2m-2.2 3h2.2m-2.2 3h1.2" stroke-width="1.5" />
+      </g>
+    </g>
+  </svg>
+<text x="1165" y="237" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="15" font-weight="600" fill="#524563" text-anchor="start" letter-spacing="0">我的主页</text>
+<text x="1133" y="267" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11.5" font-weight="400" fill="#9a8ca9" text-anchor="start" letter-spacing="0">用一个 README，介绍你正在创造的东西。</text>
+<g transform="translate(1151 290) rotate(-3 180 63)" filter="url(#small-shadow)">
+ <rect width="358" height="111" rx="10" fill="#ffffff" stroke="#e4ddeb"/>
+ <path d="M0 21h358" stroke="#efedf3"/>
+ <circle cx="14" cy="10.5" r="2.5" fill="#dbd5e5"/><circle cx="24" cy="10.5" r="2.5" fill="#dbd5e5"/><circle cx="34" cy="10.5" r="2.5" fill="#dbd5e5"/>
+ <circle cx="43" cy="62" r="22" fill="#ede7f4"/>
+ <text x="43" y="67" text-anchor="middle" font-family="Helvetica Neue" font-size="15" font-weight="500" fill="#8a73a6">JF</text>
+ <text x="80" y="54" font-family="Helvetica Neue" font-size="15" font-weight="600" fill="#494153">Jack Feng</text>
+ <text x="80" y="73" font-family="Helvetica Neue" font-size="10" fill="#a39aaa">Developer · Open source enthusiast</text>
+ <rect x="80" y="85" width="47" height="15" rx="4" fill="#f2f0f6"/><rect x="133" y="85" width="66" height="15" rx="4" fill="#eff3f8"/><rect x="205" y="85" width="29" height="15" rx="4" fill="#edf5f0"/>
+ <text x="103.5" y="96" text-anchor="middle" font-family="Helvetica Neue" font-size="8" fill="#89769d">Python</text><text x="166" y="96" text-anchor="middle" font-family="Helvetica Neue" font-size="8" fill="#6e8aa4">TypeScript</text><text x="219.5" y="96" text-anchor="middle" font-family="Helvetica Neue" font-size="8" fill="#65917a">Go</text>
+</g>
+<rect x="1132" y="439" width="163" height="39" rx="8" fill="#fff" stroke="#e2d9ed" />
+<svg x="1146" y="450" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8c77a6" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#8c77a6">
+      <rect x="2.5" y="4" width="19" height="16" rx="3" fill="none" />
+      <path d="M14 4v16" stroke-opacity=".2" />
+      <g class="icon-person">
+        <circle cx="8.5" cy="9.5" r="2.2" fill="#8c77a6" stroke="none" />
+        <path d="M4.8 16.5a3.7 3.7 0 0 1 7.4 0Z" fill="#8c77a6" stroke="none" opacity=".85" />
+      </g>
+      <g class="icon-lines">
+        <path d="M16.5 9h2.2m-2.2 3h2.2m-2.2 3h1.2" stroke-width="1.5" />
+      </g>
+    </g>
+  </svg>
+<text x="1172" y="463" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="12" font-weight="600" fill="#6b587e" text-anchor="start" letter-spacing="0">编辑我的主页</text>
+<path d="M1268 458h12m-4-4 4 4-4 4" fill="none" stroke="#9b8aaa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1335" y="463" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="400" fill="#9f92ac" text-anchor="start" letter-spacing="0">实时预览</text>
+<circle cx="1323" cy="459" r="3" fill="#ac9cbe"/>
+<rect x="260" y="532" width="820" height="414" rx="16" fill="#fff" stroke="#e8e8ef" filter="url(#shadow)"/>
+<text x="288" y="570" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="17" font-weight="600" fill="#393543" text-anchor="start" letter-spacing="0">最近更新的仓库</text>
+<text x="978" y="569" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="400" fill="#948ca3" text-anchor="start" letter-spacing="0">查看全部</text>
+<path d="M1045 565h12m-4-4 4 4-4 4" fill="none" stroke="#948ca3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="279" y="588" width="52" height="28" rx="6" fill="#efebf6" />
+<text x="288" y="607" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="500" fill="#7d679f" text-anchor="start" letter-spacing="0">全部</text>
+<text x="353" y="607" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="500" fill="#9b98a6" text-anchor="start" letter-spacing="0">GitHub</text>
+<text x="436" y="607" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="500" fill="#9b98a6" text-anchor="start" letter-spacing="0">Gitee</text>
+<path d="M288 630H1052" stroke="#ececf1" stroke-width="1"/>
+<rect x="288" y="652" width="36" height="36" rx="9" fill="#e9edf7" />
+<svg x="296" y="660" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7186b0" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#7186b0">
+      <path d="M6 3h13a1 1 0 0 1 1 1v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" fill="none" />
+      <path d="M7 3v14H6a2 2 0 0 0-2 2V5a2 2 0 0 1 2-2Z" fill="#7186b0" stroke="none" />
+      <path d="M4 19a2 2 0 0 1 2-2h14M7 20h13" />
+      <g class="icon-lines">
+        <path d="M11 7v6m0-3h4V7" stroke-width="1.4" />
+        <circle cx="11" cy="6.5" r="1.3" fill="#ffffff" />
+        <circle cx="15" cy="6.5" r="1.3" fill="#7186b0" stroke="none" />
+        <circle cx="11" cy="13" r="1.3" fill="#7186b0" stroke="none" />
+      </g>
+    </g>
+  </svg>
+<text x="339" y="666" font-family="'Helvetica Neue',sans-serif" font-size="13" font-weight="500" fill="#55515f" text-anchor="start" letter-spacing="0">github-clear</text>
+<text x="339" y="686" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10.5" font-weight="400" fill="#928b9d" text-anchor="start" letter-spacing="0">GitHub / Gitee 仓库管理与主页编辑</text>
+<circle cx="772" cy="664" r="3" fill="#7186b0"/>
+<text x="782" y="668" font-family="'Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#8c8396" text-anchor="start" letter-spacing="0">Python</text>
+<svg x="895" y="656" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#aaa4b2" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#aaa4b2">
+      <path d="m12 2.5 3 6.2 6.8 1-4.9 4.8 1.2 6.8-6.1-3.2-6.1 3.2 1.2-6.8-4.9-4.8 6.8-1Z" fill="none" />
+      <path d="m12 6.5 1.2 2.5" stroke-opacity=".5" />
+    </g>
+  </svg>
+<text x="913" y="667" font-family="'Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#9b95a5" text-anchor="start" letter-spacing="0">12</text>
+<text x="1051" y="668" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#928b9d" text-anchor="end" letter-spacing="0">2 小时前</text>
+<path d="M288 704H1052" stroke="#f0eef3" stroke-width="1"/>
+<rect x="288" y="721" width="36" height="36" rx="9" fill="#f5efe4" />
+<svg x="296" y="729" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b39b6e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#b39b6e">
+      <path d="M12 5C8 2.5 5 3 2.5 4.5v15C6 18 8.5 18.5 12 21c3.5-2.5 6-3 9.5-1.5v-15C19 3 16 2.5 12 5Z" fill="none" />
+      <path d="M12 5v16m-6-13 3 .5m-3 3 3 .5m6-4 3-.5m-3 4 3-.5" />
+    </g>
+  </svg>
+<text x="339" y="735" font-family="'Helvetica Neue',sans-serif" font-size="13" font-weight="500" fill="#55515f" text-anchor="start" letter-spacing="0">developer-notes</text>
+<text x="339" y="755" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10.5" font-weight="400" fill="#928b9d" text-anchor="start" letter-spacing="0">开发记录、读书笔记和常用脚本</text>
+<circle cx="772" cy="733" r="3" fill="#b39b6e"/>
+<text x="782" y="737" font-family="'Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#8c8396" text-anchor="start" letter-spacing="0">Markdown</text>
+<svg x="895" y="725" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#aaa4b2" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#aaa4b2">
+      <path d="m12 2.5 3 6.2 6.8 1-4.9 4.8 1.2 6.8-6.1-3.2-6.1 3.2 1.2-6.8-4.9-4.8 6.8-1Z" fill="none" />
+      <path d="m12 6.5 1.2 2.5" stroke-opacity=".5" />
+    </g>
+  </svg>
+<text x="913" y="736" font-family="'Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#9b95a5" text-anchor="start" letter-spacing="0">8</text>
+<text x="1051" y="737" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#928b9d" text-anchor="end" letter-spacing="0">昨天</text>
+<path d="M288 773H1052" stroke="#f0eef3" stroke-width="1"/>
+<rect x="288" y="790" width="36" height="36" rx="9" fill="#f0eaf6" />
+<svg x="296" y="798" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a48bb6" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#a48bb6">
+      <rect x="2.5" y="4" width="19" height="16" rx="3" fill="none" />
+      <path d="M14 4v16" stroke-opacity=".2" />
+      <g class="icon-person">
+        <circle cx="8.5" cy="9.5" r="2.2" fill="#a48bb6" stroke="none" />
+        <path d="M4.8 16.5a3.7 3.7 0 0 1 7.4 0Z" fill="#a48bb6" stroke="none" opacity=".85" />
+      </g>
+      <g class="icon-lines">
+        <path d="M16.5 9h2.2m-2.2 3h2.2m-2.2 3h1.2" stroke-width="1.5" />
+      </g>
+    </g>
+  </svg>
+<text x="339" y="804" font-family="'Helvetica Neue',sans-serif" font-size="13" font-weight="500" fill="#55515f" text-anchor="start" letter-spacing="0">readme-studio</text>
+<text x="339" y="824" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10.5" font-weight="400" fill="#928b9d" text-anchor="start" letter-spacing="0">A little corner of the open-source world.</text>
+<circle cx="772" cy="802" r="3" fill="#a48bb6"/>
+<text x="782" y="806" font-family="'Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#8c8396" text-anchor="start" letter-spacing="0">TypeScript</text>
+<svg x="895" y="794" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#aaa4b2" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#aaa4b2">
+      <path d="m12 2.5 3 6.2 6.8 1-4.9 4.8 1.2 6.8-6.1-3.2-6.1 3.2 1.2-6.8-4.9-4.8 6.8-1Z" fill="none" />
+      <path d="m12 6.5 1.2 2.5" stroke-opacity=".5" />
+    </g>
+  </svg>
+<text x="913" y="805" font-family="'Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#9b95a5" text-anchor="start" letter-spacing="0">24</text>
+<text x="1051" y="806" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#928b9d" text-anchor="end" letter-spacing="0">3 天前</text>
+<path d="M288 842H1052" stroke="#f0eef3" stroke-width="1"/>
+<rect x="288" y="859" width="36" height="36" rx="9" fill="#eaf3ef" />
+<svg x="296" y="867" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7aa18d" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#7aa18d">
+      <rect x="2.5" y="3.5" width="19" height="17" rx="3" fill="none" />
+      <path d="M3 8h18" stroke-opacity=".3" />
+      <circle cx="6" cy="5.8" r=".7" fill="#7aa18d" stroke="none" />
+      <circle cx="9" cy="5.8" r=".7" fill="#7aa18d" stroke="none" />
+      <path class="icon-code-left" d="m8 11-3 3 3 3" />
+      <path class="icon-code-right" d="m16 11 3 3-3 3" />
+      <path d="m13.2 10.5-2.4 7" stroke-opacity=".6" />
+    </g>
+  </svg>
+<text x="339" y="873" font-family="'Helvetica Neue',sans-serif" font-size="13" font-weight="500" fill="#55515f" text-anchor="start" letter-spacing="0">toolkit</text>
+<text x="339" y="893" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10.5" font-weight="400" fill="#928b9d" text-anchor="start" letter-spacing="0">让日常开发更轻松的一组小工具</text>
+<circle cx="772" cy="871" r="3" fill="#7aa18d"/>
+<text x="782" y="875" font-family="'Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#8c8396" text-anchor="start" letter-spacing="0">Go</text>
+<svg x="895" y="863" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#aaa4b2" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#aaa4b2">
+      <path d="m12 2.5 3 6.2 6.8 1-4.9 4.8 1.2 6.8-6.1-3.2-6.1 3.2 1.2-6.8-4.9-4.8 6.8-1Z" fill="none" />
+      <path d="m12 6.5 1.2 2.5" stroke-opacity=".5" />
+    </g>
+  </svg>
+<text x="913" y="874" font-family="'Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#9b95a5" text-anchor="start" letter-spacing="0">6</text>
+<text x="1051" y="875" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#928b9d" text-anchor="end" letter-spacing="0">5 天前</text>
+<rect x="1104" y="532" width="456" height="244" rx="16" fill="#fff" stroke="#e8e8ef" filter="url(#shadow)"/>
+<text x="1132" y="570" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="17" font-weight="600" fill="#393543" text-anchor="start" letter-spacing="0">开发者工具</text>
+<rect x="1440" y="549" width="92" height="25" rx="6" fill="#f3eff7" />
+<text x="1486.0" y="566" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="500" fill="#9a8da8" text-anchor="middle" letter-spacing="0">日常开发</text>
+<rect x="1132" y="591" width="400" height="42" rx="8" fill="#f7f6f9" stroke="#eeecf2" />
+<svg x="1146" y="603" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a69dae" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#a69dae">
+      <circle cx="10.5" cy="10.5" r="7" fill="none" />
+      <path d="m15.5 15.5 5 5" stroke-width="2.3" />
+      <path d="M7 10.5A3.5 3.5 0 0 1 10.5 7" stroke-opacity=".45" />
+    </g>
+  </svg>
+<text x="1173" y="618" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10.5" font-weight="400" fill="#ada5b6" text-anchor="start" letter-spacing="0">查找 Git 命令，例如 merge、remote…</text>
+<rect x="1132" y="653" width="122" height="96" rx="10" fill="#ffffff" stroke="#eeebf2" />
+<svg x="1145" y="666" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#90829f" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#90829f">
+      <rect x="2.5" y="3.5" width="19" height="17" rx="3" fill="#f3eff7" />
+      <path d="M3 8h18" stroke-opacity=".3" />
+      <circle cx="6" cy="5.8" r=".7" fill="#90829f" stroke="none" />
+      <circle cx="9" cy="5.8" r=".7" fill="#90829f" stroke="none" />
+      <path class="icon-code-left" d="m8 11-3 3 3 3" />
+      <path class="icon-code-right" d="m16 11 3 3-3 3" />
+      <path d="m13.2 10.5-2.4 7" stroke-opacity=".6" />
+    </g>
+  </svg>
+<text x="1145" y="711" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11.5" font-weight="500" fill="#696071" text-anchor="start" letter-spacing="0">Git 速查</text>
+<text x="1145" y="731" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="9.5" font-weight="400" fill="#94899f" text-anchor="start" letter-spacing="0">102 条命令</text>
+<rect x="1271" y="653" width="122" height="96" rx="10" fill="#ffffff" stroke="#eeebf2" />
+<svg x="1284" y="666" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#90829f" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#90829f">
+      <circle cx="8" cy="15" r="5" fill="#f3eff7" />
+      <circle cx="6.8" cy="16.2" r="1.1" fill="#90829f" stroke="none" />
+      <path d="m11.5 11.5 9-9m-3 3 3 3m-6 0 2 2" stroke-width="2" />
+    </g>
+  </svg>
+<text x="1284" y="711" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11.5" font-weight="500" fill="#696071" text-anchor="start" letter-spacing="0">SSH 密钥</text>
+<text x="1284" y="731" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="9.5" font-weight="400" fill="#94899f" text-anchor="start" letter-spacing="0">查看与管理</text>
+<rect x="1410" y="653" width="122" height="96" rx="10" fill="#ffffff" stroke="#eeebf2" />
+<svg x="1423" y="666" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#90829f" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#90829f">
+      <circle cx="9" cy="8" r="3" fill="#f3eff7" />
+      <path d="M3 20v-1a6 6 0 0 1 12 0v1Z" fill="#f3eff7" />
+      <circle cx="17" cy="7.5" r="2.5" fill="#90829f" stroke="none" opacity=".8" />
+      <path d="M18 13a4 4 0 0 1 4 4v2h-4" fill="#90829f" stroke="none" opacity=".7" />
+    </g>
+  </svg>
+<text x="1423" y="711" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11.5" font-weight="500" fill="#696071" text-anchor="start" letter-spacing="0">多账号</text>
+<text x="1423" y="731" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="9.5" font-weight="400" fill="#94899f" text-anchor="start" letter-spacing="0">完整配置指南</text>
+<rect x="1104" y="800" width="456" height="146" rx="16" fill="#fff" stroke="#e8e8ef" filter="url(#shadow)"/>
+<text x="1132" y="837" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="15" font-weight="600" fill="#494252" text-anchor="start" letter-spacing="0">账户连接</text>
+<rect x="1436" y="818" width="96" height="25" rx="6" fill="#eff6f1" />
+<text x="1484.0" y="835" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="500" fill="#789b87" text-anchor="middle" letter-spacing="0">2 / 2 已配置</text>
+<svg x="1132" y="867" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#766e83" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#766e83">
+      <path d="M32 12C20.954 12 12 20.954 12 32c0 8.837 5.731 16.322 13.686 18.97.5.09.682-.217.682-.483 0-.237-.009-.866-.013-1.7-5.57 1.21-6.745-2.685-6.745-2.685-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.091-.646.349-1.086.635-1.336-4.446-.505-9.118-2.223-9.118-9.893 0-2.185.78-3.97 2.058-5.37-.206-.505-.892-2.54.196-5.294 0 0 1.678-.538 5.497 2.05A19.152 19.152 0 0132 21.805c1.7.008 3.413.23 5.012.673 3.816-2.588 5.492-2.05 5.492-2.05 1.09 2.754.404 4.789.198 5.294 1.28 1.4 2.056 3.185 2.056 5.37 0 7.688-4.68 9.382-9.138 9.878.718.618 1.358 1.84 1.358 3.708 0 2.676-.025 4.833-.025 5.49 0 .268.18.58.688.482C46.275 48.316 52 40.833 52 32c0-11.046-8.954-20-20-20z" transform="translate(-4 -4) scale(.5)" fill="#766e83" stroke="none" />
+    </g>
+  </svg>
+<text x="1169" y="878" font-family="'Helvetica Neue',sans-serif" font-size="12" font-weight="500" fill="#777080" text-anchor="start" letter-spacing="0">GitHub</text>
+<circle cx="1171" cy="897" r="2.5" fill="#8db49d"/>
+<text x="1180" y="901" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="9.5" font-weight="400" fill="#958b9f" text-anchor="start" letter-spacing="0">Token 已配置</text>
+<svg x="1344" y="867" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#766e83" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><g stroke="#766e83">
+      <rect x="2" y="2" width="20" height="20" rx="5" fill="#c71d23" stroke="none" />
+      <path d="M16.5 7.5h-7a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2V12h-5" stroke="white" stroke-width="2" />
+    </g>
+  </svg>
+<text x="1381" y="878" font-family="'Helvetica Neue',sans-serif" font-size="12" font-weight="500" fill="#777080" text-anchor="start" letter-spacing="0">Gitee</text>
+<circle cx="1383" cy="897" r="2.5" fill="#8db49d"/>
+<text x="1392" y="901" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="9.5" font-weight="400" fill="#958b9f" text-anchor="start" letter-spacing="0">Token 已配置</text>
+<path d="M1320 862L1320 912" fill="none" stroke="#eeebf2" stroke-width="1"/>
+<text x="260" y="991" font-family="'Helvetica Neue',sans-serif" font-size="11" font-weight="500" fill="#9e96aa" text-anchor="start" letter-spacing="0">GitHub Clear</text>
+<text x="260" y="1014" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="10" font-weight="400" fill="#9c92a7" text-anchor="start" letter-spacing="0">设计提案 01  ·  展示数据为示例</text>
+<text x="1560" y="991" font-family="'Hiragino Sans GB','Helvetica Neue',sans-serif" font-size="11" font-weight="400" fill="#9f96aa" text-anchor="end" letter-spacing="0">有层次的卡片  /  定制立体图形  /  操作驱动的动效</text>
+<text x="1560" y="1014" font-family="'Helvetica Neue',sans-serif" font-size="8" font-weight="400" fill="#b7b1bf" text-anchor="end" letter-spacing="1">WEBSITE CONCEPT — NOT THE LIVE INTERFACE</text>
+</svg>

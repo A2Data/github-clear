@@ -14,18 +14,40 @@ class GiteeAPI:
         """
         self.token = token
         self.base_url = 'https://gitee.com/api/v5'
+        self.session = requests.Session()
         self._user_info: Optional[Dict] = None
     
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self.session.close()
+
     def _request(self, method: str, endpoint: str, **kwargs) -> requests.Response:
-        """发送 API 请求"""
+        """Bound network waits and never expose a token-bearing request URL."""
         url = f"{self.base_url}{endpoint}"
-        params = kwargs.get('params', {})
-        params['access_token'] = self.token
-        kwargs['params'] = params
-        
-        response = requests.request(method, url, **kwargs)
+        field = 'params' if method.upper() == 'GET' else 'data'
+        kwargs[field] = {**kwargs.get(field, {}), 'access_token': self.token}
+        kwargs.setdefault('timeout', (5, 20))
+        try:
+            response = self.session.request(method, url, **kwargs)
+        except requests.Timeout:
+            raise requests.Timeout("Gitee 请求超时，请稍后重试") from None
+        except requests.RequestException:
+            raise requests.RequestException("无法连接 Gitee，请检查网络后重试") from None
+        if response.status_code >= 400:
+            messages = {
+                401: "Gitee Token 无效或已过期",
+                403: "Gitee 权限不足或请求频率受限",
+                404: "Gitee 仓库或资源不存在",
+                429: "Gitee 请求频率受限，请稍后重试",
+            }
+            raise requests.HTTPError(
+                messages.get(response.status_code, f"Gitee 请求失败（HTTP {response.status_code}）"),
+                response=response,
+            )
         return response
-    
+
     def get_user_info(self) -> Dict[str, Any]:
         """获取当前用户信息"""
         if self._user_info:
@@ -79,9 +101,6 @@ class GiteeAPI:
             
             response = self._request('GET', '/user/repos', params=params)
             
-            if response.status_code != 200:
-                break
-            
             data = response.json()
             if not data:
                 break
@@ -113,6 +132,8 @@ class GiteeAPI:
                     'pushed_at': repo.get('pushed_at', ''),
                 })
             
+            if len(data) < per_page:
+                break
             page += 1
         
         return repos
@@ -127,19 +148,9 @@ class GiteeAPI:
         Returns:
             是否删除成功
         """
-        # Gitee 删除 API 需要在 body 中传递 access_token
-        url = f"{self.base_url}/repos/{owner}/{repo_name}"
-        data = {'access_token': self.token}
-        
-        try:
-            response = requests.delete(url, data=data)
-            print(f"Delete {owner}/{repo_name}: status={response.status_code}")
-            # Gitee 返回 204 或 200 都算成功
-            return response.status_code in [200, 204]
-        except Exception as e:
-            print(f"Delete error: {e}")
-            return False
-    
+        response = self._request('DELETE', f'/repos/{owner}/{repo_name}')
+        return response.status_code in (200, 204)
+
     def batch_delete_repos(self, repo_full_names: List[str]) -> Dict[str, bool]:
         """批量删除仓库
         
@@ -154,7 +165,10 @@ class GiteeAPI:
             parts = full_name.split('/')
             if len(parts) == 2:
                 owner, name = parts
-                results[full_name] = self.delete_repo(owner, name)
+                try:
+                    results[full_name] = self.delete_repo(owner, name)
+                except requests.RequestException:
+                    results[full_name] = False
             else:
                 results[full_name] = False
         return results
@@ -170,31 +184,22 @@ class GiteeAPI:
         Returns:
             是否更改成功
         """
-        url = f"{self.base_url}/repos/{owner}/{repo_name}"
-        data = {
-            'access_token': self.token,
-            'private': private
-        }
-        
-        try:
-            response = requests.patch(url, data=data)
-            print(f"Change visibility {owner}/{repo_name} to {'private' if private else 'public'}: status={response.status_code}")
-            return response.status_code == 200
-        except Exception as e:
-            print(f"Change visibility error: {e}")
-            return False
-    
+        return self.update_repo(owner, repo_name, private=private)
+
     def update_repo(self, owner: str, repo_name: str, **kwargs) -> bool:
         """更新仓库信息"""
-        url = f"{self.base_url}/repos/{owner}/{repo_name}"
-        data = {'access_token': self.token}
-        data.update({k: v for k, v in kwargs.items() if v is not None})
-        response = requests.patch(url, data=data)
+        data = {k: v for k, v in kwargs.items() if v is not None}
+        response = self._request('PATCH', f'/repos/{owner}/{repo_name}', data=data)
         return response.status_code == 200
-    
+
     def get_readme(self, owner: str, repo_name: str) -> Optional[str]:
         """获取仓库 README 内容"""
-        response = self._request('GET', f'/repos/{owner}/{repo_name}/readme')
+        try:
+            response = self._request('GET', f'/repos/{owner}/{repo_name}/readme')
+        except requests.HTTPError as exc:
+            if exc.response is not None and exc.response.status_code == 404:
+                return None
+            raise
         if response.status_code == 200:
             data = response.json()
             import base64

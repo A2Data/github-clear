@@ -53,6 +53,27 @@ cp .env.example .env
 uv run uvicorn main:app --reload --port 8000
 ```
 
+## Validation
+
+Install the development dependencies with `uv sync`, then run:
+
+```bash
+uv run pytest -q
+uv run ruff check .
+node --check static/js/app.js
+node --test tests/*.test.cjs
+```
+
+The JavaScript regression tests use Node.js 18+ and require no npm packages.
+Python tests isolate configuration in temporary files and block real provider
+requests. They cover batch validation and partial failures, token persistence,
+provider pagination, page rendering, and responsiveness during slow API calls.
+
+Repository batches accept 1–1000 names, remove exact duplicates, and return a
+result for every unique name. Invalid input returns HTTP 422 before any provider
+mutation. The UI selects only visible search results and retains failed items
+for retry. `/health` is a local liveness check that needs no provider credentials.
+
 ## Style Guidelines
 
 ### Python

@@ -1,0 +1,55 @@
+/* A shared 24px icon set: shaped silhouettes, clear details and quiet color. */
+.ui-icon {
+    --icon-ink: currentColor;
+    --icon-wash: #edf1f5;
+    --icon-solid: currentColor;
+    --icon-light: #fff;
+    stroke-width: 1.6;
+    shape-rendering: geometricPrecision;
+}
+.icon-home { --icon-ink: #3c745c; --icon-wash: #e7f1eb; --icon-solid: #5d9877; }
+.icon-repo { --icon-ink: #4b6b9f; --icon-wash: #eaf0fb; --icon-solid: #6b88b7; }
+.icon-chart { --icon-ink: #477e78; --icon-wash: #e9f3f0; --icon-solid: #579388; }
+.icon-profile { --icon-ink: #7e639d; --icon-wash: #f0ebf6; --icon-solid: #9b80ba; }
+.icon-settings { --icon-ink: #627589; --icon-wash: #ecf0f5; --icon-solid: #7d91a6; }
+.icon-code { --icon-ink: #576e98; --icon-wash: #edf1f9; --icon-solid: #6d85ad; }
+.icon-remote { --icon-ink: #527b91; --icon-wash: #eaf2f6; --icon-solid: #6c93a9; }
+.icon-key { --icon-ink: #997337; --icon-wash: #f7f0df; --icon-solid: #bb9658; }
+.icon-people { --icon-ink: #5d7d89; --icon-wash: #ebf2f4; --icon-solid: #809ca6; }
+.icon-branch, .icon-merge, .icon-commit { --icon-ink: #4d8271; --icon-wash: #e9f3ee; --icon-solid: #6c9f89; }
+.icon-archive, .icon-tag { --icon-ink: #8e754c; --icon-wash: #f5efe3; --icon-solid: #b19b75; }
+.icon-book { --icon-ink: #677990; --icon-wash: #eef2f7; --icon-solid: #8293a8; }
+.nav-icon { width: 23px; height: 23px; }
+.nav-icon .ui-icon { width: 22px; height: 22px; }
+.nav-item { gap: 10px; }
+.action-icon { width: 48px; height: 48px; border: 0; border-radius: 0; background: transparent; }
+.action-icon .ui-icon { width: 34px; height: 34px; stroke-width: 1.45; }
+.tab-btn .ui-icon { width: 17px; height: 17px; }
+.card-title .ui-icon, .guide-section-heading .ui-icon { width: 21px; height: 21px; }
+.command-group > h4 .ui-icon { width: 20px; height: 20px; }
+.btn-primary .ui-icon, .btn-success .ui-icon, .btn-action.primary .ui-icon, .modal .btn-danger .ui-icon {
+    --icon-ink: currentColor;
+    --icon-solid: currentColor;
+    --icon-wash: transparent;
+    --icon-light: var(--accent-primary);
+}
+.btn-danger .ui-icon { --icon-ink: var(--danger); --icon-wash: #fff1ef; }
+.empty-state .icon { width: 54px; height: 54px; background: transparent; }
+.empty-state .icon .ui-icon { width: 40px; height: 40px; stroke-width: 1.45; }
+.reference-code .ui-icon { --icon-ink: #81909e; --icon-wash: #e8edf3; }
+.copy-code:hover .ui-icon { --icon-ink: var(--accent-primary); --icon-wash: var(--accent-soft); }
+/* Large entry icons stand on their own instead of sitting inside another tile. */
+.workspace-action .action-icon { background: transparent; border: 0; }
+@media (hover: hover) and (pointer: fine) {
+    .workspace-action:hover .action-icon { background: transparent; border: 0; box-shadow: none; }
+}
+.icon-eye, .icon-activity { --icon-ink: #507d88; --icon-wash: #eaf3f5; --icon-solid: #6b99a4; }
+.icon-flame { --icon-ink: #ab6a3f; --icon-wash: #f9eee3; --icon-solid: #cf925e; }
+.icon-trophy, .icon-smile { --icon-ink: #9a7a3b; --icon-wash: #f7f1df; --icon-solid: #b99b5b; }
+.icon-language, .icon-quote { --icon-ink: #7f6b99; --icon-wash: #f0edf6; --icon-solid: #a18cb8; }
+.icon-snake { --icon-ink: #437660; --icon-wash: #e7f3eb; --icon-solid: #6c9c81; }
+.stat-label { display: flex; align-items: center; gap: 6px; }
+.stat-label .ui-icon { width: 16px; height: 16px; }
+.card-checkbox { gap: 5px; padding: 9px 8px; }
+.card-checkbox-icon { display: inline-flex; align-items: center; justify-content: center; width: 17px; height: 17px; flex-shrink: 0; }
+.card-checkbox-icon .ui-icon { width: 17px; height: 17px; }
